@@ -1,27 +1,27 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+//import { useDispatch, useSelector } from 'react-redux';
 import Question from '../Question';
 
-const Questions = () => {
+const Questions = ({ questions }) => {
   //questions viene de un estado en redux
   //Ejemplo moke
-  const questions = [
-    {
-      id: 1,
-      question: 'Buenas, paseas perros grandes?',
-      answer: 'Yes',
-    },
-    {
-      id: 2,
-      question: 'Te lo puedo dejar a las 15hs?',
-      answer: 'Si podés pasate a las 16hs',
-    },
-    {
-      id: 3,
-      question: 'Podría llevarte la comida que come Firulais?',
-      answer: 'No',
-    },
-  ]; //useSelector(state => state.questions)
+  // const questions = [
+  //   {
+  //     id: 1,
+  //     question: 'Buenas, paseas perros grandes?',
+  //     answer: 'Yes',
+  //   },
+  //   {
+  //     id: 2,
+  //     question: 'Te lo puedo dejar a las 15hs?',
+  //     answer: 'Si podés pasate a las 16hs',
+  //   },
+  //   {
+  //     id: 3,
+  //     question: 'Podría llevarte la comida que come Firulais?',
+  //     answer: 'No',
+  //   },
+  // ]; //useSelector(state => state.questions)
 
   //const dispatch = useDispatch();
 
@@ -56,7 +56,7 @@ const Questions = () => {
         <button onClick={handleOnClick}>Preguntar</button>
       </div>
       <div>
-        {questions.map((r) => (
+        {questions?.map((r) => (
           <Question key={r.id} {...r} />
         ))}
       </div>
