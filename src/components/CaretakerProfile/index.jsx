@@ -1,32 +1,37 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getCaretakerDetails } from '../../redux/actions';
 import Questions from '../Questions';
-import img from '../../utils/FoodNotFound.png';
+import CaretakerDescription from '../CaretakerDescription';
 
 const CaretakerProfile = () => {
+  const caretakerProfile = useSelector((state) => state.caretakerProfile);
+  const dispatch = useDispatch();
+  const { questions } = caretakerProfile;
+
+  useEffect(() => {
+    dispatch(getCaretakerDetails(1));
+  }, []);
+
   return (
-    <main style={{ paddingRight: 50, paddingLeft: 50 }}>
+    <main
+      style={{
+        paddingRight: 50,
+        paddingLeft: 50,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 50,
+      }}
+    >
       <div
         style={{
           display: 'flex',
-          flexDirection: 'row',
+          flexDirection: 'column',
           alignItems: 'center',
         }}
       >
-        <img
-          src={img}
-          alt='img'
-          style={{
-            width: 200,
-            height: 200,
-          }}
-        />
-        <div>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
-            veritatis, hic assumenda fugiat harum magnam laborum id esse
-            consectetur doloremque ut molestiae illum. Aliquam non eos, tenetur
-            nobis dolorem consectetur.
-          </p>
-        </div>
+        <CaretakerDescription {...caretakerProfile} />
       </div>
 
       <div
@@ -36,7 +41,7 @@ const CaretakerProfile = () => {
           gap: 200,
         }}
       >
-        <Questions />
+        <Questions questions={questions} />
 
         <div>
           <h2>Calendario</h2>
