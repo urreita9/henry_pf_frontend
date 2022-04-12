@@ -1,8 +1,11 @@
 import {} from '../actions/actions';
 
-const initialState = {};
+const initialState = {
+	cuidadores: [],
+	cuidador: {},
+};
 
-const reducer = (state = initialState, action) => {
+const cuidadoresReducer = (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
 		// case GET_POKEMONS:
@@ -21,4 +24,4 @@ const reducer = (state = initialState, action) => {
 	}
 };
 
-export default reducer;
+export default cuidadoresReducer;
