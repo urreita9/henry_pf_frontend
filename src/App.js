@@ -4,26 +4,18 @@
 // 	Route,
 // 	Redirect,
 // } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import Questions from './components/Questions';
+import CuidadorProfile from './components/CuidadorProfile';
 
 // dotenv.config();
 
-// function App() {
-// 	return (
-// <Router>
-// 	<Switch>
-// 		<Route exact path='/' component={Entry} />
-// 		<Route>
-// 			<Nav />
-// 			<Switch>
-// 				<Route exact path='/home' component={Home} />
-// 				<Route exact path='/pokemon/:id' component={Detail} />
-// 				<Route exact path='/create' component={Create} />
-// 				<Redirect to='/home' />
-// 			</Switch>
-// 		</Route>
-// 	</Switch>
-// </Router>
-// );
-// }
+function App() {
+  return (
+    <Routes>
+      <Route exact path='/cuidador/id' element={<CuidadorProfile />} />
+    </Routes>
+  );
+}
 
 export default App;
