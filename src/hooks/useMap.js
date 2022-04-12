@@ -148,7 +148,7 @@ export const useMapBox = (initialPoint, forUserForm = false) => {
 		map.addControl(
 			new mapboxgl.GeolocateControl({
 				positionOptions: {
-					enableHighAccuracy: true,
+					enableHighAccuracy: false,
 				},
 				// When active the map will receive updates to the device's location as it changes.
 				trackUserLocation: false,
@@ -158,6 +158,24 @@ export const useMapBox = (initialPoint, forUserForm = false) => {
 		);
 
 		mapa.current = map;
+
+		//Agregar marker con click para form cuidador
+		mapa.current?.on('click', (ev) => {
+			const { lng, lat } = ev.lngLat;
+
+			if (forUserForm && !marker.current) {
+				const el = document.createElement('div');
+				el.className = 'marker';
+				marker.current = new mapboxgl.Marker(el);
+
+				marker.current
+					.setLngLat([lng, lat])
+					.addTo(mapa.current)
+					.setDraggable(true);
+			}
+			// TODO: setCoords del cuidador
+		});
+		return mapa.current?.off('click');
 	}, [initialPoint]);
 
 	//Cuando se mueve el mapa
@@ -172,22 +190,6 @@ export const useMapBox = (initialPoint, forUserForm = false) => {
 		});
 
 		return mapa.current?.off('move');
-	}, []);
-
-	//Agregar marker con click para form cuidador
-	useEffect(() => {
-		mapa.current?.on('click', (ev) => {
-			const { lng, lat } = ev.lngLat;
-			if (forUserForm && !marker.current) {
-				marker.current = new mapboxgl.Marker();
-
-				marker.current
-					.setLngLat([lng, lat])
-					.addTo(mapa.current)
-					.setDraggable(true);
-			}
-		});
-		return mapa.current?.off('click');
 	}, []);
 
 	useEffect(() => {
@@ -215,6 +217,7 @@ export const useMapBox = (initialPoint, forUserForm = false) => {
 				});
 			});
 		}
+		return mapa.current?.off('load');
 	}, []);
 
 	return {
