@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { getCaretakerDetails } from '../../redux/actions';
+import { getCaretakerDetails } from '../../redux/actions/actions';
 import Questions from '../Questions';
 import CaretakerDescription from '../CaretakerDescription';
 
@@ -12,7 +11,7 @@ const CaretakerProfile = () => {
 
   useEffect(() => {
     dispatch(getCaretakerDetails(1));
-  }, []);
+  }, [dispatch]);
 
   return (
     <main

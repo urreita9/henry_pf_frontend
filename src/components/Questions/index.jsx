@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { postCaretakerQuestion } from '../../redux/actions';
+import { postCaretakerQuestion } from '../../redux/actions/actions';
 import Question from '../Question';
 
 const Questions = ({ questions }) => {
