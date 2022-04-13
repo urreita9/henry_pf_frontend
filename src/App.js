@@ -13,7 +13,7 @@ import CaretakerProfile from './components/CaretakerProfile';
 function App() {
   return (
     <Routes>
-      <Route exact path='/cuidador/id' element={<CaretakerProfile />} />
+      <Route exact path='/cuidador/:id' element={<CaretakerProfile />} />
     </Routes>
   );
 }
