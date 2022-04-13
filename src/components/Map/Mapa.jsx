@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Map, { Marker, Popup, GeolocateControl } from 'react-map-gl';
 import { useSelector } from 'react-redux';
 import PopUpData from './PopUpData';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const initialPoint = {
 	longitude: -58.381592,
@@ -13,8 +14,7 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 	const [myPoint, setMyPoint] = useState(initialPoint);
 	const [popupInfo, setPopupInfo] = useState(null);
 	// const [myCoordsInForm, setMyCoordsInForm] = useState(null);
-	const height = 20;
-	const width = 14;
+
 	const cuidadores = useSelector((state) => state.filteredCuidadores);
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition((pos) => {
@@ -52,16 +52,16 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 						key={`marker-${index}`}
 						longitude={cuidador.lng}
 						latitude={cuidador.lat}
-						anchor='bottom'
+						anchor='center'
 						onClick={() => setPopupInfo(cuidador)}
 						color='#F29279'
 						style={{
 							position: 'relative',
 							width: '100%',
 							height: '100%',
-							transform: `translate(${height / 2 + width}, ${
-								height / 2 + width
-							}`,
+							// transform: `translate(${height / 2 + width}, ${
+							// 	height / 2 + width
+							// }`,
 						}}
 					/>
 				))}
@@ -70,7 +70,7 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 					key={`marker-${form.lng}`}
 					longitude={form.lng}
 					latitude={form.lat}
-					anchor='bottom'
+					anchor='center'
 					draggable={true}
 					color='#F29279'
 					onDragEnd={(e) =>
