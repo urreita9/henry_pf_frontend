@@ -7,5 +7,6 @@ const store = createStore(
 	cuidadoresReducer,
 	composeWithDevTools(applyMiddleware(thunk))
 );
+//buiefwui
 
 export default store;
