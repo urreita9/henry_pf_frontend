@@ -1,4 +1,4 @@
-import { GET_CARETAKER_DETAILS } from '../actions';
+import { GET_CARETAKER_DETAILS, POST_CARETAKER_QUESTION } from '../actions';
 
 const initialState = {
   caretakerProfile: {},
@@ -18,6 +18,12 @@ const caretakerReducer = (state = initialState, action) => {
     // 		filteredPokemons: [...takeOutPrevDb, ...payload],
     // 	};
     case GET_CARETAKER_DETAILS:
+      return {
+        ...state,
+        caretakerProfile: payload,
+      };
+
+    case POST_CARETAKER_QUESTION:
       return {
         ...state,
         caretakerProfile: payload,
