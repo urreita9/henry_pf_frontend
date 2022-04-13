@@ -26,6 +26,7 @@ export default function PopUpData({ person }) {
 				readOnly
 				size='small'
 				icon={<PetsOutlinedIcon fontSize='inherit' />}
+				emptyIcon={<PetsOutlinedIcon fontSize='inherit' />}
 			/>
 			<Link to={`/caretaker/${id}`} style={{ textDecoration: 'none' }}>
 				<Button>Detail</Button>
