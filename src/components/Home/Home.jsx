@@ -8,7 +8,7 @@ import { Profile } from '../Profile/Profile';
 export const Home = () => {
 	return (
 		<div>
-			<div style={{ maxWidth: '500px', height: '500px' }}>
+			<div style={{ maxWidth: '70%', height: '500px' }}>
 				<Mapa />
 			</div>
 
