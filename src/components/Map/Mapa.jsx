@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Map, { Marker, Popup, GeolocateControl } from 'react-map-gl';
 import { useSelector } from 'react-redux';
-import GeocoderControl from './GeoCoder-control';
 import PopUpData from './PopUpData';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const initialPoint = {
 	longitude: -58.381592,
@@ -10,10 +10,10 @@ const initialPoint = {
 	zoom: 3,
 };
 
-export const Mapa = ({ formUse = false }) => {
+export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 	const [myPoint, setMyPoint] = useState(initialPoint);
 	const [popupInfo, setPopupInfo] = useState(null);
-	const [myCoordsInForm, setMyCoordsInForm] = useState(null);
+	// const [myCoordsInForm, setMyCoordsInForm] = useState(null);
 
 	const cuidadores = useSelector((state) => state.filteredCuidadores);
 	useEffect(() => {
@@ -32,13 +32,14 @@ export const Mapa = ({ formUse = false }) => {
 	return (
 		<Map
 			initialViewState={myPoint}
-			style={{ width: 600, height: 400 }}
+			style={{ width: '100%', height: '100%' }}
 			mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
 			mapStyle='mapbox://styles/mapbox/streets-v9'
 			onClick={(e) => {
 				if (!formUse) return;
-				console.log(e);
-				setMyCoordsInForm({
+
+				setFormCoords({
+					...form,
 					lng: e.lngLat.lng,
 					lat: e.lngLat.lat,
 				});
@@ -51,19 +52,33 @@ export const Mapa = ({ formUse = false }) => {
 						key={`marker-${index}`}
 						longitude={cuidador.lng}
 						latitude={cuidador.lat}
-						anchor='bottom'
+						anchor='center'
 						onClick={() => setPopupInfo(cuidador)}
 						color='#F29279'
 					/>
 				))}
-			{myCoordsInForm?.lng && (
+			{form?.lng && (
 				<Marker
-					key={`marker-${myCoordsInForm.lng}`}
-					longitude={myCoordsInForm.lng}
-					latitude={myCoordsInForm.lat}
-					anchor='bottom'
+					key={`marker-${form.lng}`}
+					longitude={form.lng}
+					latitude={form.lat}
+					anchor='center'
 					draggable={true}
 					color='#F29279'
+					onDragEnd={(e) =>
+						setFormCoords({
+							...form,
+							lng: e.lngLat.lng,
+							lat: e.lngLat.lat,
+						})
+					}
+					onClick={(e) =>
+						setFormCoords({
+							...form,
+							lng: e.lngLat.lng,
+							lat: e.lngLat.lat,
+						})
+					}
 				/>
 			)}
 
@@ -83,10 +98,10 @@ export const Mapa = ({ formUse = false }) => {
 					<PopUpData person={popupInfo} />
 				</Popup>
 			)}
-			<GeocoderControl
+			{/* <GeocoderControl
 				mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
 				position='top-left'
-			/>
+			/> */}
 		</Map>
 	);
 };
