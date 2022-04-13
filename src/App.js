@@ -1,30 +1,22 @@
 import {
 	BrowserRouter as Router,
-	Switch,
+	Routes,
 	Route,
 	Redirect,
 } from 'react-router-dom';
-import Map from './components/Map/Map.jsx';
+import { Detail } from './components/Detail/Detail.jsx';
+import { Home } from './components/Home/Home.jsx';
 
 // dotenv.config();
 
 function App() {
 	return (
-		<Map forUserForm={false} />
-		// <Router>
-		// 	<Switch>
-		// 		{/* <Route exact path='/' component={Entry} /> */}
-		// 		<Route>
-		// 			{/* <Nav />
-		// 	<Switch>
-		// 		<Route exact path='/home' component={Home} />
-		// 		<Route exact path='/pokemon/:id' component={Detail} />
-		// 		<Route exact path='/create' component={Create} />
-		// 		<Redirect to='/home' />
-		// 	</Switch> */}
-		// 		</Route>
-		// 	</Switch>
-		// </Router>
+		<Router>
+			<Routes>
+				<Route exact path='/home' element={<Home />} />
+				<Route exact path='/caretaker/:id' element={<Detail />} />
+			</Routes>
+		</Router>
 	);
 }
 
