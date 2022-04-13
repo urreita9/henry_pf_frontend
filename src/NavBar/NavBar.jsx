@@ -17,6 +17,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { LoginButton } from "../components/login/Login";
 import { LogoutButton } from "../components/Logout/Logout";
 
+// const Link1 = <Link to="/services">Services</Link>;
+
 const pages = ["Services", "Veterinaries", "Pet shops"];
 const settings = [
   "Profile",
