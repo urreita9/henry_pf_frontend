@@ -1,4 +1,4 @@
-import NavBar from './NavBar/NavBar';
+import NavBar from './components/NavBar/NavBar';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Profile } from './components/Profile/Profile';
 
@@ -9,16 +9,16 @@ import { Home } from './components/Home/Home.jsx';
 // dotenv.config();
 
 function App() {
-	const { isAuthenticated } = useAuth0();
 	return (
-		<Router>
+		<>
 			<NavBar />
-			{isAuthenticated && <Profile />}
-			<Routes>
-				<Route exact path='/' element={<Home />} />
-				<Route exact path='/caretaker/:id' element={<Detail />} />
-			</Routes>
-		</Router>
+			<Router>
+				<Routes>
+					<Route exact path='/' element={<Home />} />
+					<Route exact path='/caretaker/:id' element={<Detail />} />
+				</Routes>
+			</Router>
+		</>
 	);
 }
 
