@@ -1,29 +1,7 @@
-// import {
-// 	BrowserRouter as Router,
-// 	Switch,
-// 	Route,
-// 	Redirect,
-// } from 'react-router-dom';
+import { CuidadorForm } from './components/Forms/CuidadorForm';
 
-// dotenv.config();
-
-// function App() {
-// 	return (
-// <Router>
-// 	<Switch>
-// 		<Route exact path='/' component={Entry} />
-// 		<Route>
-// 			<Nav />
-// 			<Switch>
-// 				<Route exact path='/home' component={Home} />
-// 				<Route exact path='/pokemon/:id' component={Detail} />
-// 				<Route exact path='/create' component={Create} />
-// 				<Redirect to='/home' />
-// 			</Switch>
-// 		</Route>
-// 	</Switch>
-// </Router>
-// );
-// }
+function App() {
+	return <CuidadorForm />;
+}
 
 export default App;
