@@ -1,29 +1,13 @@
 import { useState } from 'react';
-//import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { postCaretakerQuestion } from '../../redux/actions';
 import Question from '../Question';
 
 const Questions = ({ questions }) => {
-  //questions viene de un estado en redux
-  //Ejemplo moke
-  // const questions = [
-  //   {
-  //     id: 1,
-  //     question: 'Buenas, paseas perros grandes?',
-  //     answer: 'Yes',
-  //   },
-  //   {
-  //     id: 2,
-  //     question: 'Te lo puedo dejar a las 15hs?',
-  //     answer: 'Si podés pasate a las 16hs',
-  //   },
-  //   {
-  //     id: 3,
-  //     question: 'Podría llevarte la comida que come Firulais?',
-  //     answer: 'No',
-  //   },
-  // ]; //useSelector(state => state.questions)
+  const { id } = useParams();
 
-  //const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [input, setInputQuestion] = useState({
     question: '',
@@ -36,7 +20,7 @@ const Questions = ({ questions }) => {
 
   const handleOnClick = (e) => {
     //llamar a action para crear estado nuevo en reducer
-    //dispatch(postQuestion(input.question))
+    dispatch(postCaretakerQuestion(id, input.question));
     //console.log(input.question);
     setInputQuestion({ question: '' });
   };
