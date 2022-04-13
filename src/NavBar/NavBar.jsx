@@ -16,13 +16,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { LoginButton } from "../components/login/Login";
 import { LogoutButton } from "../components/Logout/Logout";
-import { Profile } from "../components/Profile/Profile";
 
 const pages = ["Services", "Veterinaries", "Pet shops"];
-const settings = ["Profile", "History", "CareTaker Dashboard", "Logout"];
+const settings = [
+  "Profile",
+  "History",
+  "CareTaker Dashboard",
+  <LogoutButton />,
+];
 
 const NavBar = () => {
-  const { isAuthenticated } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -112,17 +116,14 @@ const NavBar = () => {
               </Button>
             ))}
           </Box>
-          {/* ACA */}
+          {/* BOX DE USUARIO ⬇ */}
 
           {isAuthenticated ? (
             <>
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
+                    <Avatar alt={user.name} src={user.picture} />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -158,39 +159,3 @@ const NavBar = () => {
   );
 };
 export default NavBar;
-
-// function NavBar() {
-//   const { isAuthenticated } = useAuth0();
-
-//   return (
-//     <Box sx={{ flexGrow: 1 }}>
-//       <AppBar position="static">
-//         <Toolbar>
-//           {/* <IconButton
-//             size="large"
-//             edge="start"
-//             color="inherit"
-//             aria-label="menu"
-//             sx={{ mr: 2 }}
-//           >
-//             <MenuIcon />
-//           </IconButton> */}
-//           <PetsIcon />
-//           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-//             Petripp App
-//           </Typography>
-//           {isAuthenticated ? (
-//             <>
-//               <Profile />
-//               <LogoutButton />
-//             </>
-//           ) : (
-//             <LoginButton />
-//           )}
-//         </Toolbar>
-//       </AppBar>
-//     </Box>
-//   );
-// }
-
-// export default NavBar;

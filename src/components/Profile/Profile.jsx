@@ -11,7 +11,7 @@ export const Profile = () => {
   return (
     isAuthenticated && (
       <div>
-        <img className={Style.image} src={user.picture} alt={user.name} />
+        <h1 className={Style.titulo}>Welcome Back: {user.name}</h1>
       </div>
     )
   );
