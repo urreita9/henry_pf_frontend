@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCaretakerDetails } from '../../redux/actions/actions';
 import Questions from '../Questions';
 import CaretakerDescription from '../CaretakerDescription';
+import { useParams } from 'react-router-dom';
 
 const CaretakerProfile = () => {
+  const { id } = useParams();
   const caretakerProfile = useSelector((state) => state.caretakerProfile);
   const dispatch = useDispatch();
   const { questions } = caretakerProfile;
 
   useEffect(() => {
-    dispatch(getCaretakerDetails(1));
+    dispatch(getCaretakerDetails(id));
   }, [dispatch]);
 
   return (
@@ -30,7 +32,10 @@ const CaretakerProfile = () => {
           alignItems: 'center',
         }}
       >
-        <CaretakerDescription {...caretakerProfile} />
+        <CaretakerDescription
+          {...caretakerProfile}
+          {...caretakerProfile.caretaker}
+        />
       </div>
 
       <div
