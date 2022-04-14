@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CaretakerProfile from "./components/CaretakerProfile";
 import NavBar from "./components/NavBar/NavBar";
-import { Home } from "./components/Home/Home.jsx";
+
+import { Home } from "./components/Home/Home";
 
 function App() {
   return (

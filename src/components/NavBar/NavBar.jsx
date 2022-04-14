@@ -16,7 +16,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { LoginButton } from "../login/Login";
 import { LogoutButton } from "../Logout/Logout";
-import { Link } from "react-router-dom";
 
 const pages = ["Services", "Veterinaries", "Pet shops"];
 const settings = [
@@ -138,6 +137,7 @@ const NavBar = () => {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    {"Logged as: " + user.nickname}
                     <Avatar alt={user.name} src={user.picture} />
                   </IconButton>
                 </Tooltip>
@@ -166,7 +166,18 @@ const NavBar = () => {
               </Box>
             </>
           ) : (
-            <LoginButton />
+            <>
+              <Button
+                sx={{
+                  backgroundColor: "#09a11d",
+                }}
+                variant="contained"
+                style={{ marginRight: "5px" }}
+              >
+                Register
+              </Button>
+              <LoginButton />
+            </>
           )}
         </Toolbar>
       </Container>
