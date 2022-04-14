@@ -1,38 +1,63 @@
-import { Rating } from '@mui/material';
+import {
+	CardMedia,
+	Grid,
+	Rating,
+	Typography,
+	Box,
+	Avatar,
+} from '@mui/material';
+import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
+import { styled } from '@mui/material/styles';
+import { Calendar } from '../Calendar/Calendar';
 
-const CaretakerDescription = ({ name, description, rating }) => {
-  return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <img
-          src='img'
-          alt='img'
-          style={{
-            width: 200,
-            height: 200,
-          }}
-        />
-        <div>
-          <p>{name}</p>
-          <p> {description} </p>
-        </div>
-      </div>
-      <div>
-        <Rating
-          name='half-rating-read'
-          value={rating || 0}
-          precision={0.5}
-          readOnly
-        />
-      </div>
-    </>
-  );
+const StyledRating = styled(Rating)({
+	'& .MuiRating-iconFilled': {
+		color: '#F29278',
+	},
+});
+
+const CaretakerDescription = ({ name, description, rating, img }) => {
+	// const nameUppercase = name.charAt(0).toUpperCase() + name.slice(1);
+	return (
+		<>
+			<Grid item xs={12} sm={4} md={6} display='flex'>
+				<Avatar
+					alt='Remy Sharp'
+					src='https://images.pexels.com/photos/5859488/pexels-photo-5859488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+					sx={{ width: 250, height: 250 }}
+				/>
+			</Grid>
+			<Grid item xs={12} sm={8} md={6}>
+				<Typography variant='h4' component='h2'>
+					{name}
+				</Typography>
+				<Typography variant='p'> {description} </Typography>
+				<br></br>
+				<StyledRating
+					name='half-rating-read'
+					value={rating || 0}
+					precision={0.5}
+					readOnly
+					icon={<PetsOutlinedIcon fontSize='inherit' />}
+					emptyIcon={<PetsOutlinedIcon fontSize='inherit' />}
+				/>
+			</Grid>
+
+			{/* <Grid item xs={6} textAlign='center'>
+				<StyledRating
+					name='half-rating-read'
+					value={rating || 0}
+					precision={0.5}
+					readOnly
+					icon={<PetsOutlinedIcon fontSize='inherit' />}
+					emptyIcon={<PetsOutlinedIcon fontSize='inherit' />}
+				/>
+			</Grid> */}
+			<Grid item xs={12} sx={{ marginTop: '20px' }}>
+				<Calendar />
+			</Grid>
+		</>
+	);
 };
 
 export default CaretakerDescription;
