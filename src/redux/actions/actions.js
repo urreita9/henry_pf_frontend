@@ -5,7 +5,9 @@ export const FILTER_BY_PET = 'FILTER_BY_PET';
 
 export const getCaretakerDetails = (id) => async (dispatch) => {
   try {
-    const { data } = await axios.get(`http://localhost:3001/caretaker/${id}`);
+    const { data } = await axios.get(
+      `http://localhost:3001/api/caretakers/${id}`
+    );
 
     dispatch({
       type: GET_CARETAKER_DETAILS,
@@ -18,9 +20,12 @@ export const getCaretakerDetails = (id) => async (dispatch) => {
 
 export const postCaretakerQuestion = (id, question) => async (dispatch) => {
   try {
-    const { data } = await axios.post(`http://localhost:3001/caretaker/${id}`, {
-      question,
-    });
+    const { data } = await axios.post(
+      `http://localhost:3001/api/caretakers/question/${id}`,
+      {
+        question,
+      }
+    );
 
     dispatch({
       type: POST_CARETAKER_QUESTION,

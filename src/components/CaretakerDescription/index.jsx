@@ -1,6 +1,6 @@
 import { Rating } from '@mui/material';
 
-const CaretakerDescription = ({ name, img, description, rating }) => {
+const CaretakerDescription = ({ name, description, rating }) => {
   return (
     <>
       <div
@@ -11,7 +11,7 @@ const CaretakerDescription = ({ name, img, description, rating }) => {
         }}
       >
         <img
-          src={img}
+          src='img'
           alt='img'
           style={{
             width: 200,
@@ -20,7 +20,7 @@ const CaretakerDescription = ({ name, img, description, rating }) => {
         />
         <div>
           <p>{name}</p>
-          <p>{description}</p>
+          <p> {description} </p>
         </div>
       </div>
       <div>
