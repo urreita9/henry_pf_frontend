@@ -1,30 +1,30 @@
 import * as React from "react";
-import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import SearchIcon from "@mui/icons-material/Search";
 import { MapFilters } from "../MapFilters/MapFilters";
 
+// import { styled, alpha } from "@mui/material/styles";
+// import SearchIcon from "@mui/icons-material/Search";
 // import IconButton from "@mui/material/IconButton";
 // import InputBase from "@mui/material/InputBase";
 // import MenuIcon from "@mui/icons-material/Menu";
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
+// const Search = styled("div")(({ theme }) => ({
+//   position: "relative",
+//   borderRadius: theme.shape.borderRadius,
+//   backgroundColor: alpha(theme.palette.common.white, 0.15),
+//   "&:hover": {
+//     backgroundColor: alpha(theme.palette.common.white, 0.25),
+//   },
+//   marginLeft: 0,
+//   width: "100%",
+//   [theme.breakpoints.up("sm")]: {
+//     marginLeft: theme.spacing(1),
+//     width: "auto",
+//   },
+// }));
 
 // const SearchIconWrapper = styled("div")(({ theme }) => ({
 //   padding: theme.spacing(0, 2),
@@ -61,7 +61,7 @@ export default function FilterBar() {
         position: "center",
         marginLeft: "10%",
         marginRight: "10%",
-        marginTop: "10%",
+        marginTop: "1%",
       }}
     >
       <AppBar
@@ -80,9 +80,9 @@ export default function FilterBar() {
 
           <MapFilters />
 
-          <Search>
+          {/* <Search>
             <SearchIcon />
-          </Search>
+          </Search> */}
         </Toolbar>
       </AppBar>
     </Box>
