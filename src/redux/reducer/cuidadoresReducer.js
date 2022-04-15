@@ -1,6 +1,10 @@
 import {
+  GET_CARETAKERS,
   GET_CARETAKER_DETAILS,
+  POST_CARETAKER,
   POST_CARETAKER_QUESTION,
+  EDIT_CARETAKER,
+  DELETE_CARETAKER,
   FILTER_BY_PET,
 } from '../actions/actions';
 
@@ -151,6 +155,7 @@ const data = [
 
 const initialState = {
   cuidadores: data,
+  caretakers: [],
   filteredCuidadores: data,
   cuidador: {},
   caretakerProfile: {},
@@ -181,7 +186,19 @@ const cuidadoresReducer = (state = initialState, action) => {
         filteredCuidadores: [...filterByRating],
       };
 
+    case GET_CARETAKERS:
+      return {
+        ...state,
+        caretakers: payload,
+      };
+
     case GET_CARETAKER_DETAILS:
+      return {
+        ...state,
+        caretakerProfile: payload,
+      };
+
+    case POST_CARETAKER:
       return {
         ...state,
         caretakerProfile: payload,
@@ -191,6 +208,18 @@ const cuidadoresReducer = (state = initialState, action) => {
       return {
         ...state,
         caretakerProfile: payload,
+      };
+
+    case EDIT_CARETAKER:
+      return {
+        ...state,
+        caretakerProfile: payload,
+      };
+
+    case DELETE_CARETAKER:
+      return {
+        ...state,
+        caretakers: payload,
       };
 
     default:
