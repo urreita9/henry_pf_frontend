@@ -8,21 +8,21 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
 const StyledRating = styled(Rating)({
-  "& .MuiRating-iconFilled": {
-    color: "#F29279",
-  },
-  "& .MuiRating-iconHover": {
-    color: "#f38d73",
-  },
+	'& .MuiRating-iconFilled': {
+		color: '#F29279',
+	},
+	'& .MuiRating-iconHover': {
+		color: '#f38d73',
+	},
 });
 export const MapFilters = () => {
-  const dispatch = useDispatch();
+	const dispatch = useDispatch();
 
-  const [form, setForm] = useState({
-    size: "0",
-    price: [0, 100],
-    rating: 2.5,
-  });
+	const [form, setForm] = useState({
+		size: '0',
+		price: [0, 100],
+		rating: 2.5,
+	});
 
 	useEffect(() => {
 		dispatch(getCaretakers());

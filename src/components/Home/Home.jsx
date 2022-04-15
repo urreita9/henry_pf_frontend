@@ -3,7 +3,7 @@ import React from 'react';
 import { Mapa } from '../Map/Mapa';
 import { MapFilters } from '../MapFilters/MapFilters';
 import NavBar from '../NavBar/NavBar';
-import { Profile } from '../Profile/Profile';
+import FilterBar from '../../components/FilterBar/FilterBar';
 
 export const Home = () => {
 	return (
@@ -19,8 +19,8 @@ export const Home = () => {
 				{/* <Box style={{ width: '70%', height: '500px' }}>
 				<Mapa />
 			</div> */}
-
-				<MapFilters />
+				<FilterBar />
+				{/* <MapFilters /> */}
 			</Box>
 			<Box
 				sx={{

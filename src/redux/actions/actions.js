@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import axios from 'axios';
 export const GET_CARETAKERS = 'GET_CARETAKERS';
 export const GET_CARETAKER_DETAILS = 'GET_CARETAKER_DETAILS';
@@ -52,18 +51,6 @@ export const postCaretakerQuestion = (id, question) => async (dispatch) => {
 };
 
 export const filterByPetSize = (payload) => ({
-<<<<<<< HEAD
-  type: FILTER_BY_PET,
-  payload,
-=======
-export const FILTER_BY_PET = 'FILTER_BY_PET';
-
-export const filterByPetSize = (payload) => ({
 	type: FILTER_BY_PET,
 	payload,
->>>>>>> cuidadorFormFrontEnd
-=======
-	type: FILTER_BY_PET,
-	payload,
->>>>>>> profileView
 });
