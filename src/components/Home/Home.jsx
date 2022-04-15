@@ -1,46 +1,50 @@
-import { Box, Container, Grid } from "@mui/material";
-import { Mapa } from "../Map/Mapa";
-import FilterBar from "../FilterBar/FilterBar";
+import { Box, Container, Grid, Typography } from '@mui/material';
+import React from 'react';
+import { Mapa } from '../Map/Mapa';
+import { MapFilters } from '../MapFilters/MapFilters';
+import NavBar from '../NavBar/NavBar';
+import { Profile } from '../Profile/Profile';
 
 export const Home = () => {
-  return (
-    <>
-      <FilterBar />
-      <Container
-        sx={{
-          backgroundColor: "#FFFFFF",
-          borderRadius: "10px",
-          minHeight: "80%",
+	return (
+		<Container>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
+					margin: '0 auto',
+				}}
+			>
+				{/* <Box style={{ width: '70%', height: '500px' }}>
+				<Mapa />
+			</div> */}
 
-          marginLeft: "15%",
-        }}
-      >
-        <Grid
-          container
-          spacing={3}
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Grid item xs={12} md={6}>
-            {/* <div style={{ maxWidth: "70%", height: "500px" }}> */}
-            <Box
-              padding={1}
-              sx={{
-                width: "100%",
-                height: "50vh",
-              }}
-            >
-              <Mapa />
-            </Box>
-            {/* </div> */}
-          </Grid>
-
-          {/* <Grid item>
-            <MapFilters />
-          </Grid> */}
-        </Grid>
-      </Container>
-    </>
-  );
+				<MapFilters />
+			</Box>
+			<Box
+				sx={{
+					backgroundImage: `url(https://images.pexels.com/photos/3299905/pexels-photo-3299905.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)`,
+					backgroundSize: 'contain',
+					backgroundPosition: 'center',
+					backgroundRepeat: 'no-repeat',
+					width: '90%',
+					height: '500px',
+					margin: '10px auto',
+					// borderRadius: '50px',
+					textAlign: 'center',
+				}}
+			>
+				<Typography
+					variant='h2'
+					component='h3'
+					width='500px'
+					color='success'
+					sx={{ margin: '0 auto', fontWeight: '600' }}
+				>
+					Find the perfect home for your pets while you are away
+				</Typography>
+			</Box>
+		</Container>
+	);
 };
