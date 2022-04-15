@@ -3,7 +3,7 @@ import CaretakerProfile from "./components/CaretakerProfile";
 import NavBar from "./components/NavBar/NavBar";
 import { Mapa } from "./components/Map/Mapa";
 import { Home } from "./components/Home/Home";
-import { RegisterForm } from "./components/RegisterForm/RegisterForm";
+import RegisterForm from "./components/RegisterForm/RegisterForm";
 import { LoginForm } from "./components/LoginForm/LoginForm";
 
 function App() {
