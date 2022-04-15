@@ -4,6 +4,8 @@ import CaretakerProfile from "./components/CaretakerProfile";
 import NavBar from "./components/NavBar/NavBar";
 
 import { Home } from "./components/Home/Home";
+import { RegisterForm } from "./components/RegisterForm/RegisterForm";
+import { LoginForm } from "./components/LoginForm/LoginForm";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/register" element={<RegisterForm />} />
+          <Route exact path="/login" element={<LoginForm />} />
           <Route exact path="/caretaker/:id" element={<CaretakerProfile />} />
           {/* <Route exact path='/caretaker/:id' element={<Detail />} /> */}
         </Routes>
