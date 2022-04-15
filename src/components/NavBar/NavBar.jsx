@@ -16,6 +16,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import { LoginButton } from "../login/Login";
 import { LogoutButton } from "../Logout/Logout";
+import { Link } from "react-router-dom";
 
 const pages = ["Services", "Veterinaries", "Pet shops"];
 const settings = [
@@ -168,6 +169,7 @@ const NavBar = () => {
           ) : (
             <>
               <Button
+                href="/register"
                 sx={{
                   backgroundColor: "#09a11d",
                 }}
@@ -176,7 +178,16 @@ const NavBar = () => {
               >
                 Register
               </Button>
-              <LoginButton />
+
+              <Button
+                href="/login"
+                sx={{
+                  backgroundColor: "#cc3308",
+                }}
+                variant="contained"
+              >
+                Login
+              </Button>
             </>
           )}
         </Toolbar>
