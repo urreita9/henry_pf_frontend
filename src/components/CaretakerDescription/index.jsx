@@ -9,6 +9,8 @@ import {
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { styled } from '@mui/material/styles';
 import { Calendar } from '../Calendar/Calendar';
+import { Ticket } from '../Ticket/Ticket';
+import { useState } from 'react';
 
 const StyledRating = styled(Rating)({
 	'& .MuiRating-iconFilled': {
@@ -16,7 +18,14 @@ const StyledRating = styled(Rating)({
 	},
 });
 
-const CaretakerDescription = ({ name, description, rating, img }) => {
+const CaretakerDescription = ({ name, description, rating, img, price }) => {
+	const [datesRange, setDatesRange] = useState([
+		{
+			startDate: new Date(),
+			endDate: null,
+			key: 'selection',
+		},
+	]);
 	// const nameUppercase = name.charAt(0).toUpperCase() + name.slice(1);
 	return (
 		<>
@@ -53,8 +62,11 @@ const CaretakerDescription = ({ name, description, rating, img }) => {
 					emptyIcon={<PetsOutlinedIcon fontSize='inherit' />}
 				/>
 			</Grid> */}
-			<Grid item xs={12} sx={{ marginTop: '20px' }}>
-				<Calendar />
+			<Grid item xs={6} sx={{ marginTop: '20px' }}>
+				<Calendar datesRange={datesRange} setDatesRange={setDatesRange} />
+			</Grid>
+			<Grid item xs={6} sx={{ marginTop: '20px' }}>
+				<Ticket price={price} datesRange={datesRange} />
 			</Grid>
 		</>
 	);

@@ -22,8 +22,6 @@ const CaretakerProfile = () => {
 				marginTop: '30px',
 				maxWidth: '800px',
 			}}
-			// spacing={3}
-			justifyContent='center'
 		>
 			<Grid container>
 				<CaretakerDescription
