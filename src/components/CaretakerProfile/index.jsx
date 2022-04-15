@@ -32,6 +32,7 @@ const CaretakerProfile = () => {
 
 			<Grid
 				container
+
 				// style={{
 				// 	display: 'flex',
 				// 	flexDirection: 'row',

@@ -52,20 +52,21 @@ const CaretakerDescription = ({ name, description, rating, img, price }) => {
 				/>
 			</Grid>
 
-			{/* <Grid item xs={6} textAlign='center'>
-				<StyledRating
-					name='half-rating-read'
-					value={rating || 0}
-					precision={0.5}
-					readOnly
-					icon={<PetsOutlinedIcon fontSize='inherit' />}
-					emptyIcon={<PetsOutlinedIcon fontSize='inherit' />}
-				/>
-			</Grid> */}
-			<Grid item xs={6} sx={{ marginTop: '20px' }}>
+			<Grid
+				item
+				xs={12}
+				sm={6}
+				md={6}
+				sx={{
+					marginTop: '20px',
+					justifyContent: 'center',
+					alignItems: 'center',
+					display: 'flex',
+				}}
+			>
 				<Calendar datesRange={datesRange} setDatesRange={setDatesRange} />
 			</Grid>
-			<Grid item xs={6} sx={{ marginTop: '20px' }}>
+			<Grid item xs={12} sm={6} md={6} sx={{ marginTop: '20px' }}>
 				<Ticket price={price} datesRange={datesRange} />
 			</Grid>
 		</>

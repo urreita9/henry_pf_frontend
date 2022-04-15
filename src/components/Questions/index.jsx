@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Grid, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -29,7 +29,11 @@ const Questions = ({ questions }) => {
 	};
 
 	return (
-		<Box sx={{ marginBottom: 2, paddingX: 2, margin: '10px auto' }}>
+		<Grid
+			item
+			xs={12}
+			sx={{ marginBottom: 2, paddingX: 2, margin: '10px auto' }}
+		>
 			{isAdding ? (
 				<>
 					<TextField
@@ -102,7 +106,7 @@ const Questions = ({ questions }) => {
 				<Question key={r.id} {...r} />
 			))}
 			{/* </div>  */}
-		</Box>
+		</Grid>
 	);
 };
 

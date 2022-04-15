@@ -10,13 +10,16 @@ import {
 	Button,
 	Typography,
 } from '@mui/material';
+import { DateRange } from '@mui/icons-material';
 
 const TicketCard = ({ price, datesRange }) => {
 	const timeLapse = intervalToDuration({
 		start: new Date(datesRange[0].startDate),
 		end: new Date(datesRange[0].endDate),
 	}).days;
-	console.log(timeLapse);
+
+	// const dates = `${datesRange[0].startDate.getMonth()}/${datesRange[0].startDate.getDate()}/${datesRange[0].startDate.getFullYear()} - ${datesRange[0].endDate.getMonth()}/${datesRange[0].endDate.getDate()}/${datesRange[0].endDate.getFullYear()}`;
+	console.log(datesRange);
 
 	const sum = price * timeLapse;
 	const totalCheckout = sum + sum * 0.03;
@@ -33,8 +36,16 @@ const TicketCard = ({ price, datesRange }) => {
 				<Typography variant='h5' component='div'>
 					Checkout
 				</Typography>
-				{timeLapse !== 0 && (
+				{timeLapse !== 0 && datesRange[0].endDate && (
 					<>
+						<Typography sx={{ mb: 1, textAlign: 'end' }} color='text.secondary'>
+							{datesRange[0].startDate.getDate()}/
+							{datesRange[0].startDate.getMonth()}/
+							{datesRange[0].startDate.getFullYear()} -
+							{datesRange[0].endDate.getDate()}/
+							{datesRange[0].endDate.getMonth()}/
+							{datesRange[0].endDate.getFullYear()}
+						</Typography>
 						<Typography sx={{ mb: 1 }} color='text.secondary'>
 							${price} x {timeLapse} nights
 						</Typography>
