@@ -1,15 +1,24 @@
 import { useState } from 'react';
-import { Box, Button, Radio, TextField, Typography } from '@mui/material';
+import {
+	Box,
+	Button,
+	Radio,
+	TextField,
+	Typography,
+	Input,
+} from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Mapa } from '../Map/Mapa';
+import { Label } from '@mui/icons-material';
 // import { useParams } from 'react-router-dom';
 
 const initialForm = {
-	lat: 0,
-	lng: 0,
-	price: 0,
-	size: 0,
-	description: '',
+	lat: -38.024157,
+	lng: -57.53561,
+	price: 10,
+	size: '1',
+	description: 'Hi Im John and I live in...',
+	homeDescription: 'My house has a garden...',
 };
 export const CuidadorForm = () => {
 	// const { id } = useParams();
@@ -17,6 +26,15 @@ export const CuidadorForm = () => {
 	const [isTouched, setIsTouched] = useState(false);
 	// const [form, setForm] = useState({ ...initialForm, id });
 	const handleInputChange = (e) => {
+		if (
+			e.target.name !== 'description' ||
+			e.target.name !== 'homeDescription'
+		) {
+			setForm({
+				...form,
+				[e.target.name]: parseInt(e.target.value),
+			});
+		}
 		setForm({
 			...form,
 			[e.target.name]: e.target.value,
@@ -41,12 +59,12 @@ export const CuidadorForm = () => {
 				fullWidth
 				rows={4}
 				sx={{ marginTop: 2, marginBottom: 1 }}
-				placeholder='Description'
+				placeholder='Hi! Im John. I am 25 years old and...'
 				autoFocus
 				multiline
-				label='Description'
+				label='The users want to know you before they decide...'
 				helperText={!form.description && isTouched && 'Tell us about yourself'}
-				error={!form.description && isTouched}
+				// error={!form.description && isTouched}
 				value={form.description}
 				onChange={handleInputChange}
 				onBlur={() => setIsTouched(true)}
@@ -54,7 +72,7 @@ export const CuidadorForm = () => {
 			/>
 
 			<div>
-				<Typography>Size</Typography>
+				<Typography>Pet size you are able to take care of</Typography>
 				<Radio
 					{...controlProps('0')}
 					size='small'
@@ -87,6 +105,15 @@ export const CuidadorForm = () => {
 					label='Big'
 				/>
 			</div>
+			<Typography>$ Price per night </Typography>
+			<Input
+				value={form.price}
+				type='number'
+				onChange={handleInputChange}
+				name='price'
+				placeholder='$10'
+			/>
+
 			<Typography>Put your Marker on the Map</Typography>
 			<div
 				style={{
@@ -97,6 +124,24 @@ export const CuidadorForm = () => {
 			>
 				<Mapa formUse={true} setFormCoords={setForm} form={form} />
 			</div>
+
+			<TextField
+				fullWidth
+				rows={4}
+				sx={{ marginTop: 2, marginBottom: 1 }}
+				placeholder='Nice neighborhood, with a small garden...'
+				autoFocus
+				multiline
+				label='Home description'
+				helperText={
+					!form.homeDescription && isTouched && 'Tell us about your home'
+				}
+				// error={!form.description && isTouched}
+				value={form.homeDescription}
+				onChange={handleInputChange}
+				onBlur={() => setIsTouched(true)}
+				name='homeDescription'
+			/>
 
 			<Box display='flex' justifyContent='space-between'>
 				<Button
