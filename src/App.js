@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CaretakerProfile from "./components/CaretakerProfile";
 import NavBar from "./components/NavBar/NavBar";
@@ -17,6 +18,12 @@ function App() {
       </Router>
     </>
   );
+=======
+import { CuidadorForm } from './components/Forms/CuidadorForm';
+
+function App() {
+	return <CuidadorForm />;
+>>>>>>> cuidadorFormFrontEnd
 }
 
 export default App;
