@@ -33,7 +33,7 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
     <Map
       initialViewState={myPoint}
       style={{ width: "100%", height: "100%" }}
-      //   mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+      // mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
       mapboxAccessToken="pk.eyJ1IjoiZGVua283IiwiYSI6ImNsMXpkamFzMDBscXUzY3FkZHFsZmJhd2gifQ.5o2boAHW6-837CDMqjioWQ"
       mapStyle="mapbox://styles/mapbox/streets-v9"
       onClick={(e) => {
