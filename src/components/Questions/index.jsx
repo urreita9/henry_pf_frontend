@@ -1,10 +1,10 @@
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { postCaretakerQuestion } from '../../redux/actions/actions';
 import Question from '../Question';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import AddIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 const Questions = ({ questions }) => {
@@ -43,7 +43,9 @@ const Questions = ({ questions }) => {
 						autoFocus
 						multiline
 						label='New Question'
-						helperText={!inputQuestion.length && 'Ask anything you like'}
+						helperText={
+							!inputQuestion.length && 'Ask anything you like to your candidate'
+						}
 						// error={!inputQuestion.length && isTouched}
 						value={inputQuestion.question}
 						onChange={handleOnChange}
@@ -64,14 +66,16 @@ const Questions = ({ questions }) => {
 						<Button
 							variant='outlined'
 							color='secondary'
-							endIcon={<SaveOutlinedIcon />}
+							// endIcon={<QuestionMarkOutlinedIcon />}
 							onClick={handleOnClick}
 							sx={{
 								borderColor: '#F29278',
 								color: '#F29278',
 							}}
 						>
-							ASK
+							<Typography variant='p'>ASK</Typography>
+
+							{/* <QuestionMarkOutlinedIcon sx={{ fontSize: 'medium' }} /> */}
 						</Button>
 					</Box>
 				</>

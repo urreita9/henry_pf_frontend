@@ -34,7 +34,7 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 			initialViewState={myPoint}
 			style={{ width: '100%', height: '100%' }}
 			mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-			mapStyle='mapbox://styles/mapbox/streets-v9'
+			mapStyle='mapbox://styles/franciscourrea/cl20ht8mw000u15swsowhy0m9'
 			onClick={(e) => {
 				if (!formUse) return;
 
