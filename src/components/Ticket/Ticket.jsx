@@ -81,7 +81,7 @@ const TicketCard = ({ price, datesRange }) => {
 };
 export const Ticket = ({ price, datesRange }) => {
 	return (
-		<Box sx={{ minWidth: 275 }}>
+		<Box sx={{ width: '90%' }}>
 			<Card variant='outlined'>
 				<TicketCard price={price} datesRange={datesRange} />
 			</Card>

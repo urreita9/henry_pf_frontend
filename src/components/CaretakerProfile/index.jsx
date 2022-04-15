@@ -20,7 +20,7 @@ const CaretakerProfile = () => {
 		<Container
 			style={{
 				marginTop: '30px',
-				maxWidth: '800px',
+				maxWidth: '1200px',
 			}}
 		>
 			<Grid container>
