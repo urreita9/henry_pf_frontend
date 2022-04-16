@@ -4,8 +4,8 @@ import {
 	cleanCaretaker,
 	getCaretakerDetails,
 } from '../../redux/actions/actions';
-import Questions from '../Questions';
-import CaretakerDescription from '../CaretakerDescription';
+import Questions from '../../components/Questions/index';
+import CaretakerDescription from '../../components/CaretakerDescription/index';
 import { useParams } from 'react-router-dom';
 import { Container, Grid, Typography } from '@mui/material';
 

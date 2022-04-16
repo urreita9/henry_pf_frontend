@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import CaretakerProfile from './components/CaretakerProfile';
+import CaretakerProfile from './views/CaretakerProfile/index';
 import NavBar from './components/NavBar/NavBar';
-import { Mapa } from './components/Map/Mapa';
-import { Home } from './components/Home/Home';
-import RegisterForm from './components/RegisterForm/RegisterForm';
-import { LoginForm } from './components/LoginForm/LoginForm';
-import { CuidadorForm } from './components/Forms/CuidadorForm';
+import { Mapa } from './views/Map/Mapa';
+import { Home } from './views/Home/Home';
+import RegisterForm from './views/RegisterForm/RegisterForm';
+import { LoginForm } from './views/LoginForm/LoginForm';
+import { CuidadorForm } from './views/Forms/CuidadorForm';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import modeThemePalette from './assets/mui-theme-config/theme-mui';
 

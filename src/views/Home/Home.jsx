@@ -2,7 +2,7 @@ import { Box, Container, Grid, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCaretakers } from '../../redux/actions/actions';
-import { GroupSizesColors } from '../ButtonGroup/ButtonGroup';
+import { GroupSizesColors } from '../../components/ButtonGroup/ButtonGroup';
 
 export const Home = () => {
 	const dispatch = useDispatch();

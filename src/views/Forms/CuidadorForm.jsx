@@ -11,7 +11,7 @@ import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Mapa } from '../Map/Mapa';
 import { useDispatch } from 'react-redux';
 import { postCaretaker } from '../../redux/actions/actions';
-import TestCloudinary from '../TestCloudinary';
+import TestCloudinary from '../../components/TestCloudinary/index';
 
 const initialForm = {
 	lat: -38.024157,
