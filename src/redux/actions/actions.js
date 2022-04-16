@@ -8,54 +8,54 @@ export const GET_USER = 'GET_USER';
 export const SET_THEME_MODE = "SET_THEME_MODE"
 
 export const getCaretakers = () => async (dispatch) => {
-	try {
-		const { data } = await axios.get(`http://localhost:3001/api/caretakers/`);
+  try {
+    const { data } = await axios.get(`http://localhost:3001/api/caretakers/`);
 
-		dispatch({
-			type: GET_CARETAKERS,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+    dispatch({
+      type: GET_CARETAKERS,
+      payload: data,
+    });
+  } catch (error) {
+    alert(error);
+  }
 };
 
 export const getCaretakerDetails = (id) => async (dispatch) => {
-	try {
-		const { data } = await axios.get(
-			`http://localhost:3001/api/caretakers/${id}`
-		);
+  try {
+    const { data } = await axios.get(
+      `http://localhost:3001/api/caretakers/${id}`
+    );
 
-		dispatch({
-			type: GET_CARETAKER_DETAILS,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+    dispatch({
+      type: GET_CARETAKER_DETAILS,
+      payload: data,
+    });
+  } catch (error) {
+    alert(error);
+  }
 };
 
 export const postCaretakerQuestion = (id, question) => async (dispatch) => {
-	try {
-		const { data } = await axios.post(
-			`http://localhost:3001/api/caretakers/question/${id}`,
-			{
-				question,
-			}
-		);
+  try {
+    const { data } = await axios.post(
+      `http://localhost:3001/api/caretakers/question/${id}`,
+      {
+        question,
+      }
+    );
 
-		dispatch({
-			type: POST_CARETAKER_QUESTION,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+    dispatch({
+      type: POST_CARETAKER_QUESTION,
+      payload: data,
+    });
+  } catch (error) {
+    alert(error);
+  }
 };
 
 export const filterByPetSize = (payload) => ({
-	type: FILTER_BY_PET,
-	payload,
+  type: FILTER_BY_PET,
+  payload,
 });
 
 export const getUser = (id) => async (dispatch) => {
