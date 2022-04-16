@@ -1,22 +1,24 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import {
+	MenuItem,
+	Tooltip,
+	Button,
+	Avatar,
+	Container,
+	AppBar,
+	Box,
+	Toolbar,
+	IconButton,
+	Typography,
+	Menu,
+} from '@mui/material/';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import PetsIcon from '@mui/icons-material/Pets';
 import { useAuth0 } from '@auth0/auth0-react';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import { LogoutButton } from '../Logout/Logout';
-
+import { Link } from 'react-router-dom';
 
 const pages = ['Host a Pet!'];
 const settings = [
@@ -26,7 +28,7 @@ const settings = [
 	<LogoutButton />,
 ];
 
-const NavBar = ({onToggle, typeMode}) => {
+const NavBar = ({ onToggle, typeMode }) => {
 	const { user, isAuthenticated } = useAuth0();
 
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -48,9 +50,7 @@ const NavBar = ({onToggle, typeMode}) => {
 	};
 
 	return (
-		<AppBar
-			position='static'
-		>
+		<AppBar position='static'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
 					<Link to='/' style={{ textDecoration: 'none' }}>
@@ -103,8 +103,8 @@ const NavBar = ({onToggle, typeMode}) => {
 							}}
 						>
 							{pages.map((page) => (
-								<Link to='/host'>
-									<MenuItem key={page}>
+								<Link to='/host' key={page}>
+									<MenuItem>
 										<Typography textAlign='center'>{page}</Typography>
 									</MenuItem>
 								</Link>
@@ -136,12 +136,13 @@ const NavBar = ({onToggle, typeMode}) => {
 						))}
 					</Box>
 					<Box>
-						<IconButton onClick={() => {
-							typeMode === 'light' ? onToggle(true) : onToggle(false);
-							}}>
-							{typeMode === 'light'  ? <Brightness7Icon/> : <Brightness4Icon/>}
+						<IconButton
+							onClick={() => {
+								typeMode === 'light' ? onToggle(true) : onToggle(false);
+							}}
+						>
+							{typeMode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
 						</IconButton>
-
 					</Box>
 					{/* BOX DE USUARIO ⬇ */}
 
@@ -182,9 +183,11 @@ const NavBar = ({onToggle, typeMode}) => {
 						<>
 							<Button
 								href='/register'
-								sx={{
-									// backgroundColor: '#09a11d',
-								}}
+								sx={
+									{
+										// backgroundColor: '#09a11d',
+									}
+								}
 								variant='contained'
 								style={{ marginRight: '5px' }}
 							>
@@ -193,9 +196,11 @@ const NavBar = ({onToggle, typeMode}) => {
 
 							<Button
 								href='/login'
-								sx={{
-									// backgroundColor: '#cc3308',
-								}}
+								sx={
+									{
+										// backgroundColor: '#cc3308',
+									}
+								}
 								variant='contained'
 							>
 								Login

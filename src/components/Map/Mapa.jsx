@@ -7,7 +7,7 @@ import Map, {
 	getCaretakerDetails,
 } from 'react-map-gl';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCaretakers } from '../../redux/actions/actions';
+import { cleanCaretaker, getCaretakers } from '../../redux/actions/actions';
 import PopUpData from './PopUpData';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -21,8 +21,10 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 	const [myPoint, setMyPoint] = useState(initialPoint);
 	const [popupInfo, setPopupInfo] = useState(null);
 	// const [myCoordsInForm, setMyCoordsInForm] = useState(null);
-	// const dispatch = useDispatch();
-	const { cuidadores } = useSelector((state) => state.cuidadoresReducer);
+	const dispatch = useDispatch();
+	const { filteredCaretakers } = useSelector(
+		(state) => state.cuidadoresReducer
+	);
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition((pos) => {
 			const crd = pos.coords;
@@ -35,7 +37,13 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 			}
 		});
 	}, []);
-	console.log(cuidadores);
+	console.log(filteredCaretakers);
+
+	useEffect(() => {
+		return () => {
+			dispatch(cleanCaretaker());
+		};
+	});
 
 	return (
 		<Map
@@ -67,7 +75,7 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 		>
 			<GeolocateControl />
 			{!formUse &&
-				cuidadores.map((cuidador, index) => (
+				filteredCaretakers.map((cuidador, index) => (
 					<Marker
 						key={`marker-${index}`}
 						longitude={cuidador.lng}

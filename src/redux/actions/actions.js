@@ -9,11 +9,12 @@ export const DELETE_CARETAKER = 'DELETE_CARETAKER';
 export const CLEAN_CARETAKER = 'CLEAN_CARETAKER';
 export const FILTER_BY_PET = 'FILTER_BY_PET';
 export const POST_USER = 'POST_USER';
+export const GET_USER = 'GET_USER';
 
 export const getCaretakers = () => async (dispatch) => {
 	try {
 		const { data } = await api.get(`/caretakers`);
-
+		console.log(data);
 		dispatch({
 			type: GET_CARETAKERS,
 			payload: data,
@@ -36,10 +37,11 @@ export const getCaretakerDetails = (id) => async (dispatch) => {
 	}
 };
 
-export const postCaretaker = () => async (dispatch) => {
+export const postCaretaker = (careTaker) => async (dispatch) => {
 	try {
-		const { data } = await api.post(`/caretakers`);
+		const { data } = await api.post(`/caretakers`, { ...careTaker });
 
+		console.log(data);
 		dispatch({
 			type: POST_CARETAKER,
 			payload: data,

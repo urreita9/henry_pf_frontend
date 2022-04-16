@@ -10,6 +10,8 @@ import {
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Mapa } from '../Map/Mapa';
 import { useDispatch } from 'react-redux';
+import { postCaretaker } from '../../redux/actions/actions';
+import TestCloudinary from '../TestCloudinary';
 // import { Label } from '@mui/icons-material';
 // import { useParams } from 'react-router-dom';
 
@@ -20,11 +22,12 @@ const initialForm = {
 	size: '1',
 	description: 'Hi Im John and I live in...',
 	homeDescription: 'My house has a garden...',
+	rating: 4,
 };
 export const CuidadorForm = () => {
 	const [form, setForm] = useState(initialForm);
 	const [isTouched, setIsTouched] = useState(false);
-	const id = '3b812b23-9734-4770-8ded-989903daeb78';
+	const userId = 'ea7d4494-2170-457a-9aa7-52f90d2ced17';
 	const dispatch = useDispatch();
 	const handleInputChange = (e) => {
 		if (
@@ -50,7 +53,7 @@ export const CuidadorForm = () => {
 		inputprops: { 'aria-label': item },
 	});
 	const onSave = () => {
-		dispatch();
+		dispatch(postCaretaker({ ...form, userId }));
 	};
 
 	return (
@@ -74,6 +77,7 @@ export const CuidadorForm = () => {
 				name='description'
 			/>
 
+			<TestCloudinary />
 			<div>
 				<Typography>Pet size you are able to take care of</Typography>
 				<Radio

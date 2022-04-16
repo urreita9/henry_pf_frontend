@@ -28,8 +28,8 @@ function App() {
 	return (
 		<>
 			<ThemeProvider theme={theme}>
-				<NavBar onToggle={onToggleThemeMode} typeMode={mode} />
 				<Router>
+					<NavBar onToggle={onToggleThemeMode} typeMode={mode} />
 					<Routes>
 						<Route exact path='/' element={<Home />} />
 						<Route exact path='/map' element={<Mapa />} />

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 export const GroupSizesColors = () => {
 	const [form, setForm] = useState({
 		size: '0',
-		price: [0, 100],
+		price: [0, 10000],
 		rating: 2.5,
 	});
 	const [clickState, setClickState] = useState({
