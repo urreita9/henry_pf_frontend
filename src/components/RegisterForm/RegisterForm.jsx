@@ -10,8 +10,10 @@ import {
 import PetsIcon from "@mui/icons-material/Pets";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
 
@@ -22,10 +24,23 @@ const RegisterForm = () => {
     setpassword(event.target.value);
   };
 
-  const submitHandler = (event) => {
-    let data = { email: email, password: password };
-    axios.post("http://localhost:3001/api/users", data);
-    console.log(data);
+  const submitHandler = async (event) => {
+    if (email === "") {
+      event.preventDefault();
+      alert("Complete form correctly");
+    } else {
+      try {
+        let data = { email: email, password: password };
+        const post = await axios.post("http://localhost:3001/api/users", data);
+        if (post.data) {
+          alert("User created");
+          navigate("/login");
+        }
+      } catch (error) {
+        console.log(error);
+        alert("User already exists!");
+      }
+    }
   };
 
   const paperStyle = {
