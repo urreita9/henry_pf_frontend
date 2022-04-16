@@ -25,16 +25,16 @@ const TestCloudinary = () => {
     e.preventDefault();
     if (!previewSource) return;
     //uploadImage(previewSource);
-    dispatch(
-      postUser({
-        email: 'tatata@mail.com',
-        password: '123456',
-        name: 'pepe',
-        lastname: 'pepo',
-        address: '45 68',
-        img: previewSource,
-      })
-    );
+    // dispatch(
+    //   postUser({
+    //     email: 'tatata@mail.com',
+    //     password: '123456',
+    //     name: 'pepe',
+    //     lastname: 'pepo',
+    //     address: '45 68',
+    //     img: previewSource,
+    //   })
+    // );
   };
 
   // const uploadImage = (base64EncodedImage) => {
