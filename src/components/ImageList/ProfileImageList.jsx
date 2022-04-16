@@ -29,7 +29,7 @@ export const ProfileImageList = () => {
 						alt={item.title}
 						loading='lazy'
 						style={{
-							objectFit: 'cover',
+							width: '100%',
 						}}
 					/>
 				</ImageListItem>
@@ -40,21 +40,21 @@ export const ProfileImageList = () => {
 
 const itemData = [
 	{
-		img: 'https://images.pexels.com/photos/2360684/pexels-photo-2360684.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		img: 'https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 		title: 'Breakfast',
 		rows: 2,
 		cols: 2,
 	},
 	{
-		img: 'https://images.pexels.com/photos/1144694/pexels-photo-1144694.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		img: 'https://images.pexels.com/photos/2079246/pexels-photo-2079246.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 		title: 'Burger',
 	},
 	{
-		img: 'https://images.pexels.com/photos/1684911/pexels-photo-1684911.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		img: 'https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 		title: 'Camera',
 	},
 	{
-		img: 'https://images.pexels.com/photos/5638639/pexels-photo-5638639.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+		img: 'https://images.pexels.com/photos/1571453/pexels-photo-1571453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 		title: 'Coffee',
 		cols: 2,
 	},
