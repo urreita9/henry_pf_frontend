@@ -2,6 +2,7 @@ import axios from 'axios';
 export const GET_CARETAKERS = 'GET_CARETAKERS';
 export const GET_CARETAKER_DETAILS = 'GET_CARETAKER_DETAILS';
 export const POST_CARETAKER_QUESTION = 'POST_CARETAKER_QUESTION';
+export const CLEAN_CARETAKER = 'CLEAN_CARETAKER';
 export const FILTER_BY_PET = 'FILTER_BY_PET';
 
 export const getCaretakers = () => async (dispatch) => {
@@ -53,4 +54,8 @@ export const postCaretakerQuestion = (id, question) => async (dispatch) => {
 export const filterByPetSize = (payload) => ({
 	type: FILTER_BY_PET,
 	payload,
+});
+export const cleanCaretaker = () => ({
+	type: CLEAN_CARETAKER,
+	payload: null,
 });

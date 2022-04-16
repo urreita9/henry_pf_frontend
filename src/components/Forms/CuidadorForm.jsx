@@ -9,7 +9,8 @@ import {
 } from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Mapa } from '../Map/Mapa';
-import { Label } from '@mui/icons-material';
+import { useDispatch } from 'react-redux';
+// import { Label } from '@mui/icons-material';
 // import { useParams } from 'react-router-dom';
 
 const initialForm = {
@@ -21,10 +22,10 @@ const initialForm = {
 	homeDescription: 'My house has a garden...',
 };
 export const CuidadorForm = () => {
-	// const { id } = useParams();
 	const [form, setForm] = useState(initialForm);
 	const [isTouched, setIsTouched] = useState(false);
-	// const [form, setForm] = useState({ ...initialForm, id });
+	const id = '3b812b23-9734-4770-8ded-989903daeb78';
+	const dispatch = useDispatch();
 	const handleInputChange = (e) => {
 		if (
 			e.target.name !== 'description' ||
@@ -48,7 +49,9 @@ export const CuidadorForm = () => {
 		name: 'size',
 		inputprops: { 'aria-label': item },
 	});
-	console.log(form);
+	const onSave = () => {
+		dispatch();
+	};
 
 	return (
 		<Box sx={{ marginBottom: 2, paddingX: 2 }}>
@@ -115,15 +118,15 @@ export const CuidadorForm = () => {
 			/>
 
 			<Typography>Put your Marker on the Map</Typography>
-			<div
-				style={{
+			<Box
+				sx={{
 					position: 'relative',
-					maxWidth: '500px',
+					maxWidth: '100%',
 					height: '500px',
 				}}
 			>
 				<Mapa formUse={true} setFormCoords={setForm} form={form} />
-			</div>
+			</Box>
 
 			<TextField
 				fullWidth
@@ -161,7 +164,7 @@ export const CuidadorForm = () => {
 						borderColor: '#F29279',
 					}}
 					endIcon={<SaveOutlinedIcon />}
-					// onClick={onSave}
+					onClick={onSave}
 				>
 					Save
 				</Button>

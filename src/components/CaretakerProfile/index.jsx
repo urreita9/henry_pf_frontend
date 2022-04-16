@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCaretakerDetails } from '../../redux/actions/actions';
+import {
+	cleanCaretaker,
+	getCaretakerDetails,
+} from '../../redux/actions/actions';
 import Questions from '../Questions';
 import CaretakerDescription from '../CaretakerDescription';
 import { useParams } from 'react-router-dom';
@@ -14,6 +17,10 @@ const CaretakerProfile = () => {
 
 	useEffect(() => {
 		dispatch(getCaretakerDetails(id));
+
+		return () => {
+			dispatch(cleanCaretaker());
+		};
 	}, [dispatch]);
 
 	return (

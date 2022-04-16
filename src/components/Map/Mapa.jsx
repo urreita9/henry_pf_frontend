@@ -40,9 +40,21 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 	return (
 		<Map
 			initialViewState={myPoint}
-			style={{ width: '100vw', height: '100vh' }}
+			style={
+				!formUse
+					? { width: '100vw', height: '100vh' }
+					: {
+							width: '100%',
+							height: '100%',
+							position: 'absolut',
+							top: '0',
+							bottom: '0',
+							left: '0',
+							right: '0',
+					  }
+			}
 			mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-			mapStyle='mapbox://styles/franciscourrea/cl20ht8mw000u15swsowhy0m9'
+			mapStyle='mapbox://styles/mapbox/light-v9'
 			onClick={(e) => {
 				if (!formUse) return;
 
