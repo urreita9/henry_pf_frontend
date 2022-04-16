@@ -5,8 +5,15 @@ import cuidadoresReducer from '../reducers/cuidadoresReducer';
 import userReducer from '../reducers/userReducer';
 import themeModeReducer from '../reducers/themeModeReducer';
 
-const reducers = combineReducers({ cuidadoresReducer, userReducer, themeModeReducer });
+const reducers = combineReducers({
+  cuidadoresReducer,
+  userReducer,
+  themeModeReducer,
+});
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(
+  reducers,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 export default store;
