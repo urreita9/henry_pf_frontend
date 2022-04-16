@@ -1,11 +1,14 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
-import React from 'react';
-import { Mapa } from '../Map/Mapa';
-import { MapFilters } from '../MapFilters/MapFilters';
-import NavBar from '../NavBar/NavBar';
-import FilterBar from '../../components/FilterBar/FilterBar';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getCaretakers } from '../../redux/actions/actions';
+import { GroupSizesColors } from '../ButtonGroup/ButtonGroup';
 
 export const Home = () => {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getCaretakers());
+	}, []);
 	return (
 		<Container>
 			<Box
@@ -16,26 +19,22 @@ export const Home = () => {
 					margin: '0 auto',
 				}}
 			>
-				{/* <Box style={{ width: '70%', height: '500px' }}>
-				<Mapa />
-			</div> */}
-				<FilterBar />
-				{/* <MapFilters /> */}
+				<GroupSizesColors />
 			</Box>
 			<Box
 				sx={{
-					backgroundImage: `url(https://images.pexels.com/photos/3299905/pexels-photo-3299905.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)`,
-					backgroundSize: 'contain',
+					backgroundImage: `url(https://media.discordapp.net/attachments/943293732390850604/964687920890007632/Pngtreecontinuous_line_drawing_of_dog_5332973.png?width=716&height=335)`,
+					backgroundSize: 'cover',
 					backgroundPosition: 'center',
 					backgroundRepeat: 'no-repeat',
 					width: '90%',
 					height: '500px',
 					margin: '10px auto',
-					// borderRadius: '50px',
+					borderRadius: '10px',
 					textAlign: 'center',
 				}}
 			>
-				<Typography
+				{/* <Typography
 					variant='h2'
 					component='h3'
 					width='500px'
@@ -43,7 +42,7 @@ export const Home = () => {
 					sx={{ margin: '0 auto', fontWeight: '600' }}
 				>
 					Find the perfect home for your pets while you are away
-				</Typography>
+				</Typography> */}
 			</Box>
 		</Container>
 	);

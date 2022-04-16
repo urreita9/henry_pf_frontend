@@ -18,7 +18,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import { LogoutButton } from '../Logout/Logout';
 
 
-const pages = ['Services', 'Veterinaries', 'Pet shops'];
+const pages = ['Host a Pet!'];
 const settings = [
 	'Profile',
 	'History',
@@ -53,24 +53,25 @@ const NavBar = ({onToggle, typeMode}) => {
 		>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
-					<Typography
-						variant='h6'
-						noWrap
-						component='div'
-						sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-					>
-						<PetsIcon />
-
-						<Button
-							sx={{
-								color: 'white',
-							}}
-							href='/'
-							style={{ marginLeft: '10px' }}
+					<Link to='/' style={{ textDecoration: 'none' }}>
+						<Typography
+							variant='h6'
+							noWrap
+							component='div'
+							sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
 						>
-							PetTrip App
-						</Button>
-					</Typography>
+							<PetsIcon />
+
+							<Button
+								sx={{
+									color: 'white',
+								}}
+								style={{ marginLeft: '10px' }}
+							>
+								PetTrip App
+							</Button>
+						</Typography>
+					</Link>
 
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
 						<IconButton
@@ -102,21 +103,27 @@ const NavBar = ({onToggle, typeMode}) => {
 							}}
 						>
 							{pages.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign='center'>{page}</Typography>
-								</MenuItem>
+								<Link to='/host'>
+									<MenuItem key={page}>
+										<Typography textAlign='center'>{page}</Typography>
+									</MenuItem>
+								</Link>
 							))}
 						</Menu>
 					</Box>
-					<Typography
-						variant='h6'
-						noWrap
-						component='div'
-						sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-					>
-						<PetsIcon />
-						PetTrip App
-					</Typography>
+					<Link to='/' style={{ textDecoration: 'none', flexGrow: 1 }}>
+						{' '}
+						<Typography
+							variant='h6'
+							noWrap
+							component='div'
+							sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+						>
+							<PetsIcon />
+							PetTrip App
+						</Typography>
+					</Link>
+
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 						{pages.map((page) => (
 							<Button
