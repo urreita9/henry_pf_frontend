@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Map, { Marker, Popup, GeolocateControl } from 'react-map-gl';
-import { useSelector } from 'react-redux';
+import Map, {
+  Marker,
+  Popup,
+  GeolocateControl,
+  FullscreenControl,
+  getCaretakerDetails,
+} from 'react-map-gl';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCaretakers } from '../../redux/actions/actions';
 import PopUpData from './PopUpData';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -14,7 +21,7 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
   const [myPoint, setMyPoint] = useState(initialPoint);
   const [popupInfo, setPopupInfo] = useState(null);
   // const [myCoordsInForm, setMyCoordsInForm] = useState(null);
-
+  // const dispatch = useDispatch();
   const cuidadores = useSelector((state) => state.filteredCaretakers);
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -28,13 +35,14 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
       }
     });
   }, []);
+  console.log(cuidadores);
 
   return (
     <Map
       initialViewState={myPoint}
-      style={{ width: '100%', height: '100%' }}
+      style={{ width: '100vw', height: '100vh' }}
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-      mapStyle='mapbox://styles/mapbox/streets-v9'
+      mapStyle='mapbox://styles/franciscourrea/cl20ht8mw000u15swsowhy0m9'
       onClick={(e) => {
         if (!formUse) return;
 
@@ -102,6 +110,7 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 				mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
 				position='top-left'
 			/> */}
+      <FullscreenControl />
     </Map>
   );
 };

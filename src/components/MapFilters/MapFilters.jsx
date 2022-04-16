@@ -2,9 +2,10 @@ import Radio from '@mui/material/Radio';
 import { Typography, Stack, Slider, Box, Rating, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByPetSize } from '../../redux/actions/actions';
+import { filterByPetSize, getCaretakers } from '../../redux/actions/actions';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 const StyledRating = styled(Rating)({
 	'& .MuiRating-iconFilled': {
@@ -23,7 +24,9 @@ export const MapFilters = () => {
 		rating: 2.5,
 	});
 
-	console.log(form);
+	useEffect(() => {
+		dispatch(getCaretakers());
+	}, []);
 	// useEffect(() => {
 	// 	console.log('cuidadores', cuidadores);
 	// }, [cuidadores]);
@@ -123,15 +126,17 @@ export const MapFilters = () => {
 						/>
 					</Stack>
 				</Box>
-				<Button
-					variant='contained'
-					sx={{
-						backgroundColor: '#F29279',
-					}}
-					onClick={handleFilterClick}
-				>
-					Filter
-				</Button>
+				<Link to='/map' style={{ textDecoration: 'none' }}>
+					<Button
+						variant='contained'
+						sx={{
+							backgroundColor: '#F29279',
+						}}
+						onClick={handleFilterClick}
+					>
+						Filter
+					</Button>
+				</Link>
 			</form>
 		</div>
 	);

@@ -16,8 +16,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 import { LoginButton } from '../login/Login';
 import { LogoutButton } from '../Logout/Logout';
-
-// const Link1 = <Link to="/services">Services</Link>;
+import { Link } from 'react-router-dom';
 
 const pages = ['Services', 'Veterinaries', 'Pet shops'];
 const settings = [
@@ -64,7 +63,16 @@ const NavBar = () => {
 						sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
 					>
 						<PetsIcon />
-						PetTrip App
+
+						<Button
+							sx={{
+								color: 'white',
+							}}
+							href='/'
+							style={{ marginLeft: '10px' }}
+						>
+							PetTrip App
+						</Button>
 					</Typography>
 
 					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -130,6 +138,7 @@ const NavBar = () => {
 							<Box sx={{ flexGrow: 0 }}>
 								<Tooltip title='Open settings'>
 									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+										{'Logged as: ' + user.nickname}
 										<Avatar alt={user.name} src={user.picture} />
 									</IconButton>
 								</Tooltip>
@@ -158,7 +167,28 @@ const NavBar = () => {
 							</Box>
 						</>
 					) : (
-						<LoginButton />
+						<>
+							<Button
+								href='/register'
+								sx={{
+									backgroundColor: '#09a11d',
+								}}
+								variant='contained'
+								style={{ marginRight: '5px' }}
+							>
+								Register
+							</Button>
+
+							<Button
+								href='/login'
+								sx={{
+									backgroundColor: '#cc3308',
+								}}
+								variant='contained'
+							>
+								Login
+							</Button>
+						</>
 					)}
 				</Toolbar>
 			</Container>
