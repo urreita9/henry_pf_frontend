@@ -6,6 +6,7 @@ import {
   EDIT_CARETAKER,
   DELETE_CARETAKER,
   FILTER_BY_PET,
+  POST_USER,
 } from '../actions/actions';
 
 const data = [
@@ -140,9 +141,9 @@ const data = [
     size: 0,
   },
   {
-    id: '6ff07721-f66d-45d1-b779-94cfba155860',
+    id: '689f3f13-baa9-4c97-ac5a-2908f92abd57',
     name: 'Matias',
-    img: 'https://images.pexels.com/users/avatars/2848684/mathias-p-r-reding-589.jpeg?auto=compress&fit=crop&h=60&w=60',
+    img: 'https://res.cloudinary.com/pettrip/image/upload/v1650064533/wxtjju9fm7bxu8rre4lh.jpg',
     // description:
     //   'Soy Juan, me gustan los perros, cuido chicos, medianos, grandes, etc etc Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus sit, maiores neque rerum nulla aspernatur dolore provident consectetur dolores harum numquam vitae necessitatibus fugit, iusto pariatur illo eligendi autem iure.',
     price: 1350,
@@ -156,7 +157,7 @@ const data = [
 const initialState = {
   cuidadores: data,
   caretakers: [],
-  filteredCuidadores: data,
+  filteredCaretakers: data,
   cuidador: {},
   caretakerProfile: {},
 };
@@ -183,7 +184,7 @@ const cuidadoresReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        filteredCuidadores: [...filterByRating],
+        filteredCaretakers: [...filterByRating],
       };
 
     case GET_CARETAKERS:
@@ -220,6 +221,11 @@ const cuidadoresReducer = (state = initialState, action) => {
       return {
         ...state,
         caretakers: payload,
+      };
+
+    case POST_USER:
+      return {
+        ...state,
       };
 
     default:
