@@ -7,6 +7,7 @@ export const POST_CARETAKER_QUESTION = 'POST_CARETAKER_QUESTION';
 export const EDIT_CARETAKER = 'EDIT_CARETAKER';
 export const DELETE_CARETAKER = 'DELETE_CARETAKER';
 export const FILTER_BY_PET = 'FILTER_BY_PET';
+export const POST_USER = 'POST_USER';
 
 export const getCaretakers = () => async (dispatch) => {
   try {
@@ -94,3 +95,17 @@ export const filterByPetSize = (payload) => ({
   type: FILTER_BY_PET,
   payload,
 });
+
+// export const postUser = (user) => async (dispatch) => {
+//   console.log(user);
+//   try {
+//     const { data } = await api.post('/users', user);
+
+//     dispatch({
+//       type: POST_USER,
+//       payload: data,
+//     });
+//   } catch (error) {
+//     alert(error);
+//   }
+// };
