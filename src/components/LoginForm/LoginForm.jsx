@@ -25,7 +25,7 @@ export const LoginForm = () => {
   };
 
   const avatarStyle = {
-    backgroundColor: "#f50057", //!  <--- August aca va el color del icono
+    // backgroundColor: "#f50057", //!  <--- August aca va el color del icono
   };
   return (
     <Grid>
