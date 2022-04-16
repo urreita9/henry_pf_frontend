@@ -22,7 +22,7 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
 	const [popupInfo, setPopupInfo] = useState(null);
 	// const [myCoordsInForm, setMyCoordsInForm] = useState(null);
 	// const dispatch = useDispatch();
-	const cuidadores = useSelector((state) => state.filteredCaretakers);
+	const {cuidadores} = useSelector((state) => state.cuidadoresReducer);
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition((pos) => {
 			const crd = pos.coords;

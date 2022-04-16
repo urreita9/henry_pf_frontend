@@ -8,7 +8,7 @@ import { Container, Grid, Typography } from '@mui/material';
 
 const CaretakerProfile = () => {
 	const { id } = useParams();
-	const caretakerProfile = useSelector((state) => state.caretakerProfile);
+	const {caretakerProfile} = useSelector((state) => state.cuidadoresReducer);
 	const dispatch = useDispatch();
 	const { questions } = caretakerProfile;
 

@@ -1,7 +1,7 @@
 import Radio from '@mui/material/Radio';
 import { Typography, Stack, Slider, Box, Rating, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filterByPetSize, getCaretakers } from '../../redux/actions/actions';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { styled } from '@mui/material/styles';

@@ -13,10 +13,10 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import PetsIcon from '@mui/icons-material/Pets';
 import { useAuth0 } from '@auth0/auth0-react';
-
-import { LoginButton } from '../login/Login';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
 import { LogoutButton } from '../Logout/Logout';
-import { Link } from 'react-router-dom';
+
 
 const pages = ['Services', 'Veterinaries', 'Pet shops'];
 const settings = [
@@ -26,7 +26,7 @@ const settings = [
 	<LogoutButton />,
 ];
 
-const NavBar = () => {
+const NavBar = ({onToggle, typeMode}) => {
 	const { user, isAuthenticated } = useAuth0();
 
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -50,9 +50,6 @@ const NavBar = () => {
 	return (
 		<AppBar
 			position='static'
-			sx={{
-				backgroundColor: '#F29278',
-			}}
 		>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
@@ -131,6 +128,14 @@ const NavBar = () => {
 							</Button>
 						))}
 					</Box>
+					<Box>
+						<IconButton onClick={() => {
+							typeMode === 'light' ? onToggle(true) : onToggle(false);
+							}}>
+							{typeMode === 'light'  ? <Brightness7Icon/> : <Brightness4Icon/>}
+						</IconButton>
+
+					</Box>
 					{/* BOX DE USUARIO ⬇ */}
 
 					{isAuthenticated ? (
@@ -171,7 +176,7 @@ const NavBar = () => {
 							<Button
 								href='/register'
 								sx={{
-									backgroundColor: '#09a11d',
+									// backgroundColor: '#09a11d',
 								}}
 								variant='contained'
 								style={{ marginRight: '5px' }}
@@ -182,7 +187,7 @@ const NavBar = () => {
 							<Button
 								href='/login'
 								sx={{
-									backgroundColor: '#cc3308',
+									// backgroundColor: '#cc3308',
 								}}
 								variant='contained'
 							>
