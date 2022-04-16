@@ -14,12 +14,16 @@ import { postCaretaker } from '../../redux/actions/actions';
 import TestCloudinary from '../TestCloudinary';
 
 const initialForm = {
-	lat: null,
-	lng: null,
+	lat: -38.024157,
+	lng: -57.53561,
 	price: 10,
 	size: '1',
 	description: 'Hi Im John and I live in...',
 	homeDescription: 'My house has a garden...',
+	rating: 4,
+	images: [],
+	//image:
+	// 'https://karlaperezyt.com/wp-content/uploads/kui_system/telegram_profiles/2980022.jpg',
 };
 const initialErrors = {
 	lat: null,
@@ -30,13 +34,26 @@ const initialErrors = {
 };
 
 export const CuidadorForm = () => {
+	const MAX_LENGTH = 3;
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState(initialErrors);
 	const [isTouched, setIsTouched] = useState(false);
-	const userId = 'ea7d4494-2170-457a-9aa7-52f90d2ced17';
+	const userId = '38a043a0-e45d-4385-8d28-18a9362d15be';
 	const dispatch = useDispatch();
+	const [fileInputState, setFileInputState] = useState('');
+	const [previewSource, setPreviewSource] = useState('');
+
 	const handleInputChange = (e) => {
-		// setErrors(initialErrors);
+		// if (
+		//   e.target.name !== 'description' ||
+		//   e.target.name !== 'homeDescription'
+		// ) {
+		//   setForm({
+		//     ...form,
+		//     [e.target.name]: parseInt(e.target.value),
+		//     image: previewSource,
+		//   });
+		// }
 		setErrors({
 			...errors,
 			[e.target.name]: null,
@@ -44,8 +61,9 @@ export const CuidadorForm = () => {
 		setForm({
 			...form,
 			[e.target.name]: e.target.value,
+			//image: previewSource,
 		});
-		console.log(errors);
+		console.log(form);
 	};
 
 	const controlProps = (item) => ({
@@ -55,9 +73,8 @@ export const CuidadorForm = () => {
 		name: 'size',
 		inputprops: { 'aria-label': item },
 	});
-
 	const onSave = () => {
-		// Text Fields less than 70 characters
+		//console.log(previewSource);
 		if (form.description.length < 70) {
 			console.log('description < 70');
 			setErrors({
@@ -88,9 +105,40 @@ export const CuidadorForm = () => {
 				homeDescription: 'Home description must be at least 70 characters long',
 			});
 		} else {
+			if (form.images.length !== MAX_LENGTH) return;
 			dispatch(postCaretaker({ ...form, userId }));
 		}
+		{
+			/* console.log(form);
+    
+    dispatch(postCaretaker({ ...form, userId })); */
+		}
 	};
+
+	const handleFileInputChange = (e) => {
+		//const file = e.target.files[0];
+		const files = Array.from(e.target.files);
+		previewFile(files);
+	};
+
+	const previewFile = async (files) => {
+		//reader.readAsDataURL(file);
+		const filesURL = files.map((file) => {
+			const reader = new FileReader();
+			return new Promise((resolve) => {
+				reader.onloadend = (e) => {
+					resolve(e.target.result);
+				};
+				reader.readAsDataURL(file);
+			});
+		});
+		setForm({
+			...form,
+			images: await Promise.all(filesURL),
+		});
+	};
+
+	console.log(form);
 
 	return (
 		<Box sx={{ marginBottom: 2, paddingX: 2 }}>
@@ -118,7 +166,23 @@ export const CuidadorForm = () => {
 				</Box>
 			)}
 
-			<TestCloudinary />
+			{/* <TestCloudinary /> */}
+			<div>
+				{/* <form onSubmit={handleSubmitFile}> */}
+				<input
+					type='file'
+					name='image'
+					onChange={handleFileInputChange}
+					value={fileInputState}
+					multiple
+				/>
+				{/* <button type='submit'>Upload</button> */}
+				{/* </form> */}
+				{form.images?.length &&
+					form.images.map((image) => (
+						<img src={image} alt='img' style={{ height: '300px' }} />
+					))}
+			</div>
 			<div>
 				<Typography>Pet size you are able to take care of</Typography>
 				<Radio
@@ -210,7 +274,6 @@ export const CuidadorForm = () => {
 					{errors.homeDescription}
 				</Box>
 			)}
-
 			<Box display='flex' justifyContent='space-between'>
 				<Button
 					variant='text'
