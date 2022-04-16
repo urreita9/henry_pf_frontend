@@ -1,8 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
-import FilterBar from '../../components/FilterBar/FilterBar';
 import { getCaretakers } from '../../redux/actions/actions';
 import { GroupSizesColors } from '../ButtonGroup/ButtonGroup';
 
@@ -21,12 +19,7 @@ export const Home = () => {
 					margin: '0 auto',
 				}}
 			>
-				{/* <Box style={{ width: '70%', height: '500px' }}>
-				<Mapa />
-			</div> */}
 				<GroupSizesColors />
-				{/* <FilterBar /> */}
-				{/* <MapFilters /> */}
 			</Box>
 			<Box
 				sx={{

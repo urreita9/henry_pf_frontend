@@ -2,7 +2,6 @@ import Button from '@mui/material/Button';
 import { Box, ButtonGroup } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useState } from 'react';
-import { MapFilters } from '../MapFilters/MapFilters';
 import { SizeFilter } from '../MapFilters/SizeFilter';
 import { PriceFilter } from '../MapFilters/PriceFilter';
 import { RatingFilter } from '../MapFilters/RatingFilter';
