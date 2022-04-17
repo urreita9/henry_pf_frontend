@@ -17,7 +17,13 @@ const initialPoint = {
   zoom: 3,
 };
 
-export const Mapa = ({ formUse = false, setFormCoords, form }) => {
+export const Mapa = ({
+  formUse = false,
+  setFormCoords,
+  form,
+  setErrors,
+  errors,
+}) => {
   const [myPoint, setMyPoint] = useState(initialPoint);
   const [popupInfo, setPopupInfo] = useState(null);
   // const [myCoordsInForm, setMyCoordsInForm] = useState(null);
@@ -65,7 +71,10 @@ export const Mapa = ({ formUse = false, setFormCoords, form }) => {
       mapStyle="mapbox://styles/mapbox/light-v9"
       onClick={(e) => {
         if (!formUse) return;
-
+        setErrors({
+          ...errors,
+          lat: null,
+        });
         setFormCoords({
           ...form,
           lng: e.lngLat.lng,
