@@ -18,7 +18,6 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 
 import { Link } from "react-router-dom";
-import { HostLinkButton } from "../LinkToHostButton/HostLinkButton";
 
 const pages = ["HOST A PET!"];
 const settings = ["Profile", "History", "CareTaker Dashboard"];

@@ -123,9 +123,16 @@ export const CuidadorForm = () => {
 
   return (
     <>
-      <Box sx={{ marginBottom: 2, paddingX: 2 }}>
+      <Box
+        sx={{
+          marginBottom: 2,
+          paddingX: 2,
+          marginTop: "40px",
+          textAlign: "center",
+        }}
+      >
         <Typography variant="h4">
-          Fill in this form and start recievieng pets!
+          Fill in this form and start recievieng pets! 📃
         </Typography>
         <TextField
           fullWidth
