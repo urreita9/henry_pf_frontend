@@ -38,10 +38,10 @@ export const CuidadorForm = () => {
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState(initialErrors);
 	const [isTouched, setIsTouched] = useState(false);
-	const userId = '1550f85d-b8e2-4c27-a01c-7dd6f97d3395';
+	const userId = '39288c4f-757a-4f9d-8ae6-5de8cbdefcfc';
 	const dispatch = useDispatch();
 	const [fileInputState, setFileInputState] = useState('');
-	const [previewSource, setPreviewSource] = useState('');
+	// const [previewSource, setPreviewSource] = useState('');
 
 	const handleInputChange = (e) => {
 		setErrors({

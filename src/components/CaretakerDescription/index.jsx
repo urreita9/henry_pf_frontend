@@ -67,10 +67,11 @@ const CaretakerDescription = ({
 						justifyContent: 'space-between',
 						alignItems: 'center',
 					}}
+					// width={300}
 				>
 					<Typography variant='h4' component='h2'>
-						{/* {name} */}
-						Juan
+						{name}
+						{/* Juan */}
 					</Typography>
 					<Avatar
 						alt='Remy Sharp'
@@ -80,7 +81,12 @@ const CaretakerDescription = ({
 					/>
 				</Box>
 
-				<Typography variant='p'> {description} </Typography>
+				<Box>
+					<Typography variant='body1' style={{ overflowWrap: 'break-word' }}>
+						{description}
+					</Typography>
+				</Box>
+
 				<br></br>
 				<StyledRating
 					name='half-rating-read'
@@ -90,6 +96,7 @@ const CaretakerDescription = ({
 					icon={<PetsOutlinedIcon fontSize='inherit' />}
 					emptyIcon={<PetsOutlinedIcon fontSize='inherit' />}
 				/>
+
 				<Box
 					sx={{
 						display: 'flex',
@@ -119,7 +126,9 @@ const CaretakerDescription = ({
 						</Typography>
 					</ListItem>
 				</List>
-				<Typography variant='p'>{homeDescription}</Typography>
+				<Typography variant='body2' style={{ overflowWrap: 'break-word' }}>
+					{homeDescription}
+				</Typography>
 			</Grid>
 
 			<Grid
