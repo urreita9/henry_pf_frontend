@@ -12,7 +12,6 @@ import { Mapa } from "../Map/Mapa";
 import { useDispatch } from "react-redux";
 import { postCaretaker } from "../../redux/actions/actions";
 import TestCloudinary from "../../components/TestCloudinary/index";
-import NavBar from "../../components/NavBar/NavBar";
 
 const initialForm = {
   lat: null,
@@ -124,7 +123,6 @@ export const CuidadorForm = () => {
 
   return (
     <>
-      <NavBar />
       <Box sx={{ marginBottom: 2, paddingX: 2 }}>
         <Typography variant="h4">
           Fill in this form and start recievieng pets!
