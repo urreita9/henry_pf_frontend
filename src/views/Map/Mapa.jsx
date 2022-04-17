@@ -67,7 +67,7 @@ export const Mapa = ({
               right: "0",
             }
       }
-      mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+      mapboxAccessToken="pk.eyJ1IjoiZGVua283IiwiYSI6ImNsMXpkamFzMDBscXUzY3FkZHFsZmJhd2gifQ.5o2boAHW6-837CDMqjioWQ"
       mapStyle="mapbox://styles/mapbox/light-v9"
       onClick={(e) => {
         if (!formUse) return;

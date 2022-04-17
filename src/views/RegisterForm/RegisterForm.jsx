@@ -38,7 +38,7 @@ const RegisterForm = () => {
         }
       } catch (error) {
         console.log(error);
-        alert("User already exists!");
+        alert("Email alredy registered!");
       }
     }
   };
