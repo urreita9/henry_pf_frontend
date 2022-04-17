@@ -81,7 +81,7 @@ export const GroupSizesColors = () => {
 		});
 		// setSelectedValue(event.target.value);
 	};
-	console.log(form);
+	// console.log(form);
 	return (
 		<Box
 			sx={{
