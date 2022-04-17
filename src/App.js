@@ -9,38 +9,37 @@ import { LoginForm } from './views/LoginForm/LoginForm';
 import { CuidadorForm } from './views/Forms/CuidadorForm';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import modeThemePalette from './assets/mui-theme-config/theme-mui';
+import UserProfile from './views/UserProfile/UserProfile';
 
 function App() {
-	const [mode, setMode] = useState('light');
+    const [mode, setMode] = useState('light');
 
-	useEffect(() => {}, [mode]);
+    useEffect(() => {}, [mode]);
 
-	const theme = React.useMemo(
-		() => createTheme(modeThemePalette(mode)),
-		[mode]
-	);
+    const theme = React.useMemo(() => createTheme(modeThemePalette(mode)), [mode]);
 
-	function onToggleThemeMode(typeMode) {
-		console.log(typeMode);
-		typeMode ? setMode('dark') : setMode('light');
-	}
+    function onToggleThemeMode(typeMode) {
+        console.log(typeMode);
+        typeMode ? setMode('dark') : setMode('light');
+    }
 
-	return (
-		<>
-			<ThemeProvider theme={theme}>
-				<Router>
-					<NavBar onToggle={onToggleThemeMode} typeMode={mode} />
-					<Routes>
-						<Route exact path='/' element={<Home />} />
-						<Route exact path='/map' element={<Mapa />} />
-						<Route exact path='/register' element={<RegisterForm />} />
-						<Route exact path='/login' element={<LoginForm />} />
-						<Route exact path='/caretaker/:id' element={<CaretakerProfile />} />
-						<Route exact path='/host' element={<CuidadorForm />} />
-					</Routes>
-				</Router>
-			</ThemeProvider>
-		</>
-	);
+    return (
+        <>
+            <ThemeProvider theme={theme}>
+                <Router>
+                    <NavBar onToggle={onToggleThemeMode} typeMode={mode} />
+                    <Routes>
+                        <Route exact path='/' element={<Home />} />
+                        <Route exact path='/map' element={<Mapa />} />
+                        <Route exact path='/register' element={<RegisterForm />} />
+                        <Route exact path='/login' element={<LoginForm />} />
+                        <Route exact path='/caretaker/:id' element={<CaretakerProfile />} />
+                        <Route exact path='/host' element={<CuidadorForm />} />
+                        <Route exact path='/profile' element={<UserProfile />} />
+                    </Routes>
+                </Router>
+            </ThemeProvider>
+        </>
+    );
 }
 export default App;

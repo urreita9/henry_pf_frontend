@@ -12,114 +12,119 @@ export const POST_USER = 'POST_USER';
 export const GET_USER = 'GET_USER';
 
 export const getCaretakers = () => async (dispatch) => {
-	try {
-		const { data } = await api.get(`/caretakers`);
-		console.log(data);
-		dispatch({
-			type: GET_CARETAKERS,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+    try {
+        const { data } = await api.get(`/caretakers`);
+        console.log(data);
+        dispatch({
+            type: GET_CARETAKERS,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const getCaretakerDetails = (id) => async (dispatch) => {
-	try {
-		const { data } = await api.get(`/caretakers/${id}`);
+    try {
+        const { data } = await api.get(`/caretakers/${id}`);
 
-		dispatch({
-			type: GET_CARETAKER_DETAILS,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: GET_CARETAKER_DETAILS,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const postCaretaker = (careTaker) => async (dispatch) => {
-	try {
-		const { data } = await api.post(`/caretakers`, { ...careTaker });
+    try {
+        const { data } = await api.post(`/caretakers`, { ...careTaker });
 
-		console.log(data);
-		dispatch({
-			type: POST_CARETAKER,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        console.log(data);
+        dispatch({
+            type: POST_CARETAKER,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const postCaretakerQuestion = (id, question) => async (dispatch) => {
-	try {
-		const { data } = await api.post(`/caretakers/question/${id}`, {
-			question,
-		});
+    try {
+        const { data } = await api.post(`/caretakers/question/${id}`, {
+            question,
+        });
 
-		dispatch({
-			type: POST_CARETAKER_QUESTION,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: POST_CARETAKER_QUESTION,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const editCaretaker = (id, caretaker) => async (dispatch) => {
-	try {
-		const { data } = await api.put(`/caretakers/${id}`, {
-			caretaker,
-		});
+    try {
+        const { data } = await api.put(`/caretakers/${id}`, {
+            caretaker,
+        });
 
-		dispatch({
-			type: EDIT_CARETAKER,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: EDIT_CARETAKER,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const deleteCaretaker = (id) => async (dispatch) => {
-	try {
-		const { data } = await api.delete(`/caretakers/${id}`);
+    try {
+        const { data } = await api.delete(`/caretakers/${id}`);
 
-		dispatch({
-			type: DELETE_CARETAKER,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: DELETE_CARETAKER,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const filterByPetSize = (payload) => ({
-	type: FILTER_BY_PET,
-	payload,
+    type: FILTER_BY_PET,
+    payload,
 });
 
-export const getUser = (id) => async (dispatch) => {
-	try {
-		const { data } = await api.get(`/users/${id}`);
+export const getUser = (token, id) => async (dispatch) => {
+    try {
+        const { data } = await api.get(`/users/userjwt/jwt`, {
+            headers: {
+                'x-token': token,
+                uid: id,
+            },
+        });
 
-		dispatch({
-			type: GET_USER,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: GET_USER,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export default function setThemeMode(payload) {
-	return {
-		type: SET_THEME_MODE,
-		payload,
-	};
+    return {
+        type: SET_THEME_MODE,
+        payload,
+    };
 }
 
 export const cleanCaretaker = () => ({
-	type: CLEAN_CARETAKER,
-	payload: null,
+    type: CLEAN_CARETAKER,
+    payload: null,
 });
