@@ -95,9 +95,13 @@ const NavBar = ({ onToggle, typeMode }) => {
             >
               {pages.map((page) => (
                 <Link to="/host" key={page}>
-                  <MenuItem>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {page}
+                  </Button>
                 </Link>
               ))}
             </Menu>
