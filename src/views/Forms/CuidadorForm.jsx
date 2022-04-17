@@ -14,8 +14,8 @@ import { postCaretaker } from '../../redux/actions/actions';
 import TestCloudinary from '../../components/TestCloudinary/index';
 
 const initialForm = {
-	lat: -38.024157,
-	lng: -57.53561,
+	lat: null,
+	lng: null,
 	price: 10,
 	size: '1',
 	description: 'Hi Im John and I live in...',
@@ -38,22 +38,12 @@ export const CuidadorForm = () => {
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState(initialErrors);
 	const [isTouched, setIsTouched] = useState(false);
-	const userId = '38a043a0-e45d-4385-8d28-18a9362d15be';
+	const userId = '1550f85d-b8e2-4c27-a01c-7dd6f97d3395';
 	const dispatch = useDispatch();
 	const [fileInputState, setFileInputState] = useState('');
 	const [previewSource, setPreviewSource] = useState('');
 
 	const handleInputChange = (e) => {
-		// if (
-		//   e.target.name !== 'description' ||
-		//   e.target.name !== 'homeDescription'
-		// ) {
-		//   setForm({
-		//     ...form,
-		//     [e.target.name]: parseInt(e.target.value),
-		//     image: previewSource,
-		//   });
-		// }
 		setErrors({
 			...errors,
 			[e.target.name]: null,
@@ -61,7 +51,6 @@ export const CuidadorForm = () => {
 		setForm({
 			...form,
 			[e.target.name]: e.target.value,
-			//image: previewSource,
 		});
 		console.log(form);
 	};
@@ -74,7 +63,6 @@ export const CuidadorForm = () => {
 		inputprops: { 'aria-label': item },
 	});
 	const onSave = () => {
-		//console.log(previewSource);
 		if (form.description.length < 70) {
 			console.log('description < 70');
 			setErrors({
@@ -108,11 +96,6 @@ export const CuidadorForm = () => {
 			if (form.images.length !== MAX_LENGTH) return;
 			dispatch(postCaretaker({ ...form, userId }));
 		}
-		{
-			/* console.log(form);
-    
-    dispatch(postCaretaker({ ...form, userId })); */
-		}
 	};
 
 	const handleFileInputChange = (e) => {
@@ -137,8 +120,6 @@ export const CuidadorForm = () => {
 			images: await Promise.all(filesURL),
 		});
 	};
-
-	console.log(form);
 
 	return (
 		<Box sx={{ marginBottom: 2, paddingX: 2 }}>
@@ -166,9 +147,9 @@ export const CuidadorForm = () => {
 				</Box>
 			)}
 
-			{/* <TestCloudinary /> */}
 			<div>
-				{/* <form onSubmit={handleSubmitFile}> */}
+				<label htmlFor='file'>Choose 3 pictures that describes your home</label>
+				<br />
 				<input
 					type='file'
 					name='image'
