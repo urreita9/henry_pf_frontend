@@ -77,6 +77,7 @@ export const LoginForm = () => {
 					fullWidth
 					required
 					onChange={userChangeHandler}
+					sx={{ marginTop: '30px' }}
 				/>
 				<TextField
 					label='Password'
@@ -85,6 +86,7 @@ export const LoginForm = () => {
 					required
 					type='password'
 					onChange={passwordChangeHandler}
+					sx={{ marginTop: '30px' }}
 				/>
 				<FormControlLabel
 					control={
@@ -106,9 +108,14 @@ export const LoginForm = () => {
 				>
 					Sign in
 				</Button>
-				<Typography>
-					<Link href='register'>Don't have an account?</Link>
-				</Typography>
+
+				<Button
+					onClick={() => {
+						navigate('/register');
+					}}
+				>
+					Don't have an account?
+				</Button>
 			</Paper>
 		</Grid>
 	);

@@ -69,7 +69,9 @@ const RegisterForm = () => {
 					fullWidth
 					required
 					onChange={userChangeHandler}
+					sx={{ marginTop: '30px' }}
 				/>
+
 				<TextField
 					label='Password'
 					placeholder='Enter password'
@@ -77,6 +79,7 @@ const RegisterForm = () => {
 					required
 					type='password'
 					onChange={passwordChangeHandler}
+					sx={{ marginTop: '30px' }}
 				/>
 
 				<Button
@@ -89,9 +92,13 @@ const RegisterForm = () => {
 				>
 					Register
 				</Button>
-				<Typography>
-					<Link href='/login'>Alredy have and account?</Link>
-				</Typography>
+				<Button
+					onClick={() => {
+						navigate('/login');
+					}}
+				>
+					Already have an account?
+				</Button>
 			</Paper>
 		</Grid>
 	);

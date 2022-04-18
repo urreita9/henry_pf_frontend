@@ -60,6 +60,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 		localStorage.clear();
 		dispatch(LogoutAction());
 		dispatch(clearUser());
+		navigate('/');
 	};
 
 	React.useEffect(() => {
