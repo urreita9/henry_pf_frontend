@@ -4,10 +4,13 @@ import PetsIcon from '@mui/icons-material/Pets';
 // import { useNavigate } from "react-router-dom";
 // import { login } from "./login";
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { LoginAction } from '../../redux/actions/actions';
 const changeHandler = (e) => {};
 
 export const LoginForm = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     // const [check, setCheck] = useState(null); que no expire el token
     const [email, setEmail] = useState('');
@@ -26,6 +29,7 @@ export const LoginForm = () => {
             .then((res) => {
                 localStorage.setItem('token', res.data.token);
                 localStorage.setItem('uid', res.data.id);
+                dispatch(LoginAction());
                 navigate('/profile');
             })
             .catch((err) => {
