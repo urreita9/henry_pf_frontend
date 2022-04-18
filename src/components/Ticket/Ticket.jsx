@@ -51,7 +51,9 @@ const TicketCard = ({ price, datesRange }) => {
 							{datesRange[0].endDate.getFullYear()}
 						</Typography>
 						<Typography sx={{ mb: 1 }} color='text.secondary'>
-							${price} x {timeLapse} nights
+							{timeLapse === 1
+								? `$${price} x ${timeLapse} night`
+								: `$${price} x ${timeLapse} nights`}
 						</Typography>
 						<Typography sx={{ mb: 1 }} color='text.secondary'>
 							2% Cleaning fee

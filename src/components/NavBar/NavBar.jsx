@@ -28,6 +28,7 @@ import {
 } from '../../redux/actions/actions';
 import { LocalSeeTwoTone } from '@mui/icons-material';
 import { GroupSizesColors } from '../ButtonGroup/ButtonGroup';
+import { borderRadius } from '@mui/system';
 
 const pages = ['HOST A PET!'];
 const settings = ['Profile', 'History', 'CareTaker Dashboard'];
@@ -163,6 +164,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 								alignItems: 'center',
 								margin: '0 auto',
 								backgroundColor: 'white',
+								borderRadius: '50px',
 							}}
 						>
 							<GroupSizesColors />
