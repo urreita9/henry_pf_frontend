@@ -12,6 +12,7 @@ import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Mapa } from '../Map/Mapa';
 import { useDispatch, useSelector } from 'react-redux';
 import { postCaretaker } from '../../redux/actions/actions';
+import { ModalUi } from '../../components/Modal/ModalUi';
 
 const initialForm = {
 	lat: null,
@@ -39,9 +40,10 @@ export const CuidadorForm = () => {
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState(initialErrors);
 	const [isTouched, setIsTouched] = useState(false);
-
+	const [modalOpen, setModalOpen] = useState(false);
 	const [fileInputState, setFileInputState] = useState('');
 	const { user, logged } = useSelector((state) => state.userReducer);
+	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -53,6 +55,12 @@ export const CuidadorForm = () => {
 			setForm(initialForm);
 		};
 	}, [logged]);
+
+	// useEffect(() => {
+	// 	if (caretakerProfile.hasOwnProperty('id')) {
+	// 		navigate(`/caretaker/${caretakerProfile.id}`);
+	// 	}
+	// }, [caretakerProfile]);
 
 	const handleInputChange = (e) => {
 		setErrors({
@@ -111,6 +119,7 @@ export const CuidadorForm = () => {
 		} else {
 			if (form.images.length !== MAX_LENGTH) return;
 			dispatch(postCaretaker({ ...form, userId: user.id }));
+			setModalOpen(true);
 		}
 	};
 
@@ -143,6 +152,13 @@ export const CuidadorForm = () => {
 
 	return (
 		<>
+			{modalOpen && (
+				<ModalUi
+					modalOpen={modalOpen}
+					setModalOpen={setModalOpen}
+					id={caretakerProfile.id}
+				/>
+			)}
 			<Box sx={{ marginBottom: 2, paddingX: 2 }}>
 				<Typography variant='h4'>
 					Fill in this form and start recievieng pets!
