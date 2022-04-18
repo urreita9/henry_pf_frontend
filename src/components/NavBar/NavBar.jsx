@@ -17,7 +17,7 @@ import PetsIcon from '@mui/icons-material/Pets';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../axios';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -27,6 +27,7 @@ import {
 	LogoutAction,
 } from '../../redux/actions/actions';
 import { LocalSeeTwoTone } from '@mui/icons-material';
+import { GroupSizesColors } from '../ButtonGroup/ButtonGroup';
 
 const pages = ['HOST A PET!'];
 const settings = ['Profile', 'History', 'CareTaker Dashboard'];
@@ -41,6 +42,9 @@ const NavBar = ({ onToggle, typeMode }) => {
 	const user = useSelector((state) => state.userReducer.user);
 	const logged = useSelector((state) => state.userReducer.logged);
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	console.log(location);
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
 	};
@@ -151,6 +155,19 @@ const NavBar = ({ onToggle, typeMode }) => {
 								))}
 						</Menu>
 					</Box>
+					{location.pathname === '/map' && (
+						<Box
+							sx={{
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'center',
+								margin: '0 auto',
+								backgroundColor: 'white',
+							}}
+						>
+							<GroupSizesColors />
+						</Box>
+					)}
 					{/* <Link to='/' style={{ textDecoration: 'none', flexGrow: 1 }}> */}
 					<Typography
 						variant='h6'
