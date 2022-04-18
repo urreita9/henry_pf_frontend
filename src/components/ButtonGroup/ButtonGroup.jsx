@@ -7,7 +7,7 @@ import { PriceFilter } from '../MapFilters/PriceFilter';
 import { RatingFilter } from '../MapFilters/RatingFilter';
 import { useDispatch } from 'react-redux';
 import { filterByPetSize } from '../../redux/actions/actions';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const GroupSizesColors = () => {
 	const [form, setForm] = useState({
@@ -21,9 +21,11 @@ export const GroupSizesColors = () => {
 		rating: false,
 	});
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const handleFilterClick = () => {
 		dispatch(filterByPetSize(form));
+		navigate('/map');
 	};
 	const buttons = [
 		<Button
@@ -35,6 +37,7 @@ export const GroupSizesColors = () => {
 					rating: false,
 				});
 			}}
+			sx={{ borderTopLeftRadius: '50px', borderBottomLeftRadius: '50px' }}
 		>
 			Size
 		</Button>,
@@ -62,9 +65,23 @@ export const GroupSizesColors = () => {
 		>
 			Rating
 		</Button>,
-		<Link to='/map' key='four' style={{ textDecoration: 'none' }}>
-			<Button endIcon={<SearchOutlinedIcon />} onClick={handleFilterClick} />
-		</Link>,
+
+		<Button
+			// endIcon={<SearchOutlinedIcon sx={{ color: '#FEFBFA' }} />}
+			onClick={handleFilterClick}
+			sx={{
+				textAlign: 'center',
+				backgroundColor: '#F29278',
+				borderTopRightRadius: '50px',
+				borderBottomRightRadius: '50px',
+				color: '#FEFBFA',
+				'&:hover': {
+					color: '#F29278',
+				},
+			}}
+		>
+			<SearchOutlinedIcon />
+		</Button>,
 	];
 
 	const handleChange = (event) => {

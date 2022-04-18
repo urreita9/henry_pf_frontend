@@ -20,7 +20,7 @@ export const SizeFilter = ({ handleChange, form }) => {
 		>
 			<CardContent sx={{ textAlign: 'center' }}>
 				<Typography variant='body1' sx={{ textAlign: 'center' }}>
-					Size
+					Choose your pet size: small, medium or big
 				</Typography>
 			</CardContent>
 

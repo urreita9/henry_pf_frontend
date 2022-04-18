@@ -21,6 +21,9 @@ export const Home = () => {
 			>
 				<GroupSizesColors />
 			</Box>
+			<Typography variant='h2' component='h1' sx={{ textAlign: 'center' }}>
+				✈️Are you traveling?🌎
+			</Typography>
 			<Box
 				sx={{
 					backgroundImage: `url(https://media.discordapp.net/attachments/943293732390850604/964687920890007632/Pngtreecontinuous_line_drawing_of_dog_5332973.png?width=716&height=335)`,
@@ -44,6 +47,9 @@ export const Home = () => {
 					Find the perfect home for your pets while you are away
 				</Typography> */}
 			</Box>
+			<Typography variant='h2' sx={{ textAlign: 'center' }}>
+				Find the best place for your pet!
+			</Typography>
 		</Container>
 	);
 };

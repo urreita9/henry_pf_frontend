@@ -20,7 +20,7 @@ const initialForm = {
 	size: '1',
 	description: 'Hi Im John and I live in...',
 	homeDescription: 'My house has a garden...',
-	rating: 4,
+	rating: 3.5,
 	images: [],
 	//image:
 	// 'https://karlaperezyt.com/wp-content/uploads/kui_system/telegram_profiles/2980022.jpg',
@@ -31,6 +31,7 @@ const initialErrors = {
 	size: null,
 	description: null,
 	homeDescription: null,
+	images: null,
 };
 
 export const CuidadorForm = () => {
@@ -38,7 +39,7 @@ export const CuidadorForm = () => {
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState(initialErrors);
 	const [isTouched, setIsTouched] = useState(false);
-	const userId = '39288c4f-757a-4f9d-8ae6-5de8cbdefcfc';
+	const userId = 'aeb7a76c-d0a8-4fd4-a820-52639e66ae3e';
 	const dispatch = useDispatch();
 	const [fileInputState, setFileInputState] = useState('');
 	// const [previewSource, setPreviewSource] = useState('');
@@ -82,6 +83,11 @@ export const CuidadorForm = () => {
 				...errors,
 				lat: 'Must out marker in Map showing your aproximate location',
 			});
+		} else if (!form.images.length || form.images.length !== 3) {
+			setErrors({
+				...errors,
+				images: 'Must select three images',
+			});
 		} else if (!form.homeDescription.trim(' ').length) {
 			setErrors({
 				...errors,
@@ -114,6 +120,10 @@ export const CuidadorForm = () => {
 				};
 				reader.readAsDataURL(file);
 			});
+		});
+		setErrors({
+			...errors,
+			images: null,
 		});
 		setForm({
 			...form,
@@ -163,7 +173,21 @@ export const CuidadorForm = () => {
 					form.images.map((image) => (
 						<img src={image} alt='img' style={{ height: '300px' }} />
 					))}
+				{form.images?.length && (
+					<>
+						<br></br>
+						<Button onClick={() => setForm({ ...form, images: [] })}>
+							Delete
+						</Button>
+					</>
+				)}
 			</div>
+			{errors.images && (
+				<Box color='red' textAlign='center'>
+					{errors.images}
+				</Box>
+			)}
+
 			<div>
 				<Typography>Pet size you are able to take care of</Typography>
 				<Radio

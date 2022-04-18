@@ -27,7 +27,7 @@ export const PriceFilter = ({ handleChange, form }) => {
 					variant='body1'
 					sx={{ textAlign: 'center', fontWeight: '700px' }}
 				>
-					Price
+					Choose your price range
 				</Typography>
 			</CardContent>
 			{/* <CardActions> */}

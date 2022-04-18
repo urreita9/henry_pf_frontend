@@ -40,6 +40,7 @@ export const ProfileImageList = ({ images }) => {
 			});
 		}
 	}
+
 	return (
 		<ImageList
 			sx={{ width: '100%', height: 246 }}
