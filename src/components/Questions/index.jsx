@@ -1,7 +1,7 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { postCaretakerQuestion } from '../../redux/actions/actions';
 import Question from '../Question';
 import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
@@ -15,6 +15,8 @@ const Questions = ({ questions }) => {
 	const [inputQuestion, setInputQuestion] = useState({
 		question: '',
 	});
+	const { logged } = useSelector((state) => state.userReducer);
+	const navigate = useNavigate();
 
 	const handleOnChange = (e) => {
 		//console.log(input);
@@ -67,14 +69,19 @@ const Questions = ({ questions }) => {
 							variant='outlined'
 							color='secondary'
 							// endIcon={<QuestionMarkOutlinedIcon />}
-							onClick={handleOnClick}
+							onClick={() => {
+								if (!logged) {
+									navigate('/login');
+									return;
+								}
+								handleOnClick();
+							}}
 							sx={{
 								borderColor: '#F29278',
 								color: '#F29278',
 							}}
 						>
-							<Typography variant='p'>ASK</Typography>
-
+							ASK
 							{/* <QuestionMarkOutlinedIcon sx={{ fontSize: 'medium' }} /> */}
 						</Button>
 					</Box>

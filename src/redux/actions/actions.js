@@ -10,6 +10,9 @@ export const CLEAN_CARETAKER = 'CLEAN_CARETAKER';
 export const FILTER_BY_PET = 'FILTER_BY_PET';
 export const POST_USER = 'POST_USER';
 export const GET_USER = 'GET_USER';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+export const CLEAR_USER = 'CLEAR_USER';
 
 export const getCaretakers = () => async (dispatch) => {
 	try {
@@ -99,16 +102,26 @@ export const filterByPetSize = (payload) => ({
 	payload,
 });
 
-export const getUser = (id) => async (dispatch) => {
+export const getUser = (token, id) => async (dispatch) => {
 	try {
-		const { data } = await api.get(`/users/${id}`);
+		const { data } = await api.get(`/users/userjwt/jwt`, {
+			headers: {
+				'x-token': token,
+				uid: id,
+			},
+		});
 
 		dispatch({
 			type: GET_USER,
 			payload: data,
 		});
 	} catch (error) {
-		alert(error);
+		const data = error.response;
+		console.log('reducer getUser', data);
+		dispatch({
+			type: GET_USER,
+			payload: data,
+		});
 	}
 };
 
@@ -122,4 +135,19 @@ export default function setThemeMode(payload) {
 export const cleanCaretaker = () => ({
 	type: CLEAN_CARETAKER,
 	payload: null,
+});
+
+export const LoginAction = () => ({
+	type: LOGIN,
+	payload: null,
+});
+
+export const LogoutAction = () => ({
+	type: LOGOUT,
+	payload: null,
+});
+
+export const clearUser = () => ({
+	type: CLEAR_USER,
+	payload: {},
 });

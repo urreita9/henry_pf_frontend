@@ -11,12 +11,16 @@ import {
 	Typography,
 } from '@mui/material';
 import { DateRange } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const TicketCard = ({ price, datesRange }) => {
 	const timeLapse = intervalToDuration({
 		start: new Date(datesRange[0].startDate),
 		end: new Date(datesRange[0].endDate),
 	}).days;
+	const { logged } = useSelector((state) => state.userReducer);
+	const navigate = useNavigate();
 
 	// const dates = `${datesRange[0].startDate.getMonth()}/${datesRange[0].startDate.getDate()}/${datesRange[0].startDate.getFullYear()} - ${datesRange[0].endDate.getMonth()}/${datesRange[0].endDate.getDate()}/${datesRange[0].endDate.getFullYear()}`;
 	console.log(datesRange);
@@ -71,6 +75,11 @@ const TicketCard = ({ price, datesRange }) => {
 						variant='contained'
 						size='medium'
 						sx={{ backgroundColor: '#F29278' }}
+						onClick={() => {
+							if (!logged) {
+								navigate('/login');
+							}
+						}}
 					>
 						Checkout
 					</Button>

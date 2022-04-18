@@ -12,8 +12,10 @@ import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { styled } from '@mui/material/styles';
 import { Calendar } from '../Calendar/Calendar';
 import { Ticket } from '../Ticket/Ticket';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ProfileImageList } from '../ImageList/ProfileImageList';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const StyledRating = styled(Rating)({
 	'& .MuiRating-iconFilled': {
@@ -37,6 +39,23 @@ const CaretakerDescription = ({
 		},
 	]);
 
+	const namesArray = [
+		'John',
+		'Paul',
+		'George',
+		'Ringo',
+		'Anna',
+		'Sophie',
+		'Laura',
+		'Veronica',
+		'Claude',
+		'Mick',
+		'Keith',
+		'Ron',
+	];
+	const mockedName = namesArray[Math.floor(Math.random() * namesArray.length)];
+	// console.log('desc images', images);
+	// const nameUppercase = name.charAt(0).toUpperCase() + name.slice(1);
 	return (
 		<>
 			{images?.length && (
@@ -62,7 +81,7 @@ const CaretakerDescription = ({
 					// width={300}
 				>
 					<Typography variant='h4' component='h2'>
-						{name}
+						{mockedName}
 						{/* Juan */}
 					</Typography>
 					<Avatar

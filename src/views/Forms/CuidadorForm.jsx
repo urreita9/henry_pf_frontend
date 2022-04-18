@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
 	Box,
 	Button,
@@ -9,9 +10,8 @@ import {
 } from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 import { Mapa } from '../Map/Mapa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postCaretaker } from '../../redux/actions/actions';
-import TestCloudinary from '../../components/TestCloudinary/index';
 
 const initialForm = {
 	lat: null,
@@ -39,10 +39,20 @@ export const CuidadorForm = () => {
 	const [form, setForm] = useState(initialForm);
 	const [errors, setErrors] = useState(initialErrors);
 	const [isTouched, setIsTouched] = useState(false);
-	const userId = 'aeb7a76c-d0a8-4fd4-a820-52639e66ae3e';
-	const dispatch = useDispatch();
+
 	const [fileInputState, setFileInputState] = useState('');
-	// const [previewSource, setPreviewSource] = useState('');
+	const { user, logged } = useSelector((state) => state.userReducer);
+
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	useEffect(() => {
+		if (!logged) {
+			navigate('/');
+		}
+		return () => {
+			setForm(initialForm);
+		};
+	}, [logged]);
 
 	const handleInputChange = (e) => {
 		setErrors({
@@ -100,7 +110,7 @@ export const CuidadorForm = () => {
 			});
 		} else {
 			if (form.images.length !== MAX_LENGTH) return;
-			dispatch(postCaretaker({ ...form, userId }));
+			dispatch(postCaretaker({ ...form, userId: user.id }));
 		}
 	};
 
@@ -132,176 +142,180 @@ export const CuidadorForm = () => {
 	};
 
 	return (
-		<Box sx={{ marginBottom: 2, paddingX: 2 }}>
-			<Typography variant='h4'>
-				Fill in this form and start recievieng pets!
-			</Typography>
-			<TextField
-				fullWidth
-				rows={4}
-				sx={{ marginTop: 2, marginBottom: 1 }}
-				placeholder='Hi! Im John. I am 25 years old and...'
-				autoFocus
-				multiline
-				label='The users want to know you before they decide...'
-				// helperText={errors.description && errors.description}
-				error={errors.description && isTouched}
-				value={form.description}
-				onChange={handleInputChange}
-				onBlur={() => setIsTouched(true)}
-				name='description'
-			/>
-			{errors.description && (
-				<Box color='red' textAlign='center'>
-					{errors.description}
-				</Box>
-			)}
-
-			<div>
-				<label htmlFor='file'>Choose 3 pictures that describes your home</label>
-				<br />
-				<input
-					type='file'
-					name='image'
-					onChange={handleFileInputChange}
-					value={fileInputState}
-					multiple
+		<>
+			<Box sx={{ marginBottom: 2, paddingX: 2 }}>
+				<Typography variant='h4'>
+					Fill in this form and start recievieng pets!
+				</Typography>
+				<TextField
+					fullWidth
+					rows={4}
+					sx={{ marginTop: 2, marginBottom: 1 }}
+					placeholder='Hi! Im John. I am 25 years old and...'
+					autoFocus
+					multiline
+					label='The users want to know you before they decide...'
+					// helperText={errors.description && errors.description}
+					error={errors.description && isTouched}
+					value={form.description}
+					onChange={handleInputChange}
+					onBlur={() => setIsTouched(true)}
+					name='description'
 				/>
-				{/* <button type='submit'>Upload</button> */}
-				{/* </form> */}
-				{form.images?.length &&
-					form.images.map((image) => (
-						<img src={image} alt='img' style={{ height: '300px' }} />
-					))}
-				{form.images?.length && (
-					<>
-						<br></br>
-						<Button onClick={() => setForm({ ...form, images: [] })}>
-							Delete
-						</Button>
-					</>
+				{errors.description && (
+					<Box color='red' textAlign='center'>
+						{errors.description}
+					</Box>
 				)}
-			</div>
-			{errors.images && (
-				<Box color='red' textAlign='center'>
-					{errors.images}
-				</Box>
-			)}
 
-			<div>
-				<Typography>Pet size you are able to take care of</Typography>
-				<Radio
-					{...controlProps('0')}
-					size='small'
-					sx={{
-						'& .MuiSvgIcon-root': {
-							fontSize: 20,
-							color: '#F29279',
-						},
-					}}
-					label='Small'
-				/>
-				<Radio
-					{...controlProps('1')}
-					sx={{
-						'& .MuiSvgIcon-root': {
-							fontSize: 24,
-							color: '#F29279',
-						},
-					}}
-					label='Medium'
-				/>
-				<Radio
-					{...controlProps('2')}
-					sx={{
-						'& .MuiSvgIcon-root': {
-							fontSize: 30,
-							color: '#F29279',
-						},
-					}}
-					label='Big'
-				/>
-			</div>
-			<Typography>$ Price per night </Typography>
-			<Input
-				value={form.price}
-				type='number'
-				onChange={handleInputChange}
-				name='price'
-				placeholder='$10'
-				error={errors.price && errors.price}
-			/>
-			{errors.price && (
-				<Box color='red' extAlign='center'>
-					{errors.price}
-				</Box>
-			)}
+				<div>
+					<label htmlFor='file'>
+						Choose 3 pictures that describes your home
+					</label>
+					<br />
+					<input
+						type='file'
+						name='image'
+						onChange={handleFileInputChange}
+						value={fileInputState}
+						multiple
+					/>
+					{/* <button type='submit'>Upload</button> */}
+					{/* </form> */}
+					{form.images?.length &&
+						form.images.map((image) => (
+							<img src={image} alt='img' style={{ height: '300px' }} />
+						))}
+					{form.images?.length && (
+						<>
+							<br></br>
+							<Button onClick={() => setForm({ ...form, images: [] })}>
+								Delete
+							</Button>
+						</>
+					)}
+				</div>
+				{errors.images && (
+					<Box color='red' textAlign='center'>
+						{errors.images}
+					</Box>
+				)}
 
-			<Typography>Put your Marker on the Map</Typography>
-			{errors.lat && (
-				<Box color='red' textAlign='center'>
-					{errors.lat}
-				</Box>
-			)}
-			<Box
-				sx={{
-					position: 'relative',
-					maxWidth: '100%',
-					height: '500px',
-				}}
-			>
-				<Mapa
-					formUse={true}
-					setFormCoords={setForm}
-					form={form}
-					setErrors={setErrors}
-					errors={errors}
+				<div>
+					<Typography>Pet size you are able to take care of</Typography>
+					<Radio
+						{...controlProps('0')}
+						size='small'
+						sx={{
+							'& .MuiSvgIcon-root': {
+								fontSize: 20,
+								color: '#F29279',
+							},
+						}}
+						label='Small'
+					/>
+					<Radio
+						{...controlProps('1')}
+						sx={{
+							'& .MuiSvgIcon-root': {
+								fontSize: 24,
+								color: '#F29279',
+							},
+						}}
+						label='Medium'
+					/>
+					<Radio
+						{...controlProps('2')}
+						sx={{
+							'& .MuiSvgIcon-root': {
+								fontSize: 30,
+								color: '#F29279',
+							},
+						}}
+						label='Big'
+					/>
+				</div>
+				<Typography>$ Price per night </Typography>
+				<Input
+					value={form.price}
+					type='number'
+					onChange={handleInputChange}
+					name='price'
+					placeholder='$10'
+					error={errors.price && errors.price}
 				/>
-			</Box>
+				{errors.price && (
+					<Box color='red' extAlign='center'>
+						{errors.price}
+					</Box>
+				)}
 
-			<TextField
-				fullWidth
-				rows={4}
-				sx={{ marginTop: 2, marginBottom: 1 }}
-				placeholder='Nice neighborhood, with a small garden...'
-				autoFocus
-				multiline
-				label='Tell us about your home...'
-				// helperText={errors.homeDescription && errors.homeDescription}
-				error={errors.homeDescription && isTouched}
-				value={form.homeDescription}
-				onChange={handleInputChange}
-				onBlur={() => setIsTouched(true)}
-				name='homeDescription'
-			/>
-			{errors.homeDescription && (
-				<Box color='red' textAlign='center'>
-					{errors.homeDescription}
-				</Box>
-			)}
-			<Box display='flex' justifyContent='space-between'>
-				<Button
-					variant='text'
-					onClick={() => {
-						setForm(initialForm);
-						setIsTouched(false);
+				<Typography>Put your Marker on the Map</Typography>
+				{errors.lat && (
+					<Box color='red' textAlign='center'>
+						{errors.lat}
+					</Box>
+				)}
+				<Box
+					sx={{
+						position: 'relative',
+						maxWidth: '100%',
+						height: '500px',
 					}}
 				>
-					Cancel
-				</Button>
-				<Button
-					variant='contained'
-					sx={{
-						backgroundColor: '#F29279',
-						color: 'white',
-						borderColor: '#F29279',
-					}}
-					endIcon={<SaveOutlinedIcon />}
-					onClick={onSave}
-				>
-					Save
-				</Button>
+					<Mapa
+						formUse={true}
+						setFormCoords={setForm}
+						form={form}
+						setErrors={setErrors}
+						errors={errors}
+					/>
+				</Box>
+
+				<TextField
+					fullWidth
+					rows={4}
+					sx={{ marginTop: 2, marginBottom: 1 }}
+					placeholder='Nice neighborhood, with a small garden...'
+					autoFocus
+					multiline
+					label='Tell us about your home...'
+					// helperText={errors.homeDescription && errors.homeDescription}
+					error={errors.homeDescription && isTouched}
+					value={form.homeDescription}
+					onChange={handleInputChange}
+					onBlur={() => setIsTouched(true)}
+					name='homeDescription'
+				/>
+				{errors.homeDescription && (
+					<Box color='red' textAlign='center'>
+						{errors.homeDescription}
+					</Box>
+				)}
+				<Box display='flex' justifyContent='space-between'>
+					<Button
+						variant='text'
+						onClick={() => {
+							setForm(initialForm);
+							setIsTouched(false);
+						}}
+					>
+						Cancel
+					</Button>
+					<Button
+						variant='contained'
+						sx={{
+							backgroundColor: '#F29279',
+							color: 'white',
+							borderColor: '#F29279',
+						}}
+						endIcon={<SaveOutlinedIcon />}
+						onClick={onSave}
+					>
+						Save
+					</Button>
+				</Box>
 			</Box>
-		</Box>
+		</>
 	);
 };
