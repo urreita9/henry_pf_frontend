@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
+import * as React from 'react';
 import {
-	MenuItem,
-	Tooltip,
 	Button,
-	Avatar,
 	Container,
 	AppBar,
 	Box,
@@ -16,9 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import PetsIcon from '@mui/icons-material/Pets';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
-
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import axios from '../../axios';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	clearUser,
@@ -26,23 +21,25 @@ import {
 	LoginAction,
 	LogoutAction,
 } from '../../redux/actions/actions';
-import { LocalSeeTwoTone } from '@mui/icons-material';
+
 import { GroupSizesColors } from '../ButtonGroup/ButtonGroup';
-import { borderRadius } from '@mui/system';
+import LoginModal from '../LoginModal/LoginModal';
+import RegisterModal from '../../components/RegisterModal/RegisterModal';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import Avatar from '@mui/material/Avatar';
 
-const pages = ['HOST A PET!'];
-const settings = ['Profile', 'History', 'CareTaker Dashboard'];
+// const pages = ["Products", "Pricing", "Blog"];
+const settings = ['Profile', 'History', 'Be a caretaker!'];
 
+//! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
 	const dispatch = useDispatch();
-	const [anchorElNav, setAnchorElNav] = useState(null);
-	const [anchorElUser, setAnchorElUser] = useState(null);
+	const [anchorElNav, setAnchorElNav] = React.useState(null);
+	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const token = localStorage.getItem('token') || null;
 	const id = localStorage.getItem('uid') || null;
-	const [modalOpen, setModalOpen] = useState({
-		login: false,
-		logout: false,
-	});
+
 	const { caretakers } = useSelector((state) => state.cuidadoresReducer);
 	const { user } = useSelector((state) => state.userReducer);
 	const { logged } = useSelector((state) => state.userReducer);
@@ -53,8 +50,8 @@ const NavBar = ({ onToggle, typeMode }) => {
 		const findUser = caretakers.find(
 			(caretaker) => caretaker.userId === idUser
 		);
-		console.log('FIND USER', findUser);
 		if (findUser) {
+			console.log(findUser);
 			return true;
 		}
 		return false;
@@ -82,7 +79,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 	};
 	// const  loginLogout=
 
-	useEffect(() => {
+	React.useEffect(() => {
 		// const token = localStorage.getItem('token') || null;
 		// const id = localStorage.getItem('uid') || null;
 
@@ -91,7 +88,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 		}
 	}, [logged]);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		if (user.hasOwnProperty('id')) {
 			dispatch(LoginAction());
 		} else if (user.hasOwnProperty('msg') || user.hasOwnProperty('error')) {
@@ -123,53 +120,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 							</Button>
 						</Typography>
 					</Link>
-					<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-						<IconButton
-							size='large'
-							aria-label='account of current user'
-							aria-controls='menu-appbar'
-							aria-haspopup='true'
-							onClick={handleOpenNavMenu}
-							color='inherit'
-						>
-							<MenuIcon />
-						</IconButton>
-						<Menu
-							id='menu-appbar'
-							anchorEl={anchorElNav}
-							anchorOrigin={{
-								vertical: 'bottom',
-								horizontal: 'left',
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: 'top',
-								horizontal: 'left',
-							}}
-							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
-							sx={{
-								display: { xs: 'block', md: 'none' },
-							}}
-						>
-							{logged &&
-								!checkIfUserIsCaretaker(user.id) &&
-								pages.map((page) => (
-									// <Link to='/host' key={page}>
-									<Button
-										key={page}
-										// onClick={handleCloseNavMenu}
-										onClick={() => {
-											navigate('/host');
-										}}
-										sx={{ my: 2, color: 'black', display: 'block' }}
-									>
-										{page}
-									</Button>
-									// </Link>
-								))}
-						</Menu>
-					</Box>
+
 					{location.pathname === '/map' && (
 						<Box
 							sx={{
@@ -184,7 +135,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 							<GroupSizesColors />
 						</Box>
 					)}
-					{/* <Link to='/' style={{ textDecoration: 'none', flexGrow: 1 }}> */}
+
 					<Typography
 						variant='h6'
 						noWrap
@@ -201,7 +152,10 @@ const NavBar = ({ onToggle, typeMode }) => {
 						<PetsIcon />
 						PetTrip App
 					</Typography>
-					{/* </Link> */}
+
+					<Typography>How do i use the page?</Typography>
+					{/* ACA VA EL STEPPER */}
+
 					<Box
 						sx={{
 							flexGrow: 1,
@@ -209,22 +163,22 @@ const NavBar = ({ onToggle, typeMode }) => {
 							display: { xs: 'none', md: 'flex' },
 						}}
 					>
-						{logged &&
-							!checkIfUserIsCaretaker(user.id) &&
-							pages.map((page) => (
-								// <Link to='/host' key={page}>
-								<Button
-									key={page}
-									// onClick={handleCloseNavMenu}
-									onClick={() => {
-										navigate('/host');
-									}}
-									sx={{ my: 2, color: 'white', display: 'block' }}
-								>
-									{page}
-								</Button>
-								// </Link>
-							))}
+						{/* {logged &&
+              !checkIfUserIsCaretaker(user.id) &&
+              pages.map((page) => (
+                // <Link to='/host' key={page}>
+                <Button
+                  key={page}
+                  // onClick={handleCloseNavMenu}
+                  onClick={() => {
+                    navigate("/host");
+                  }}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+                // </Link>
+              ))}  */}
 					</Box>
 					<Box>
 						<IconButton
@@ -235,41 +189,103 @@ const NavBar = ({ onToggle, typeMode }) => {
 							{typeMode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
 						</IconButton>
 					</Box>
-					{/* BOX DE USUARIO ⬇ */}
+
+					{/* //! VALIDACION PARA VER SI ESTA LOGUEADO 🔻 */}
 					{logged ? (
 						<>
-							<Button
-								// href='/login'
-								sx={
-									{
-										// backgroundColor: '#cc3308',
-									}
-								}
-								variant='contained'
-								onClick={handleLogout}
-							>
-								Logout
-							</Button>
+							<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+								<IconButton
+									size='large'
+									aria-label='account of current user'
+									aria-controls='menu-appbar'
+									aria-haspopup='true'
+									onClick={handleOpenNavMenu}
+									color='inherit'
+								>
+									<MenuIcon />
+								</IconButton>
+
+								<Menu
+									id='menu-appbar'
+									anchorEl={anchorElNav}
+									anchorOrigin={{
+										vertical: 'bottom',
+										horizontal: 'left',
+									}}
+									keepMounted
+									transformOrigin={{
+										vertical: 'top',
+										horizontal: 'left',
+									}}
+									open={Boolean(anchorElNav)}
+									onClose={handleCloseNavMenu}
+									sx={{
+										display: { xs: 'block', md: 'none' },
+									}}
+								></Menu>
+							</Box>
+
+							<Box sx={{ flexGrow: 0 }}>
+								<Tooltip title='Open settings'>
+									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+										<Avatar
+											alt='Remy Sharp'
+											src='/static/images/avatar/2.jpg'
+										/>
+									</IconButton>
+								</Tooltip>
+								<Menu
+									sx={{ mt: '45px' }}
+									id='menu-appbar'
+									anchorEl={anchorElUser}
+									anchorOrigin={{
+										vertical: 'top',
+										horizontal: 'right',
+									}}
+									keepMounted
+									transformOrigin={{
+										vertical: 'top',
+										horizontal: 'right',
+									}}
+									open={Boolean(anchorElUser)}
+									onClose={handleCloseUserMenu}
+								>
+									{settings.map((setting) => (
+										<MenuItem key={setting} onClick={handleCloseUserMenu}>
+											<Typography textAlign='center'>{setting}</Typography>
+										</MenuItem>
+									))}
+									<Button
+										sx={
+											{
+												// backgroundColor: '#cc3308',
+											}
+										}
+										variant='contained'
+										onClick={handleLogout}
+									>
+										Logout
+									</Button>
+								</Menu>
+							</Box>
+							{/* <Button
+               
+                sx={
+                  {
+                    // backgroundColor: '#cc3308',
+                  }
+                }
+                variant="contained"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button> */}
 						</>
 					) : (
 						<>
-							<Button
-								onClick={() => {
-									setModalOpen({
-										login: true,
-										logout: false,
-									});
-								}}
-								sx={
-									{
-										// backgroundColor: '#09a11d',
-									}
-								}
-								variant='contained'
-								style={{ marginRight: '5px' }}
-							>
-								Sign In
-							</Button>
+							<RegisterModal />
+
+							<LoginModal />
 						</>
 					)}
 				</Toolbar>
