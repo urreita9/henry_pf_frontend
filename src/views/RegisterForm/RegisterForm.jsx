@@ -11,7 +11,7 @@ import PetsIcon from '@mui/icons-material/Pets';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import api from '../../axios';
 const RegisterForm = () => {
 	const navigate = useNavigate();
 	const [email, setEmail] = useState('');
@@ -31,7 +31,7 @@ const RegisterForm = () => {
 		} else {
 			try {
 				let data = { email: email, password: password };
-				const post = await axios.post('http://localhost:3001/api/users', data);
+				const post = await api.post('/users', data);
 				console.log(post);
 				if (post.data) {
 					alert('User created');

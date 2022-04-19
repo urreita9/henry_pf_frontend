@@ -17,6 +17,8 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { LoginAction } from '../../redux/actions/actions';
+import api from '../../axios';
+
 const changeHandler = (e) => {};
 
 export const LoginForm = () => {
@@ -34,8 +36,8 @@ export const LoginForm = () => {
 			password: password,
 		};
 		console.log('login', data);
-		axios
-			.post('http://localhost:3001/api/auth/login', data)
+		api
+			.post('/auth/login', data)
 			.then((res) => {
 				localStorage.setItem('token', res.data.token);
 				localStorage.setItem('uid', res.data.id);
