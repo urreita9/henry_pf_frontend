@@ -77,6 +77,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 		dispatch(clearUser());
 		navigate('/');
 	};
+	// const  loginLogout=
 
 	React.useEffect(() => {
 		// const token = localStorage.getItem('token') || null;
@@ -87,13 +88,12 @@ const NavBar = ({ onToggle, typeMode }) => {
 		}
 	}, [logged]);
 
-	React.useEffect(async () => {
+	React.useEffect(() => {
 		if (user.hasOwnProperty('id')) {
 			dispatch(LoginAction());
 		} else if (user.hasOwnProperty('msg') || user.hasOwnProperty('error')) {
 			localStorage.clear();
 			dispatch(LogoutAction());
-			return;
 		}
 	}, [user]);
 

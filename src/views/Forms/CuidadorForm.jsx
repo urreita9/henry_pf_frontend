@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
 import {
 	Box,
 	Button,
@@ -9,7 +10,7 @@ import {
 	Input,
 } from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import { Mapa } from '../Map/Mapa';
+// import { Mapa } from '../Map/Mapa';
 import { useDispatch, useSelector } from 'react-redux';
 import { postCaretaker } from '../../redux/actions/actions';
 import { ModalUi } from '../../components/Modal/ModalUi';
@@ -34,6 +35,11 @@ const initialErrors = {
 	homeDescription: null,
 	images: null,
 };
+const initialPoint = {
+	lng: -58.381592,
+	lat: -34.603722,
+	zoom: 5,
+};
 
 export const CuidadorForm = () => {
 	const MAX_LENGTH = 3;
@@ -41,6 +47,8 @@ export const CuidadorForm = () => {
 	const [errors, setErrors] = useState(initialErrors);
 	const [isTouched, setIsTouched] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
+	const [caretakerLocation, setCaretakerLocation] = useState(false);
+
 	const [fileInputState, setFileInputState] = useState('');
 	const { user, logged } = useSelector((state) => state.userReducer);
 	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
@@ -150,6 +158,14 @@ export const CuidadorForm = () => {
 		});
 	};
 
+	const LocationFinderDummy = () => {
+		const map = useMapEvents({
+			click(e) {
+				setForm({ ...form, lat: e.latlng.lat, lng: e.latlng.lng });
+			},
+		});
+		return null;
+	};
 	return (
 		<>
 			{modalOpen && (
@@ -279,13 +295,21 @@ export const CuidadorForm = () => {
 						height: '500px',
 					}}
 				>
-					<Mapa
-						formUse={true}
-						setFormCoords={setForm}
-						form={form}
-						setErrors={setErrors}
-						errors={errors}
-					/>
+					<MapContainer
+						center={[initialPoint.lat, initialPoint.lng]}
+						zoom={initialPoint.zoom}
+						scrollWheelZoom={true}
+						style={{ height: '100%' }}
+					>
+						<TileLayer
+							attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+							url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+						/>
+						<LocationFinderDummy />
+						{form.lat !== null && (
+							<Marker position={[form.lat, form.lng]} anchor='center' />
+						)}
+					</MapContainer>
 				</Box>
 
 				<TextField
