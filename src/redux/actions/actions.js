@@ -16,7 +16,7 @@ export const CLEAR_USER = 'CLEAR_USER';
 
 export const getCaretakers = () => async (dispatch) => {
 	try {
-		const { data } = await api.get(`/caretakers`);
+		const { data } = await api.get(`api/caretakers`);
 		console.log(data);
 		dispatch({
 			type: GET_CARETAKERS,
