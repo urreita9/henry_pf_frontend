@@ -92,13 +92,7 @@ const RegisterForm = () => {
         >
           Register
         </Button>
-        <Button
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          Already have an account?
-        </Button>
+        <Button>Already have an account?</Button>
       </Paper>
     </Grid>
   );

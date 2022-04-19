@@ -27,6 +27,7 @@ export const LoginForm = () => {
   // const [check, setCheck] = useState(null); que no expire el token
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
+  const [modal, setModal] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
