@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import {
 	MenuItem,
 	Tooltip,
@@ -35,11 +35,14 @@ const settings = ['Profile', 'History', 'CareTaker Dashboard'];
 
 const NavBar = ({ onToggle, typeMode }) => {
 	const dispatch = useDispatch();
-	const [anchorElNav, setAnchorElNav] = React.useState(null);
-	const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const [anchorElNav, setAnchorElNav] = useState(null);
+	const [anchorElUser, setAnchorElUser] = useState(null);
 	const token = localStorage.getItem('token') || null;
 	const id = localStorage.getItem('uid') || null;
-
+	const [modalOpen, setModalOpen] = useState({
+		login: false,
+		logout: false,
+	});
 	const { caretakers } = useSelector((state) => state.cuidadoresReducer);
 	const { user } = useSelector((state) => state.userReducer);
 	const { logged } = useSelector((state) => state.userReducer);
@@ -50,8 +53,8 @@ const NavBar = ({ onToggle, typeMode }) => {
 		const findUser = caretakers.find(
 			(caretaker) => caretaker.userId === idUser
 		);
+		console.log('FIND USER', findUser);
 		if (findUser) {
-			console.log(findUser);
 			return true;
 		}
 		return false;
@@ -79,7 +82,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 	};
 	// const  loginLogout=
 
-	React.useEffect(() => {
+	useEffect(() => {
 		// const token = localStorage.getItem('token') || null;
 		// const id = localStorage.getItem('uid') || null;
 
@@ -88,7 +91,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 		}
 	}, [logged]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (user.hasOwnProperty('id')) {
 			dispatch(LoginAction());
 		} else if (user.hasOwnProperty('msg') || user.hasOwnProperty('error')) {
@@ -251,7 +254,12 @@ const NavBar = ({ onToggle, typeMode }) => {
 					) : (
 						<>
 							<Button
-								href='/register'
+								onClick={() => {
+									setModalOpen({
+										login: true,
+										logout: false,
+									});
+								}}
 								sx={
 									{
 										// backgroundColor: '#09a11d',
@@ -260,19 +268,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 								variant='contained'
 								style={{ marginRight: '5px' }}
 							>
-								Register
-							</Button>
-
-							<Button
-								href='/login'
-								sx={
-									{
-										// backgroundColor: '#cc3308',
-									}
-								}
-								variant='contained'
-							>
-								Login
+								Sign In
 							</Button>
 						</>
 					)}

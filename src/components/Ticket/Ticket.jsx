@@ -13,13 +13,15 @@ import {
 import { DateRange } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import api from '../../axios';
 
 const TicketCard = ({ price, datesRange }) => {
 	const timeLapse = intervalToDuration({
 		start: new Date(datesRange[0].startDate),
 		end: new Date(datesRange[0].endDate),
 	}).days;
-	const { logged } = useSelector((state) => state.userReducer);
+	const { logged, user } = useSelector((state) => state.userReducer);
+	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 	const navigate = useNavigate();
 
 	// const dates = `${datesRange[0].startDate.getMonth()}/${datesRange[0].startDate.getDate()}/${datesRange[0].startDate.getFullYear()} - ${datesRange[0].endDate.getMonth()}/${datesRange[0].endDate.getDate()}/${datesRange[0].endDate.getFullYear()}`;
@@ -27,6 +29,12 @@ const TicketCard = ({ price, datesRange }) => {
 
 	const sum = price * timeLapse;
 	const totalCheckout = sum + sum * 0.03;
+
+	const handleOperationSubmit = async () => {
+		console.log('TICKET USER', user);
+		console.log('TICKET CARETAKER', caretakerProfile);
+		// const response = await api.post('/operations', {})
+	};
 	return (
 		<>
 			<CardContent>
@@ -80,7 +88,9 @@ const TicketCard = ({ price, datesRange }) => {
 						onClick={() => {
 							if (!logged) {
 								navigate('/login');
+								return;
 							}
+							handleOperationSubmit();
 						}}
 					>
 						Checkout
