@@ -28,9 +28,10 @@ import RegisterModal from "../../components/RegisterModal/RegisterModal";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
+import { Logout } from "./Logout";
 
 // const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "History", "Be a caretaker!", "Logout"];
+const settings = ["Profile", "History", "Be a caretaker!"];
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
@@ -252,10 +253,21 @@ const NavBar = ({ onToggle, typeMode }) => {
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
+                  <Button
+                    sx={
+                      {
+                        // backgroundColor: '#cc3308',
+                      }
+                    }
+                    variant="contained"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Button>
                 </Menu>
               </Box>
               {/* <Button
-                // href='/login'
+               
                 sx={
                   {
                     // backgroundColor: '#cc3308',
