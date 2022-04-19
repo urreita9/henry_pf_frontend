@@ -9,7 +9,13 @@ import Map, {
 import { useDispatch, useSelector } from 'react-redux';
 import { cleanCaretaker, getCaretakers } from '../../redux/actions/actions';
 import PopUpData from './PopUpData';
+
+import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+mapboxgl.workerClass =
+	require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
 
 const initialPoint = {
 	longitude: -58.381592,

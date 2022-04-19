@@ -62,7 +62,9 @@
 
     "uuid": "^8.3.2",
 
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+
+    "worker-loader": "^3.0.8"
 
   },
 
