@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { LoginForm } from "../../views/LoginForm/LoginForm";
 import { useState } from "react";
+// import RegisterModal from "../RegisterModal/RegisterModal";
+
 const style = {
   position: "absolute",
   top: "50%",

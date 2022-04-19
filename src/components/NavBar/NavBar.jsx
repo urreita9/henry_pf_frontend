@@ -25,8 +25,11 @@ import {
 import { GroupSizesColors } from "../ButtonGroup/ButtonGroup";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../../components/RegisterModal/RegisterModal";
-
-const pages = ["HOST A PET!"];
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
+// const pages = ["Products", "Pricing", "Blog"];
+const settings = ["Profile", "History", "Be a caretaker!", "Logout"];
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
@@ -97,6 +100,8 @@ const NavBar = ({ onToggle, typeMode }) => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          {/*//! LOGO  */}
+
           <Link to="/" style={{ textDecoration: "none" }}>
             <Typography
               variant="h6"
@@ -116,6 +121,10 @@ const NavBar = ({ onToggle, typeMode }) => {
               </Button>
             </Typography>
           </Link>
+
+          {/*//! FIN DE LOGO */}
+
+          {/* BOX DE USUARIO */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -127,6 +136,7 @@ const NavBar = ({ onToggle, typeMode }) => {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -144,25 +154,41 @@ const NavBar = ({ onToggle, typeMode }) => {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
+            ></Menu>
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: "45px" }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              {logged &&
-                !checkIfUserIsCaretaker(user.id) &&
-                pages.map((page) => (
-                  // <Link to='/host' key={page}>
-                  <Button
-                    key={page}
-                    // onClick={handleCloseNavMenu}
-                    onClick={() => {
-                      navigate("/host");
-                    }}
-                    sx={{ my: 2, color: "black", display: "block" }}
-                  >
-                    {page}
-                  </Button>
-                  // </Link>
-                ))}
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
             </Menu>
           </Box>
+
+          {/* FIN DE BOX DE USUARIO 🔝 */}
+
           {location.pathname === "/map" && (
             <Box
               sx={{
@@ -177,7 +203,7 @@ const NavBar = ({ onToggle, typeMode }) => {
               <GroupSizesColors />
             </Box>
           )}
-          {/* <Link to='/' style={{ textDecoration: 'none', flexGrow: 1 }}> */}
+
           <Typography
             variant="h6"
             noWrap
@@ -202,7 +228,7 @@ const NavBar = ({ onToggle, typeMode }) => {
               display: { xs: "none", md: "flex" },
             }}
           >
-            {logged &&
+            {/* {logged &&
               !checkIfUserIsCaretaker(user.id) &&
               pages.map((page) => (
                 // <Link to='/host' key={page}>
@@ -217,7 +243,7 @@ const NavBar = ({ onToggle, typeMode }) => {
                   {page}
                 </Button>
                 // </Link>
-              ))}
+              ))}  */}
           </Box>
           <Box>
             <IconButton
@@ -228,7 +254,6 @@ const NavBar = ({ onToggle, typeMode }) => {
               {typeMode === "light" ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
           </Box>
-          {/* BOX DE USUARIO ⬇ */}
           {logged ? (
             <>
               <Button
