@@ -13,9 +13,8 @@ import PopUpData from './PopUpData';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 // @ts-ignore
-// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-mapboxgl.workerClass =
-	require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 
 const initialPoint = {
 	longitude: -58.381592,
