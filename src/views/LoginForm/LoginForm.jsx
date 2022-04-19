@@ -43,7 +43,6 @@ export const LoginForm = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("uid", res.data.id);
         dispatch(LoginAction());
-        navigate("/profile");
       })
       .catch((err) => {
         console.log(err);

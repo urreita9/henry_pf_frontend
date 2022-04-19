@@ -28,7 +28,6 @@ import RegisterModal from "../../components/RegisterModal/RegisterModal";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
-import { Logout } from "./Logout";
 
 // const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "History", "Be a caretaker!"];
@@ -153,7 +152,10 @@ const NavBar = ({ onToggle, typeMode }) => {
             <PetsIcon />
             PetTrip App
           </Typography>
-          {/* </Link> */}
+
+          <Typography>How do i use the page?</Typography>
+          {/* ACA VA EL STEPPER */}
+
           <Box
             sx={{
               flexGrow: 1,
