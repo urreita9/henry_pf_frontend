@@ -1,5 +1,5 @@
 import * as React from 'react';
-import intervalToDuration from 'date-fns/intervalToDuration';
+import { intervalToDuration } from 'date-fns';
 
 import {
 	Grid,

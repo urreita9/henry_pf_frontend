@@ -40,12 +40,22 @@ const NavBar = ({ onToggle, typeMode }) => {
 	const token = localStorage.getItem('token') || null;
 	const id = localStorage.getItem('uid') || null;
 
-	const user = useSelector((state) => state.userReducer.user);
-	const logged = useSelector((state) => state.userReducer.logged);
+	const { caretakers } = useSelector((state) => state.cuidadoresReducer);
+	const { user } = useSelector((state) => state.userReducer);
+	const { logged } = useSelector((state) => state.userReducer);
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	console.log(location);
+	const checkIfUserIsCaretaker = (idUser) => {
+		const findUser = caretakers.find(
+			(caretaker) => caretaker.userId === idUser
+		);
+		if (findUser) {
+			console.log(findUser);
+			return true;
+		}
+		return false;
+	};
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
 	};
@@ -140,6 +150,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 							}}
 						>
 							{logged &&
+								!checkIfUserIsCaretaker(user.id) &&
 								pages.map((page) => (
 									// <Link to='/host' key={page}>
 									<Button
@@ -196,6 +207,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 						}}
 					>
 						{logged &&
+							!checkIfUserIsCaretaker(user.id) &&
 							pages.map((page) => (
 								// <Link to='/host' key={page}>
 								<Button
