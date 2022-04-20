@@ -85,8 +85,7 @@ export default function StepperModal() {
           onClick={handleOpen}
           sx={{
             color: "orange",
-            position: "absolute",
-            marginLeft: "-90px",
+            marginLeft: "-370px",
           }}
         >
           <HelpIcon />
