@@ -153,10 +153,6 @@ const NavBar = ({ onToggle, typeMode }) => {
             PetTrip App
           </Typography>
 
-          <Typography>
-            <StepperModal />
-          </Typography>
-
           <Box
             sx={{
               flexGrow: 1,
@@ -256,11 +252,10 @@ const NavBar = ({ onToggle, typeMode }) => {
                     </Link>
                   ))}
                   <Button
-                    sx={
-                      {
-                        // backgroundColor: '#cc3308',
-                      }
-                    }
+                    sx={{
+                      // backgroundColor: '#cc3308',
+                      marginLeft: "10px",
+                    }}
                     variant="contained"
                     onClick={handleLogout}
                   >
@@ -268,18 +263,6 @@ const NavBar = ({ onToggle, typeMode }) => {
                   </Button>
                 </Menu>
               </Box>
-              {/* <Button
-               
-                sx={
-                  {
-                    // backgroundColor: '#cc3308',
-                  }
-                }
-                variant="contained"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button> */}
             </>
           ) : (
             <>

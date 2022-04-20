@@ -6,7 +6,8 @@ import Modal from "@mui/material/Modal";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
-
+import { IconButton, Tooltip } from "@mui/material";
+import HelpIcon from "@mui/icons-material/Help";
 const style = {
   position: "absolute",
   top: "50%",
@@ -79,17 +80,18 @@ export default function StepperModal() {
 
   return (
     <div>
-      <Button
-        onClick={handleOpen}
-        variant="contained"
-        sx={{
-          backgroundColor: "gray",
-          position: "center",
-          marginLeft: "450px",
-        }}
-      >
-        How do i use the page?
-      </Button>
+      <Tooltip title="How to use the page">
+        <IconButton
+          onClick={handleOpen}
+          sx={{
+            color: "orange",
+            position: "absolute",
+            marginLeft: "-90px",
+          }}
+        >
+          <HelpIcon />
+        </IconButton>
+      </Tooltip>
       <Modal
         open={open}
         onClose={handleClose}
