@@ -4,6 +4,7 @@ import CaretakerProfile from "./views/CaretakerProfile/index";
 import NavBar from "./components/NavBar/NavBar";
 import { NewMap } from "./views/NewMap/NewMap";
 import { Home } from "./views/Home/Home";
+import { Landing } from "./views/Landing/Landing.jsx"
 import { CuidadorForm } from "./views/Forms/CuidadorForm";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import modeThemePalette from "./assets/mui-theme-config/theme-mui";
@@ -31,6 +32,7 @@ function App() {
           <NavBar onToggle={onToggleThemeMode} typeMode={mode} />
           <Routes>
             <Route exact path="/" element={<Home />} />
+			<Route exact path="/welcome" element={<Landing />} />
             <Route exact path="/map" element={<NewMap />} />
             <Route exact path="/caretaker/:id" element={<CaretakerProfile />} />
             <Route exact path="/host" element={<CuidadorForm />} />
