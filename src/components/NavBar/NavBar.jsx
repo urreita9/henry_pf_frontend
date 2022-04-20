@@ -28,7 +28,7 @@ import RegisterModal from '../../components/RegisterModal/RegisterModal';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
-
+import StepperModal from '../../views/Stepper/Stepper';
 // const pages = ["Products", "Pricing", "Blog"];
 const settings = ['Profile', 'History', 'Be a caretaker!'];
 
@@ -153,9 +153,6 @@ const NavBar = ({ onToggle, typeMode }) => {
 						PetTrip App
 					</Typography>
 
-					<Typography>How do i use the page?</Typography>
-					{/* ACA VA EL STEPPER */}
-
 					<Box
 						sx={{
 							flexGrow: 1,
@@ -228,10 +225,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 							<Box sx={{ flexGrow: 0 }}>
 								<Tooltip title='Open settings'>
 									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-										<Avatar
-											alt='Remy Sharp'
-											src='/static/images/avatar/2.jpg'
-										/>
+										<Avatar alt='not found' src={user.img} />
 									</IconButton>
 								</Tooltip>
 								<Menu
@@ -251,16 +245,17 @@ const NavBar = ({ onToggle, typeMode }) => {
 									onClose={handleCloseUserMenu}
 								>
 									{settings.map((setting) => (
-										<MenuItem key={setting} onClick={handleCloseUserMenu}>
-											<Typography textAlign='center'>{setting}</Typography>
-										</MenuItem>
+										<Link to='/profile'>
+											<MenuItem key={setting} onClick={handleCloseUserMenu}>
+												<Typography textAlign='center'>{setting}</Typography>
+											</MenuItem>
+										</Link>
 									))}
 									<Button
-										sx={
-											{
-												// backgroundColor: '#cc3308',
-											}
-										}
+										sx={{
+											// backgroundColor: '#cc3308',
+											marginLeft: '10px',
+										}}
 										variant='contained'
 										onClick={handleLogout}
 									>
@@ -268,18 +263,6 @@ const NavBar = ({ onToggle, typeMode }) => {
 									</Button>
 								</Menu>
 							</Box>
-							{/* <Button
-               
-                sx={
-                  {
-                    // backgroundColor: '#cc3308',
-                  }
-                }
-                variant="contained"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button> */}
 						</>
 					) : (
 						<>
