@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getCaretakers } from "../../redux/actions/actions";
 import { GroupSizesColors } from "../../components/ButtonGroup/ButtonGroup";
 import StepperModal from "../Stepper/Stepper";
+import { FAQ } from "../../components/FAQ/FAQ";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -54,6 +55,7 @@ export const Home = () => {
         <Typography variant="h2" sx={{ textAlign: "center" }}>
           Find the best place for your pet!
         </Typography>
+        <FAQ />
       </Container>
     </>
   );
