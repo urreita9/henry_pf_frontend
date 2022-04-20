@@ -14,8 +14,18 @@ import { useNavigate } from "react-router-dom";
 import api from "../../axios";
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
+
+  const nameChangeHandler = (event) => {
+    setName(event.target.value);
+  };
+
+  const lastnameChangeHandler = (event) => {
+    setLastName(event.target.value);
+  };
 
   const userChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -30,12 +40,16 @@ const RegisterForm = () => {
       alert("Complete form correctly");
     } else {
       try {
-        let data = { email: email, password: password };
+        let data = {
+          name: name,
+          lastname: lastname,
+          email: email,
+          password: password,
+        };
         const post = await api.post("/users", data);
         console.log(post);
         if (post.data) {
           alert("User created");
-          navigate("/login");
         }
       } catch (error) {
         console.log(error.response);
@@ -63,6 +77,22 @@ const RegisterForm = () => {
           </Avatar>
           <h2>Sign up!</h2>
         </Grid>
+        <TextField
+          label="Name"
+          placeholder="Enter your name"
+          fullWidth
+          required
+          onChange={nameChangeHandler}
+          sx={{ marginTop: "30px" }}
+        />
+        <TextField
+          label="Lastname"
+          placeholder="Enter your lastname"
+          fullWidth
+          required
+          onChange={lastnameChangeHandler}
+          sx={{ marginTop: "30px" }}
+        />
         <TextField
           label="Email"
           placeholder="Enter email.."
