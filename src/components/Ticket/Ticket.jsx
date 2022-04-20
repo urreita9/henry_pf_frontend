@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { intervalToDuration } from 'date-fns';
 
 import {
@@ -11,9 +11,10 @@ import {
 	Typography,
 } from '@mui/material';
 import { DateRange } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import api from '../../axios';
+import { setOperation } from '../../redux/actions/operationActions';
 
 const TicketCard = ({ price, datesRange }) => {
 	const timeLapse = intervalToDuration({
@@ -22,18 +23,44 @@ const TicketCard = ({ price, datesRange }) => {
 	}).days;
 	const { logged, user } = useSelector((state) => state.userReducer);
 	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
-	const navigate = useNavigate();
 
-	// const dates = `${datesRange[0].startDate.getMonth()}/${datesRange[0].startDate.getDate()}/${datesRange[0].startDate.getFullYear()} - ${datesRange[0].endDate.getMonth()}/${datesRange[0].endDate.getDate()}/${datesRange[0].endDate.getFullYear()}`;
-	console.log(datesRange);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const sum = price * timeLapse;
 	const totalCheckout = sum + sum * 0.03;
 
-	const handleOperationSubmit = async () => {
+	const handleOperationSubmit = async (
+		buyerId,
+		sellerId,
+		price,
+		datesRange,
+		timeLapse
+	) => {
 		console.log('TICKET USER', user);
 		console.log('TICKET CARETAKER', caretakerProfile);
-		// const response = await api.post('/operations', {})
+		const response = await api.post('/operations', {
+			buyerId,
+			sellerId,
+			price,
+			datesRange,
+			timeLapse,
+		});
+		// console.log(response.data.response.init_point);
+		const operationId = response.data.response.id;
+		console.log(response.data.response);
+		dispatch(
+			setOperation({
+				id: operationId,
+				buyerId,
+				sellerId,
+				price,
+				datesRange,
+				timeLapse,
+			})
+		);
+
+		// window.location.href = response.data.response.init_point;
 	};
 	return (
 		<>
@@ -90,7 +117,13 @@ const TicketCard = ({ price, datesRange }) => {
 								navigate('/login');
 								return;
 							}
-							handleOperationSubmit();
+							handleOperationSubmit(
+								user.id,
+								caretakerProfile.id,
+								price,
+								datesRange,
+								timeLapse
+							);
 						}}
 					>
 						Checkout
