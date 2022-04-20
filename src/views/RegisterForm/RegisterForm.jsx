@@ -49,11 +49,11 @@ const RegisterForm = () => {
         const post = await api.post("/users", data);
         console.log(post);
         if (post.data) {
-          alert("User created");
+          alert("User created successfully");
         }
       } catch (error) {
         console.log(error.response);
-        alert("Email alredy registered!");
+        alert("That email has alrede been registered!");
       }
     }
   };
@@ -65,14 +65,11 @@ const RegisterForm = () => {
     margin: "20px auto",
   };
 
-  const avatarStyle = {
-    // backgroundColor: "#ffffff", //!  <--- August aca va el color del icono
-  };
   return (
     <Grid>
       <Paper elevation={10} style={paperStyle}>
         <Grid align="center">
-          <Avatar style={avatarStyle}>
+          <Avatar>
             <PetsIcon />
           </Avatar>
           <h2>Sign up!</h2>
