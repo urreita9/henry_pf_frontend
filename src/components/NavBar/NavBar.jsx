@@ -25,8 +25,12 @@ import {
 import { GroupSizesColors } from "../ButtonGroup/ButtonGroup";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../../components/RegisterModal/RegisterModal";
-
-const pages = ["HOST A PET!"];
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
+import StepperModal from "../../views/Stepper/Stepper";
+// const pages = ["Products", "Pricing", "Blog"];
+const settings = ["Profile", "History", "Be a caretaker!"];
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
@@ -116,53 +120,7 @@ const NavBar = ({ onToggle, typeMode }) => {
               </Button>
             </Typography>
           </Link>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {logged &&
-                !checkIfUserIsCaretaker(user.id) &&
-                pages.map((page) => (
-                  // <Link to='/host' key={page}>
-                  <Button
-                    key={page}
-                    // onClick={handleCloseNavMenu}
-                    onClick={() => {
-                      navigate("/host");
-                    }}
-                    sx={{ my: 2, color: "black", display: "block" }}
-                  >
-                    {page}
-                  </Button>
-                  // </Link>
-                ))}
-            </Menu>
-          </Box>
+
           {location.pathname === "/map" && (
             <Box
               sx={{
@@ -177,7 +135,7 @@ const NavBar = ({ onToggle, typeMode }) => {
               <GroupSizesColors />
             </Box>
           )}
-          {/* <Link to='/' style={{ textDecoration: 'none', flexGrow: 1 }}> */}
+
           <Typography
             variant="h6"
             noWrap
@@ -194,7 +152,7 @@ const NavBar = ({ onToggle, typeMode }) => {
             <PetsIcon />
             PetTrip App
           </Typography>
-          {/* </Link> */}
+
           <Box
             sx={{
               flexGrow: 1,
@@ -202,7 +160,7 @@ const NavBar = ({ onToggle, typeMode }) => {
               display: { xs: "none", md: "flex" },
             }}
           >
-            {logged &&
+            {/* {logged &&
               !checkIfUserIsCaretaker(user.id) &&
               pages.map((page) => (
                 // <Link to='/host' key={page}>
@@ -217,7 +175,7 @@ const NavBar = ({ onToggle, typeMode }) => {
                   {page}
                 </Button>
                 // </Link>
-              ))}
+              ))}  */}
           </Box>
           <Box>
             <IconButton
@@ -228,21 +186,83 @@ const NavBar = ({ onToggle, typeMode }) => {
               {typeMode === "light" ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
           </Box>
-          {/* BOX DE USUARIO ⬇ */}
+
+          {/* //! VALIDACION PARA VER SI ESTA LOGUEADO 🔻 */}
           {logged ? (
             <>
-              <Button
-                // href='/login'
-                sx={
-                  {
-                    // backgroundColor: '#cc3308',
-                  }
-                }
-                variant="contained"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                  }}
+                ></Menu>
+              </Box>
+
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="not found" src={user.img} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <Link to="/profile">
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    </Link>
+                  ))}
+                  <Button
+                    sx={{
+                      // backgroundColor: '#cc3308',
+                      marginLeft: "10px",
+                    }}
+                    variant="contained"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Button>
+                </Menu>
+              </Box>
             </>
           ) : (
             <>

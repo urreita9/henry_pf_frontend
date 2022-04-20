@@ -27,7 +27,7 @@ export const LoginForm = () => {
   // const [check, setCheck] = useState(null); que no expire el token
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
-  const [modal, setModal] = useState("");
+  // const [modal, setModal] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +43,6 @@ export const LoginForm = () => {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("uid", res.data.id);
         dispatch(LoginAction());
-        navigate("/profile");
       })
       .catch((err) => {
         console.log(err);
@@ -111,13 +110,7 @@ export const LoginForm = () => {
         >
           Sign in
         </Button>
-        <Button
-          onClick={() => {
-            navigate("/login");
-          }}
-        >
-          DON'T HAVE AN ACCOUNT?
-        </Button>
+        <Button>DON'T HAVE AN ACCOUNT?</Button>
       </Paper>
     </Grid>
   );
