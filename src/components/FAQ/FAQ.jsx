@@ -10,7 +10,7 @@ export const FAQ = () => {
         <Typography variant="h4" gutterBottom component="div"  sx={{marginTop: '5rem'}}>
             How can we help you?
         </Typography>
-        <Paper elevation={3}>
+        <Paper elevation={4} sx={{marginBottom: '3rem'}}>
             <Box>
                 <TabContainerFAQ />
             </Box>
