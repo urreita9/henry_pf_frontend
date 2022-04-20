@@ -32,7 +32,7 @@ const FormPet = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createPet(token, form));
-        dispatch(getUser(token,id))
+        dispatch(getUser(token, id));
     };
 
     const handleReset = (e) => {
@@ -67,7 +67,9 @@ const FormPet = () => {
             userId: id,
         });
 
-        return dispatch(clearPet());
+        return () => {
+            dispatch(clearPet());
+        };
     }, [user]);
 
     return (
