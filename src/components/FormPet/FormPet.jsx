@@ -77,7 +77,7 @@ const FormPet = () => {
             <Box>
                 <FormControl
                     sx={{
-                        height: '100vh',
+                        height: '60vh',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-evenly',

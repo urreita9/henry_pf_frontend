@@ -20,6 +20,14 @@ import { CuidadorForm } from '../Forms/CuidadorForm';
 import { useParams } from 'react-router-dom';
 import { Divider } from '@mui/material';
 
+const defaultProps = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+
+    width: '100%',
+};
+
 function a11yProps(index) {
     return {
         id: `vertical-tab-${index}`,
@@ -42,7 +50,7 @@ const Profile = () => {
     };
 
     return (
-        <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 1000 }}>
+        <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 500 }}>
             <TabContext value={firstTab || tab}>
                 <Box>
                     <TabList
@@ -60,20 +68,14 @@ const Profile = () => {
                         <Tab label='Be Caretaker' {...a11yProps(4)} />
                     </TabList>
                 </Box>
-                <TabPanel value='0' index={0} sx={{ margin: 'auto' }} children={<UserProfile />}></TabPanel>
-                <TabPanel value='1' index={1}>
-                    <FormProfile />
-                </TabPanel>
-                <TabPanel value='2' index={2}>
-                    <PetList />
-                </TabPanel>
-                <TabPanel value='3' index={3}>
-                    <FormPet />
-                </TabPanel>
-                {/* <TabPanel value='4' index={4} children={<CuidadorForm />}></TabPanel> */}
-                <TabPanel value='4' index={4}>
+                <TabPanel value='0' index={0} sx={{ margin: 'auto' }} children={<UserProfile />} />
+                <TabPanel value='1' index={1} sx={defaultProps} children={<FormProfile />} />
+                <TabPanel value='2' index={2} children={<PetList />} />
+                <TabPanel value='3' index={3} sx={{ margin: 'auto' }} children={<FormPet />} />
+                <TabPanel value='4' index={4} children={<CuidadorForm />} />
+                {/* <TabPanel value='4' index={4}>
                     Be caretaker
-                </TabPanel>
+                </TabPanel> */}
             </TabContext>
         </Box>
     );
