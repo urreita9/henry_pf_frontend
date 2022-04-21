@@ -8,7 +8,6 @@ import {
     IconButton,
     InputAdornment,
     InputLabel,
-    OutlinedInput,
     TextField,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';

@@ -3,22 +3,12 @@ import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
-
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import FormProfile from '../../components/FormProfile/FormProfile';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PetsIcon from '@mui/icons-material/Pets';
-import ShieldIcon from '@mui/icons-material/Shield';
-import PropTypes from 'prop-types';
-import Tabs from '@mui/material/Tabs';
-import Typography from '@mui/material/Typography';
 import UserProfile from '../../components/UserProfile/UserProfile';
 import PetList from '../../components/PetList/PetList';
 import FormPet from '../../components/FormPet/FormPet';
-import { CuidadorForm } from '../Forms/CuidadorForm';
 import { useParams } from 'react-router-dom';
-import { Divider } from '@mui/material';
 
 function a11yProps(index) {
     return {
@@ -30,8 +20,8 @@ function a11yProps(index) {
 
 const Profile = () => {
     const params = useParams();
-    const dispatch = useDispatch();
-    const user = useSelector((state) => state.userReducer.user);
+    // const dispatch = useDispatch();
+    // const user = useSelector((state) => state.userReducer.user);
     const { tab: defaultTab } = params;
     const [tab, setTab] = useState(defaultTab || '0');
     const [firstTab, setFirstTab] = useState(defaultTab);

@@ -1,5 +1,4 @@
 import {
-	CardMedia,
 	Grid,
 	Rating,
 	Typography,
@@ -12,10 +11,10 @@ import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { styled } from '@mui/material/styles';
 import { Calendar } from '../Calendar/Calendar';
 import { Ticket } from '../Ticket/Ticket';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ProfileImageList } from '../ImageList/ProfileImageList';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
 
 const StyledRating = styled(Rating)({
 	'& .MuiRating-iconFilled': {

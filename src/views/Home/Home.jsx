@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCaretakers } from "../../redux/actions/actions";
@@ -10,6 +10,7 @@ export const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCaretakers());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

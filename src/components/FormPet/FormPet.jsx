@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearPet, createPet, editUser, getUser } from '../../redux/actions/actions';
-import { capitalize } from '../../utils/functions';
+// import { capitalize } from '../../utils/functions';
 
 const FormPet = () => {
     const dispatch = useDispatch();
@@ -70,6 +70,7 @@ const FormPet = () => {
         return () => {
             dispatch(clearPet());
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user]);
 
     return (

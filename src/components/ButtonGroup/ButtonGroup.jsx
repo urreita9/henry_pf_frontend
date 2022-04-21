@@ -7,7 +7,7 @@ import { PriceFilter } from '../MapFilters/PriceFilter';
 import { RatingFilter } from '../MapFilters/RatingFilter';
 import { useDispatch } from 'react-redux';
 import { filterByPetSize } from '../../redux/actions/actions';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const GroupSizesColors = () => {
 	const [form, setForm] = useState({

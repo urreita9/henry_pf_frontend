@@ -2,18 +2,15 @@ import {
   Avatar,
   Button,
   Grid,
-  Link,
   Paper,
   TextField,
-  Typography,
 } from "@mui/material";
 import PetsIcon from "@mui/icons-material/Pets";
 import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";s
 import api from "../../axios";
 const RegisterForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [name, setName] = useState("");
   const [lastname, setLastName] = useState("");
   const [email, setEmail] = useState("");

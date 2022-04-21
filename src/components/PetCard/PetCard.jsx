@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, CardActionArea, CardActions, CardContent, Typography } from '@mui/material';
+import { Avatar, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { getUser } from '../../redux/actions/actions';
