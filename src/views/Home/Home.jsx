@@ -27,20 +27,22 @@ export const Home = () => {
         marginTop: '2rem'
       }}>
 
-        <Paper elevation={2} sx={{
+        <Paper elevation={3} sx={{
           position: 'absolute',
           left: '4rem',
           zIndex: '300',
           width: '40%',
-          height: '40%',
+          minHeight: '45%',
           display: "flex",
           flexDirection: "row",
           justifyContent: 'center',
-          alignItems: "center",
+          alignItems: "flex-start",
+          borderRadius: '10px',
+          padding: '1.5rem'
         }}>
           <Box>
-            <Typography variant="h4" component="h1" sx={{ textAlign: "center" }}>
-              ✈️Are you traveling?🌎
+            <Typography variant="h4" component="h1" sx={{ textAlign: "center", fontWeight: 'bold' }}>
+              Find sitters for your pets
             </Typography>
             <GroupSizesColors />
           </Box>
@@ -56,6 +58,7 @@ export const Home = () => {
           alignItems: "center",
           width: '80%',
           height: '100%',
+          borderRadius: '10px'
         }}>
 
 
