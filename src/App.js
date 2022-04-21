@@ -12,6 +12,7 @@ import UserProfile from './views/UserProfile/UserProfile';
 import { Operation } from './components/Operation/Operation';
 import { Operations } from './components/Operations/Operations';
 import { Payment } from './components/Payment/Payment';
+import Profile from './views/Profile/Profile';
 
 function App() {
 	const [mode, setMode] = useState('light');
@@ -39,7 +40,8 @@ function App() {
 						<Route exact path='/map' element={<NewMap />} />
 						<Route exact path='/caretaker/:id' element={<CaretakerProfile />} />
 						<Route exact path='/host' element={<CuidadorForm />} />
-						<Route exact path='/profile' element={<UserProfile />} />
+						<Route exact path='/profile' element={<Profile />} />
+						<Route exact path='/profile/:tab' element={<Profile />} />
 						<Route exact path='/history' element={<Operations />} />
 						<Route exact path='/operation' element={<Payment />} />
 					</Routes>

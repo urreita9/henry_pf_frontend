@@ -47,7 +47,7 @@ export const CuidadorForm = () => {
 	const [errors, setErrors] = useState(initialErrors);
 	const [isTouched, setIsTouched] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
-	const [caretakerLocation, setCaretakerLocation] = useState(false);
+	// const [caretakerLocation, setCaretakerLocation] = useState(false);
 
 	const [fileInputState, setFileInputState] = useState('');
 	const { user, logged } = useSelector((state) => state.userReducer);
@@ -62,6 +62,7 @@ export const CuidadorForm = () => {
 		return () => {
 			setForm(initialForm);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [logged]);
 
 	// useEffect(() => {

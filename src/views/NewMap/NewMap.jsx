@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
 import { useSelector } from 'react-redux';
 import PopUpData from '../Map/PopUpData';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const initialPoint = {
 	lng: -58.381592,

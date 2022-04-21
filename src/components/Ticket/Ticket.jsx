@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { intervalToDuration } from 'date-fns';
 
 import {
-	Grid,
 	Box,
 	Card,
 	CardActions,
@@ -10,8 +9,11 @@ import {
 	Button,
 	Typography,
 } from '@mui/material';
+
 import { DateRange } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 import { useNavigate } from 'react-router-dom';
 import api from '../../axios';
 import { setOperation } from '../../redux/actions/operationActions';

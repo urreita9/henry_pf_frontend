@@ -7,7 +7,7 @@ import {
 import Questions from '../../components/Questions/index';
 import CaretakerDescription from '../../components/CaretakerDescription/index';
 import { useParams } from 'react-router-dom';
-import { Container, Grid, Typography } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
 const CaretakerProfile = () => {
 	const { id } = useParams();
@@ -22,6 +22,7 @@ const CaretakerProfile = () => {
 		return () => {
 			dispatch(cleanCaretaker());
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [dispatch]);
 
 	return (
