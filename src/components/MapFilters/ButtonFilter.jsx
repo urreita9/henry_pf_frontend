@@ -52,7 +52,7 @@ function TabPanel(props) {
     };
 }
 
-export const ButtonMapFilter = () => {
+export const ButtonMapFilter = ({handleCloseModal}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -122,7 +122,7 @@ export const ButtonMapFilter = () => {
         </Box>
         <Button
             variant='contained'
-			onClick={handleFilterClick}
+			onClick={() => {handleFilterClick(); handleCloseModal()}}
 			sx={{
 				textAlign: 'center',
                 borderRadius: '5px',

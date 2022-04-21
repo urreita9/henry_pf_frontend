@@ -23,6 +23,7 @@ import {
 } from "../../redux/actions/actions";
 
 import { ButtonMapFilter } from "../MapFilters/ButtonFilter";
+import { ButtonModalToMapFilter } from "../MapFilters/ButtonModalToMapFilter";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../../components/RegisterModal/RegisterModal";
 import Tooltip from "@mui/material/Tooltip";
@@ -100,6 +101,11 @@ const NavBar = ({ onToggle, typeMode }) => {
   }, [user]);
 
   return (
+    <>
+     {location.pathname === "/map" && (
+       <ButtonModalToMapFilter />
+           
+      )}
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -122,22 +128,7 @@ const NavBar = ({ onToggle, typeMode }) => {
               </Button>
             </Typography>
           </Link>
-
-          {location.pathname === "/map" && (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                margin: "0 auto",
-                backgroundColor: "white",
-                borderRadius: "50px",
-              }}
-            >
-              <ButtonMapFilter />
-            </Box>
-          )}
-
+                
           <Typography
             variant="h6"
             noWrap
@@ -167,15 +158,15 @@ const NavBar = ({ onToggle, typeMode }) => {
               pages.map((page) => (
                 // <Link to='/host' key={page}>
                 <Button
-                  key={page}
+                key={page}
                   // onClick={handleCloseNavMenu}
                   onClick={() => {
                     navigate("/host");
                   }}
                   sx={{ my: 2, color: "white", display: "block" }}
-                >
+                  >
                   {page}
-                </Button>
+                  </Button>
                 // </Link>
               ))}  */}
           </Box>
@@ -200,7 +191,7 @@ const NavBar = ({ onToggle, typeMode }) => {
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
                   color="inherit"
-                >
+                  >
                   <MenuIcon />
                 </IconButton>
 
@@ -276,6 +267,7 @@ const NavBar = ({ onToggle, typeMode }) => {
         </Toolbar>
       </Container>
     </AppBar>
+          </>
   );
 };
 export default NavBar;
