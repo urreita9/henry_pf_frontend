@@ -10,9 +10,7 @@ import {
 	Typography,
 } from '@mui/material';
 
-import { DateRange } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import api from '../../axios';
@@ -117,6 +115,7 @@ const TicketCard = ({ price, datesRange }) => {
 								timeLapse
 							);
 						}}
+						disabled={user.id === caretakerProfile.id ? true : false}
 					>
 						Checkout
 					</Button>

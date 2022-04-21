@@ -7,6 +7,7 @@ import {
 	DELETE_CARETAKER,
 	FILTER_BY_PET,
 	POST_USER,
+	CLEAN_CARETAKER,
 } from '../actions/actions';
 
 const initialState = {
@@ -70,6 +71,11 @@ const cuidadoresReducer = (state = initialState, action) => {
 			return {
 				...state,
 				caretakerProfile: payload,
+			};
+		case CLEAN_CARETAKER:
+			return {
+				...state,
+				caretakerProfile: {},
 			};
 
 		case DELETE_CARETAKER:

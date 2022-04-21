@@ -13,6 +13,7 @@ const CaretakerProfile = () => {
 	const { id } = useParams();
 	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 	const dispatch = useDispatch();
+
 	// const { questions } = caretakerProfile;
 
 	// console.log('caretakerProfile', caretakerProfile.);

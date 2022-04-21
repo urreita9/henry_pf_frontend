@@ -39,7 +39,7 @@ const settings = [
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
 	const dispatch = useDispatch();
-	const [anchorElNav, setAnchorElNav] = React.useState(null);
+	// const [anchorElNav, setAnchorElNav] = React.useState(null);
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const token = localStorage.getItem('token') || null;
 	const id = localStorage.getItem('uid') || null;
@@ -48,7 +48,6 @@ const NavBar = ({ onToggle, typeMode }) => {
 	const { user } = useSelector((state) => state.userReducer);
 	const { logged } = useSelector((state) => state.userReducer);
 	const navigate = useNavigate();
-	const location = useLocation();
 
 	const checkIfUserIsCaretaker = (idUser) => {
 		const findUser = caretakers.find(
@@ -60,16 +59,16 @@ const NavBar = ({ onToggle, typeMode }) => {
 		}
 		return false;
 	};
-	const handleOpenNavMenu = (event) => {
-		setAnchorElNav(event.currentTarget);
-	};
+	// const handleOpenNavMenu = (event) => {
+	// 	setAnchorElNav(event.currentTarget);
+	// };
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
 
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
+	// const handleCloseNavMenu = () => {
+	// 	setAnchorElNav(null);
+	// };
 
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
@@ -105,7 +104,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 		<AppBar position='static'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
-					<Link to='/' style={{ textDecoration: 'none' }}>
+					{/* <Link to='/' style={{ textDecoration: 'none' }}>
 						<Typography
 							variant='h6'
 							noWrap
@@ -123,22 +122,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 								PetTrip App
 							</Button>
 						</Typography>
-					</Link>
-
-					{location.pathname === '/map' && (
-						<Box
-							sx={{
-								display: 'flex',
-								flexDirection: 'column',
-								alignItems: 'center',
-								margin: '0 auto',
-								backgroundColor: 'white',
-								borderRadius: '50px',
-							}}
-						>
-							<GroupSizesColors />
-						</Box>
-					)}
+					</Link> */}
 
 					<Typography
 						variant='h6'
@@ -147,14 +131,14 @@ const NavBar = ({ onToggle, typeMode }) => {
 						sx={{
 							cursor: 'pointer',
 							flexGrow: 1,
-							display: { xs: 'flex', md: 'none' },
+							display: 'flex',
 						}}
 						onClick={() => {
 							navigate('/');
 						}}
 					>
 						<PetsIcon />
-						PetTrip App
+						PetTrip
 					</Typography>
 
 					<Box
@@ -194,8 +178,8 @@ const NavBar = ({ onToggle, typeMode }) => {
 					{/* //! VALIDACION PARA VER SI ESTA LOGUEADO 🔻 */}
 					{logged ? (
 						<>
-							<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-								<IconButton
+							{/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}> */}
+							{/* <IconButton
 									size='large'
 									aria-label='account of current user'
 									aria-controls='menu-appbar'
@@ -204,9 +188,9 @@ const NavBar = ({ onToggle, typeMode }) => {
 									color='inherit'
 								>
 									<MenuIcon />
-								</IconButton>
+								</IconButton> */}
 
-								<Menu
+							{/* <Menu
 									id='menu-appbar'
 									anchorEl={anchorElNav}
 									anchorOrigin={{
@@ -223,8 +207,8 @@ const NavBar = ({ onToggle, typeMode }) => {
 									sx={{
 										display: { xs: 'block', md: 'none' },
 									}}
-								></Menu>
-							</Box>
+								></Menu> */}
+							{/* </Box> */}
 
 							<Box sx={{ flexGrow: 0 }}>
 								<Tooltip title='Open settings'>

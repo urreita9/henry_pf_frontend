@@ -48,6 +48,7 @@ export const CuidadorForm = () => {
 	const [isTouched, setIsTouched] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
 	// const [caretakerLocation, setCaretakerLocation] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const [fileInputState, setFileInputState] = useState('');
 	const { user, logged } = useSelector((state) => state.userReducer);
@@ -62,14 +63,13 @@ export const CuidadorForm = () => {
 		return () => {
 			setForm(initialForm);
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [logged]);
 
-	// useEffect(() => {
-	// 	if (caretakerProfile.hasOwnProperty('id')) {
-	// 		navigate(`/caretaker/${caretakerProfile.id}`);
-	// 	}
-	// }, [caretakerProfile]);
+	useEffect(() => {
+		if (caretakerProfile.caretaker?.images.length) {
+			setLoading(false);
+		}
+	}, [caretakerProfile.caretaker?.images]);
 
 	const handleInputChange = (e) => {
 		setErrors({
@@ -128,6 +128,10 @@ export const CuidadorForm = () => {
 		} else {
 			if (form.images.length !== MAX_LENGTH) return;
 			dispatch(postCaretaker({ ...form, userId: user.id }));
+
+			// setModalOpen(true);
+			//LOADING!!!
+			setLoading(true);
 			setModalOpen(true);
 		}
 	};
@@ -149,13 +153,15 @@ export const CuidadorForm = () => {
 				reader.readAsDataURL(file);
 			});
 		});
+		const images = await Promise.all(filesURL);
+
 		setErrors({
 			...errors,
 			images: null,
 		});
 		setForm({
 			...form,
-			images: await Promise.all(filesURL),
+			images,
 		});
 	};
 
@@ -174,6 +180,7 @@ export const CuidadorForm = () => {
 					modalOpen={modalOpen}
 					setModalOpen={setModalOpen}
 					id={caretakerProfile.id}
+					loading={loading}
 				/>
 			)}
 			<Box sx={{ marginBottom: 2, paddingX: 2 }}>
