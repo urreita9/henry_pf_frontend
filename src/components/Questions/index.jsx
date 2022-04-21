@@ -1,10 +1,9 @@
-import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { postCaretakerQuestion } from '../../redux/actions/actions';
 import Question from '../Question';
-import QuestionMarkOutlinedIcon from '@mui/icons-material/QuestionMarkOutlined';
 import AddIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
 const Questions = ({ questions }) => {

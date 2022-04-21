@@ -1,7 +1,5 @@
 import {
-	Box,
 	Card,
-	CardActions,
 	CardContent,
 	Slider,
 	Stack,

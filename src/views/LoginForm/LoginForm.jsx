@@ -4,18 +4,14 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
-  Link,
   Paper,
   TextField,
-  Typography,
 } from "@mui/material";
 import React, { useState } from "react";
 import PetsIcon from "@mui/icons-material/Pets";
 // import { useNavigate } from "react-router-dom";
 // import { login } from "./login";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { LoginAction } from "../../redux/actions/actions";
 import api from "../../axios";
 
@@ -23,7 +19,7 @@ const changeHandler = (e) => {};
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // const [check, setCheck] = useState(null); que no expire el token
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
@@ -74,12 +70,14 @@ export const LoginForm = () => {
           <h2>Sign in</h2>
         </Grid>
         <TextField
-          label="Username"
-          placeholder="Enter username.."
+          label="Email"
+          placeholder="Enter email.."
           fullWidth
           required
           onChange={userChangeHandler}
           sx={{ marginTop: "30px" }}
+          error
+          helperText="Please enter a valid email"
         />
         <TextField
           label="Password"
