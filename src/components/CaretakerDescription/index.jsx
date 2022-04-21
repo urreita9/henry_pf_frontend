@@ -24,11 +24,13 @@ const StyledRating = styled(Rating)({
 
 const CaretakerDescription = ({
 	name,
+	lastname,
 	description,
 	homeDescription,
 	rating,
 	images,
 	price,
+	img,
 }) => {
 	const [datesRange, setDatesRange] = useState([
 		{
@@ -38,23 +40,8 @@ const CaretakerDescription = ({
 		},
 	]);
 
-	const namesArray = [
-		'John',
-		'Paul',
-		'George',
-		'Ringo',
-		'Anna',
-		'Sophie',
-		'Laura',
-		'Veronica',
-		'Claude',
-		'Mick',
-		'Keith',
-		'Ron',
-	];
-	const mockedName = namesArray[Math.floor(Math.random() * namesArray.length)];
-	// console.log('desc images', images);
-	// const nameUppercase = name.charAt(0).toUpperCase() + name.slice(1);
+	// const nameUppercase = name[0].toUpperCase() + name.slice(1);
+	// const lastnameUppercase = lastname[0].toUpperCase() + lastname.slice(1);
 	return (
 		<>
 			{images?.length && (
@@ -80,12 +67,11 @@ const CaretakerDescription = ({
 					// width={300}
 				>
 					<Typography variant='h4' component='h2'>
-						{mockedName}
-						{/* Juan */}
+						{name} {lastname}
 					</Typography>
 					<Avatar
 						alt='Remy Sharp'
-						src='https://images.pexels.com/photos/5859488/pexels-photo-5859488.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+						src={img}
 						// sx={{ width: 250, height: 250 }}
 						sx={{ marginRight: '20px' }}
 					/>

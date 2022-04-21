@@ -80,7 +80,6 @@ export const CuidadorForm = () => {
 			...form,
 			[e.target.name]: e.target.value,
 		});
-		console.log(form);
 	};
 
 	const controlProps = (item) => ({

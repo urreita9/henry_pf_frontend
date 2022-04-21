@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import {
 	Button,
 	Container,
@@ -9,11 +9,10 @@ import {
 	Typography,
 	Menu,
 } from '@mui/material/';
-import MenuIcon from '@mui/icons-material/Menu';
 import PetsIcon from '@mui/icons-material/Pets';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	clearUser,
@@ -22,53 +21,60 @@ import {
 	LogoutAction,
 } from '../../redux/actions/actions';
 
-import { GroupSizesColors } from '../ButtonGroup/ButtonGroup';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../../components/RegisterModal/RegisterModal';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
-import StepperModal from '../../views/Stepper/Stepper';
-// const pages = ["Products", "Pricing", "Blog"];
-const settings = [
-	{ text: 'Profile', link: '/profile' },
-	{ text: 'History', link: '/history' },
-	{ text: 'Be a caretaker!', link: '/host' },
-];
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
 	const dispatch = useDispatch();
 	// const [anchorElNav, setAnchorElNav] = React.useState(null);
-	const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const [anchorElUser, setAnchorElUser] = useState(null);
 	const token = localStorage.getItem('token') || null;
 	const id = localStorage.getItem('uid') || null;
+
+	const [settings, setSettings] = useState([
+		{ text: 'Profile', link: '/profile' },
+		{ text: 'History', link: '/history' },
+		{ text: 'Be a caretaker!', link: '/host' },
+	]);
+	const [openRegister, setOpenRegister] = useState(false);
+	const [openLogin, setOpenLogin] = useState(false);
+
+	const [openMenu, setOpenMenu] = useState(false);
 
 	const { caretakers } = useSelector((state) => state.cuidadoresReducer);
 	const { user } = useSelector((state) => state.userReducer);
 	const { logged } = useSelector((state) => state.userReducer);
 	const navigate = useNavigate();
 
+	const handleRegisterModal = () => {
+		setOpenRegister(!openRegister);
+	};
+	const handleLoginModal = () => {
+		setOpenLogin(!openLogin);
+	};
 	const checkIfUserIsCaretaker = (idUser) => {
 		const findUser = caretakers.find(
 			(caretaker) => caretaker.userId === idUser
 		);
 		if (findUser) {
-			console.log(findUser);
+			setSettings([
+				{ text: 'Profile', link: '/profile' },
+				{ text: 'History', link: '/history' },
+			]);
 			return true;
 		}
 		return false;
 	};
-	// const handleOpenNavMenu = (event) => {
-	// 	setAnchorElNav(event.currentTarget);
-	// };
-	const handleOpenUserMenu = (event) => {
-		setAnchorElUser(event.currentTarget);
-	};
 
-	// const handleCloseNavMenu = () => {
-	// 	setAnchorElNav(null);
-	// };
+	const handleOpenUserMenu = (event) => {
+		checkIfUserIsCaretaker(user.id);
+		setAnchorElUser(event.currentTarget);
+		setOpenMenu(true);
+	};
 
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
@@ -79,19 +85,17 @@ const NavBar = ({ onToggle, typeMode }) => {
 		dispatch(LogoutAction());
 		dispatch(clearUser());
 		navigate('/');
+		setOpenLogin(false);
+		setOpenRegister(false);
 	};
-	// const  loginLogout=
 
-	React.useEffect(() => {
-		// const token = localStorage.getItem('token') || null;
-		// const id = localStorage.getItem('uid') || null;
-
+	useEffect(() => {
 		if (token && id) {
 			dispatch(getUser(token, id));
 		}
 	}, [logged]);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (user.hasOwnProperty('id')) {
 			dispatch(LoginAction());
 		} else if (user.hasOwnProperty('msg') || user.hasOwnProperty('error')) {
@@ -104,26 +108,6 @@ const NavBar = ({ onToggle, typeMode }) => {
 		<AppBar position='static'>
 			<Container maxWidth='xl'>
 				<Toolbar disableGutters>
-					{/* <Link to='/' style={{ textDecoration: 'none' }}>
-						<Typography
-							variant='h6'
-							noWrap
-							component='div'
-							sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
-						>
-							<PetsIcon />
-
-							<Button
-								sx={{
-									color: 'white',
-								}}
-								style={{ marginLeft: '10px' }}
-							>
-								PetTrip App
-							</Button>
-						</Typography>
-					</Link> */}
-
 					<Typography
 						variant='h6'
 						noWrap
@@ -147,24 +131,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 							textAlign: 'center',
 							display: { xs: 'none', md: 'flex' },
 						}}
-					>
-						{/* {logged &&
-              !checkIfUserIsCaretaker(user.id) &&
-              pages.map((page) => (
-                // <Link to='/host' key={page}>
-                <Button
-                  key={page}
-                  // onClick={handleCloseNavMenu}
-                  onClick={() => {
-                    navigate("/host");
-                  }}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {page}
-                </Button>
-                // </Link>
-              ))}  */}
-					</Box>
+					></Box>
 					<Box>
 						<IconButton
 							onClick={() => {
@@ -178,90 +145,68 @@ const NavBar = ({ onToggle, typeMode }) => {
 					{/* //! VALIDACION PARA VER SI ESTA LOGUEADO 🔻 */}
 					{logged ? (
 						<>
-							{/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}> */}
-							{/* <IconButton
-									size='large'
-									aria-label='account of current user'
-									aria-controls='menu-appbar'
-									aria-haspopup='true'
-									onClick={handleOpenNavMenu}
-									color='inherit'
-								>
-									<MenuIcon />
-								</IconButton> */}
-
-							{/* <Menu
-									id='menu-appbar'
-									anchorEl={anchorElNav}
-									anchorOrigin={{
-										vertical: 'bottom',
-										horizontal: 'left',
-									}}
-									keepMounted
-									transformOrigin={{
-										vertical: 'top',
-										horizontal: 'left',
-									}}
-									open={Boolean(anchorElNav)}
-									onClose={handleCloseNavMenu}
-									sx={{
-										display: { xs: 'block', md: 'none' },
-									}}
-								></Menu> */}
-							{/* </Box> */}
-
-							<Box sx={{ flexGrow: 0 }}>
+							<Box>
 								<Tooltip title='Open settings'>
 									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
 										<Avatar alt='not found' src={user.img} />
 									</IconButton>
 								</Tooltip>
-								<Menu
-									sx={{ mt: '45px' }}
-									id='menu-appbar'
-									anchorEl={anchorElUser}
-									anchorOrigin={{
-										vertical: 'top',
-										horizontal: 'right',
-									}}
-									keepMounted
-									transformOrigin={{
-										vertical: 'top',
-										horizontal: 'right',
-									}}
-									open={Boolean(anchorElUser)}
-									onClose={handleCloseUserMenu}
-								>
-									{settings.map((setting) => (
-										<Link to={`${setting.link}`}>
-											<MenuItem
-												key={setting.text}
-												onClick={handleCloseUserMenu}
-											>
-												<Typography textAlign='center'>
-													{setting.text}
-												</Typography>
-											</MenuItem>
-										</Link>
-									))}
-									<Button
-										sx={{
-											// backgroundColor: '#cc3308',
-											marginLeft: '10px',
+								{openMenu && (
+									<Menu
+										sx={{ mt: '45px' }}
+										id='menu-appbar'
+										anchorEl={anchorElUser}
+										anchorOrigin={{
+											vertical: 'top',
+											horizontal: 'right',
 										}}
-										variant='contained'
-										onClick={handleLogout}
+										keepMounted
+										transformOrigin={{
+											vertical: 'top',
+											horizontal: 'right',
+										}}
+										open={Boolean(anchorElUser)}
+										onClose={handleCloseUserMenu}
 									>
-										Logout
-									</Button>
-								</Menu>
+										{settings.map((setting) => (
+											<Box onClick={() => navigate(setting.link)}>
+												<MenuItem
+													key={setting.text}
+													onClick={handleCloseUserMenu}
+												>
+													<Typography textAlign='center'>
+														{setting.text}
+													</Typography>
+												</MenuItem>
+											</Box>
+										))}
+										<Box textAlign='center'>
+											<Button
+												sx={{
+													width: '90%',
+													margin: '0 auto',
+												}}
+												variant='contained'
+												onClick={handleLogout}
+											>
+												Logout
+											</Button>
+										</Box>
+									</Menu>
+								)}
 							</Box>
 						</>
 					) : (
 						<>
-							<RegisterModal />
+							<RegisterModal
+								openRegister={openRegister}
+								handleRegisterModal={handleRegisterModal}
+							/>
 
-							<LoginModal />
+							<LoginModal
+								openLogin={openLogin}
+								handleLoginModal={handleLoginModal}
+							/>
 						</>
 					)}
 				</Toolbar>

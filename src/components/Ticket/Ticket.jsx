@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { intervalToDuration } from 'date-fns';
+import { intervalToDuration, differenceInCalendarDays } from 'date-fns';
 
 import {
 	Box,
@@ -21,13 +21,20 @@ const TicketCard = ({ price, datesRange }) => {
 		start: new Date(datesRange[0].startDate),
 		end: new Date(datesRange[0].endDate),
 	}).days;
+
+	const time = differenceInCalendarDays(
+		new Date(datesRange[0].endDate),
+		new Date(datesRange[0].startDate)
+	);
+
+	console.log(time);
 	const { logged, user } = useSelector((state) => state.userReducer);
 	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const sum = price * timeLapse;
+	const sum = price * time;
 	const totalCheckout = sum + sum * 0.03;
 
 	const handleOperationSubmit = async (
@@ -37,8 +44,6 @@ const TicketCard = ({ price, datesRange }) => {
 		datesRange,
 		timeLapse
 	) => {
-		console.log('TICKET USER', user);
-		console.log('TICKET CARETAKER', caretakerProfile);
 		const response = await api.post('/operations', {
 			buyerId,
 			sellerId,
@@ -46,9 +51,6 @@ const TicketCard = ({ price, datesRange }) => {
 			datesRange,
 			timeLapse,
 		});
-		// console.log(response.data.response.init_point);
-		// const operationId = response.data.response.id;
-		console.log(response);
 
 		// window.location.href = response.data.response.init_point;
 	};
@@ -65,7 +67,7 @@ const TicketCard = ({ price, datesRange }) => {
 				<Typography variant='h5' component='div'>
 					Checkout
 				</Typography>
-				{timeLapse !== 0 && datesRange[0].endDate && (
+				{time !== 0 && datesRange[0].endDate && (
 					<>
 						<Typography sx={{ mb: 1, textAlign: 'end' }} color='text.secondary'>
 							{datesRange[0].startDate.getDate()}/
@@ -76,9 +78,9 @@ const TicketCard = ({ price, datesRange }) => {
 							{datesRange[0].endDate.getFullYear()}
 						</Typography>
 						<Typography sx={{ mb: 1 }} color='text.secondary'>
-							{timeLapse === 1
-								? `$${price} x ${timeLapse} night`
-								: `$${price} x ${timeLapse} nights`}
+							{time === 1
+								? `$${price} x ${time} night`
+								: `$${price} x ${time} nights`}
 						</Typography>
 						<Typography sx={{ mb: 1 }} color='text.secondary'>
 							2% Cleaning fee
