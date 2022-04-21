@@ -47,18 +47,8 @@ const TicketCard = ({ price, datesRange }) => {
 			timeLapse,
 		});
 		// console.log(response.data.response.init_point);
-		const operationId = response.data.response.id;
-		console.log(response.data.response);
-		dispatch(
-			setOperation({
-				id: operationId,
-				buyerId,
-				sellerId,
-				price,
-				datesRange,
-				timeLapse,
-			})
-		);
+		// const operationId = response.data.response.id;
+		console.log(response);
 
 		// window.location.href = response.data.response.init_point;
 	};

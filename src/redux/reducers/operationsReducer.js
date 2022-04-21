@@ -1,4 +1,8 @@
-import { SET_OPERATION } from '../actions/operationActions';
+import {
+	SET_OPERATION,
+	GET_USER_OPERATIONS,
+	UPDATE_OP_STATUS,
+} from '../actions/operationActions';
 
 const initialState = {
 	operations: [],
@@ -9,8 +13,13 @@ const initialState = {
 const operationsReducer = (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
-		case SET_OPERATION:
-			console.log('OP REDUCER', payload);
+		case GET_USER_OPERATIONS:
+			return {
+				...state,
+				operations: payload,
+				filteredOperations: payload,
+			};
+		case UPDATE_OP_STATUS:
 			return {
 				...state,
 				operation: payload,

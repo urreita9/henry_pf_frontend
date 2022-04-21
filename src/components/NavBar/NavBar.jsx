@@ -30,7 +30,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import StepperModal from '../../views/Stepper/Stepper';
 // const pages = ["Products", "Pricing", "Blog"];
-const settings = ['Profile', 'History', 'Be a caretaker!'];
+const settings = [
+	{ text: 'Profile', link: '/profile' },
+	{ text: 'History', link: '/history' },
+	{ text: 'Be a caretaker!', link: '/host' },
+];
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
@@ -245,9 +249,14 @@ const NavBar = ({ onToggle, typeMode }) => {
 									onClose={handleCloseUserMenu}
 								>
 									{settings.map((setting) => (
-										<Link to='/profile'>
-											<MenuItem key={setting} onClick={handleCloseUserMenu}>
-												<Typography textAlign='center'>{setting}</Typography>
+										<Link to={`${setting.link}`}>
+											<MenuItem
+												key={setting.text}
+												onClick={handleCloseUserMenu}
+											>
+												<Typography textAlign='center'>
+													{setting.text}
+												</Typography>
 											</MenuItem>
 										</Link>
 									))}

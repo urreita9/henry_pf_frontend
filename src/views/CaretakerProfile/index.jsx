@@ -13,7 +13,7 @@ const CaretakerProfile = () => {
 	const { id } = useParams();
 	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 	const dispatch = useDispatch();
-	const { questions } = caretakerProfile;
+	// const { questions } = caretakerProfile;
 
 	// console.log('caretakerProfile', caretakerProfile.);
 	useEffect(() => {
@@ -47,7 +47,7 @@ const CaretakerProfile = () => {
 				// 	gap: 200,
 				// }}
 			>
-				<Questions questions={questions} />
+				{/* <Questions questions={questions} /> */}
 
 				{/* <Grid item>
 					<Typography variant='h4'>Calendario</Typography>
