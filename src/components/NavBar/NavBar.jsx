@@ -86,6 +86,7 @@ const NavBar = ({ onToggle, typeMode }) => {
     if (token && id) {
       dispatch(getUser(token, id));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logged]);
 
   React.useEffect(() => {
@@ -95,6 +96,7 @@ const NavBar = ({ onToggle, typeMode }) => {
       localStorage.clear();
       dispatch(LogoutAction());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

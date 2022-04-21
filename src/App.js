@@ -8,7 +8,7 @@ import { Landing } from "./views/Landing/Landing.jsx"
 import { CuidadorForm } from "./views/Forms/CuidadorForm";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import modeThemePalette from "./assets/mui-theme-config/theme-mui";
-import UserProfile from "./views/UserProfile/UserProfile";
+import Profile from './views/Profile/Profile';
 
 function App() {
   const [mode, setMode] = useState("light");
@@ -32,11 +32,13 @@ function App() {
           <NavBar onToggle={onToggleThemeMode} typeMode={mode} />
           <Routes>
             <Route exact path="/" element={<Home />} />
-			<Route exact path="/welcome" element={<Landing />} />
+			      <Route exact path="/welcome" element={<Landing />} />
             <Route exact path="/map" element={<NewMap />} />
             <Route exact path="/caretaker/:id" element={<CaretakerProfile />} />
             <Route exact path="/host" element={<CuidadorForm />} />
-            <Route exact path="/profile" element={<UserProfile />} />
+            <Route exact path='/profile' element={<Profile />} />
+            <Route exact path='/profile/:tab' element={<Profile />} />
+
           </Routes>
         </Router>
       </ThemeProvider>

@@ -1,31 +1,15 @@
 import React from 'react';
-import style from './Landing.module.css'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { ImageBackgroundLanding } from './ImageBackgroundLanding/ImageBackgroundLanding';
 import { PatitasBackground } from './PatitasBackground/PatitasBackground';
-import imageWithPetRounded from '../../utils/Imagen.svg';
 import { ImagePersonWithPet } from './ImagePersonWithPet/ImagePersonWithPet';
 
 export const Landing = () => {
 
   return (
       <>
-    {/* <Box sx={{
-
-        position: 'fixed',
-        zIndex: '50',
-        top: '0',
-        left: '0',
-        right: '0',
-        bottom: '0',
-        backgroundImage: `url(${background})`,
-        backgroundAttachment: 'fixed',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundSize: 'contain',
-}}/> */}
     <ImageBackgroundLanding width={'100%'} height={'100%'} />
     <PatitasBackground width={'100%'} height={'100%'}/>
     <Box sx={{
