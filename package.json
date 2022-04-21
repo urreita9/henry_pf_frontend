@@ -29,6 +29,7 @@
         "redux": "^4.1.2",
         "redux-thunk": "^2.4.1",
         "uuid": "^8.3.2",
+        "vest": "^4.3.3",
         "web-vitals": "^2.1.4",
         "worker-loader": "^3.0.8"
     },

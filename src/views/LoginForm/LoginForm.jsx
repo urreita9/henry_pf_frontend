@@ -70,12 +70,14 @@ export const LoginForm = () => {
           <h2>Sign in</h2>
         </Grid>
         <TextField
-          label="Username"
-          placeholder="Enter username.."
+          label="Email"
+          placeholder="Enter email.."
           fullWidth
           required
           onChange={userChangeHandler}
           sx={{ marginTop: "30px" }}
+          error
+          helperText="Please enter a valid email"
         />
         <TextField
           label="Password"
