@@ -2,14 +2,20 @@ import Button from '@mui/material/Button';
 import { Box, ButtonGroup } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { useState } from 'react';
-import { SizeFilter } from '../MapFilters/SizeFilter';
-import { PriceFilter } from '../MapFilters/PriceFilter';
-import { RatingFilter } from '../MapFilters/RatingFilter';
+import { SizeFilter } from './SizeFilter/SizeFilter';
+import { PriceFilter } from './PriceFilter/PriceFilter';
+import { RatingFilter } from './RatingFilter/RatingFilter';
 import { useDispatch } from 'react-redux';
 import { filterByPetSize } from '../../redux/actions/actions';
 import { useNavigate } from 'react-router-dom';
 
-export const GroupSizesColors = () => {
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import PhoneIcon from '@mui/icons-material/Phone';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+
+export const ButtonMapFssasdasdter = () => {
 	const [form, setForm] = useState({
 		size: '0',
 		price: [0, 10000],

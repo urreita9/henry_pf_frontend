@@ -22,13 +22,13 @@ import {
   LogoutAction,
 } from "../../redux/actions/actions";
 
-import { GroupSizesColors } from "../ButtonGroup/ButtonGroup";
+import { ButtonMapFilter } from "../MapFilters/ButtonFilter";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../../components/RegisterModal/RegisterModal";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
-import StepperModal from "../../views/Stepper/Stepper";
+// import StepperModal from "../../views/Stepper/Stepper";
 // const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "History", "Be a caretaker!"];
 
@@ -134,7 +134,7 @@ const NavBar = ({ onToggle, typeMode }) => {
                 borderRadius: "50px",
               }}
             >
-              <GroupSizesColors />
+              <ButtonMapFilter />
             </Box>
           )}
 

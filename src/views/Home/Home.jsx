@@ -3,8 +3,8 @@ import Paper from '@mui/material/Paper';
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCaretakers } from "../../redux/actions/actions";
-import { GroupSizesColors } from "../../components/ButtonGroup/ButtonGroup";
-import StepperModal from "../Stepper/Stepper";
+import { ButtonMapFilter } from "../../components/MapFilters/ButtonFilter";
+// import StepperModal from "../Stepper/Stepper";
 import { FAQ } from "../../components/FAQ/FAQ";
 import petsHome from '../../utils/petshome.jpg'
 // import { style } from "@mui/system";
@@ -32,20 +32,20 @@ export const Home = () => {
           left: '4rem',
           zIndex: '300',
           width: '40%',
-          minHeight: '45%',
+          minHeight: '70%',
           display: "flex",
-          flexDirection: "row",
-          justifyContent: 'center',
-          alignItems: "flex-start",
+          flexDirection: "column",
+          justifyContent: 'space-between',
+          alignItems: "center",
           borderRadius: '10px',
-          padding: '1.5rem'
+          padding: '1.5rem',
         }}>
-          <Box>
+
             <Typography variant="h4" component="h1" sx={{ textAlign: "center", fontWeight: 'bold' }}>
               Find sitters for your pets
             </Typography>
-            <GroupSizesColors />
-          </Box>
+
+            <ButtonMapFilter />
         </Paper>
         <Paper elevation={2} sx={{
           backgroundImage: `url(${petsHome})`,
