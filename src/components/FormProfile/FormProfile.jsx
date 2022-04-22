@@ -44,18 +44,9 @@ const FormProfile = () => {
   const token = localStorage.getItem("token");
   const id = localStorage.getItem("uid");
 
-  const userCreated = () => {
-    return swal({
-      title: "User created!",
-      text: "You can now log in",
-      icon: "success",
-      button: "OK!",
-    });
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!edit) {
-      userCreated();
       setEdit(!edit); //ACA SE EDITA
     } else {
       const check = checkFormProfile(form);
