@@ -16,24 +16,26 @@ import { postCaretaker } from '../../redux/actions/actions';
 import { ModalUi } from '../../components/Modal/ModalUi';
 
 const initialForm = {
+  //description: 'Hi Im John and I live in...',
+  description: '',
+  images: '',
+  size: '1',
+  price: 10,
   lat: null,
   lng: null,
-  price: 10,
-  size: '1',
-  description: 'Hi Im John and I live in...',
-  homeDescription: 'My house has a garden...',
   rating: 3.5,
-  images: [],
+  //homeDescription: 'My house has a garden...',
+  homeDescription: '',
   //image:
   // 'https://karlaperezyt.com/wp-content/uploads/kui_system/telegram_profiles/2980022.jpg',
 };
 const initialErrors = {
-  lat: null,
-  price: null,
-  size: null,
-  description: null,
-  homeDescription: null,
-  images: null,
+  description: '',
+  images: '',
+  size: '',
+  price: '',
+  lat: '',
+  homeDescription: '',
 };
 const initialPoint = {
   lng: -58.381592,
@@ -72,15 +74,59 @@ export const CuidadorForm = () => {
   // }, [caretakerProfile]);
 
   const handleInputChange = (e) => {
-    setErrors({
-      ...errors,
-      [e.target.name]: null,
-    });
+    // setErrors({
+    //   ...errors,
+    //   [e.target.name]: null,
+    // });
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
-    console.log(form);
+
+    switch (e.target.name) {
+      case 'description':
+        if (e.target.value.length < 10) {
+          setErrors({
+            ...errors,
+            description: 'Description must be at least 70 characters long',
+          });
+        } else {
+          setErrors({
+            ...errors,
+            description: '',
+          });
+        }
+        break;
+      case 'price':
+        if (e.target.value <= 0) {
+          setErrors({
+            ...errors,
+            price: 'Price must be greater than 0',
+          });
+        } else {
+          setErrors({
+            ...errors,
+            price: '',
+          });
+        }
+        break;
+      case 'homeDescription':
+        if (e.target.value.length < 10) {
+          setErrors({
+            ...errors,
+            homeDescription:
+              'Home description must be at least 70 characters long',
+          });
+        } else {
+          setErrors({
+            ...errors,
+            homeDescription: '',
+          });
+        }
+        break;
+      default:
+        break;
+    }
   };
 
   const controlProps = (item) => ({
@@ -91,45 +137,47 @@ export const CuidadorForm = () => {
     inputprops: { 'aria-label': item },
   });
   const onSave = () => {
-    if (form.description.length < 70) {
-      console.log('description < 70');
-      setErrors({
-        ...errors,
-        description: 'Description must be at least 70 characters long',
-      });
-    } else if (!form.description.trim(' ').length) {
-      setErrors({ ...errors, description: 'Description cant be empty' });
-    } else if (Number(form.price) < 1) {
-      console.log('price < 1');
-      setErrors({
-        ...errors,
-        price: 'Price must be greater than 0',
-      });
-    } else if (form.lat === null) {
-      setErrors({
-        ...errors,
-        lat: 'Must out marker in Map showing your aproximate location',
-      });
-    } else if (!form.images.length || form.images.length !== 3) {
-      setErrors({
-        ...errors,
-        images: 'Must select three images',
-      });
-    } else if (!form.homeDescription.trim(' ').length) {
-      setErrors({
-        ...errors,
-        homeDescription: 'Home description cant be empty',
-      });
-    } else if (form.homeDescription.length < 70) {
-      setErrors({
-        ...errors,
-        homeDescription: 'Home description must be at least 70 characters long',
-      });
-    } else {
-      if (form.images.length !== MAX_LENGTH) return;
-      dispatch(postCaretaker({ ...form, userId: user.id }));
-      setModalOpen(true);
-    }
+    // if (form.description.length < 70) {
+    //   console.log('description < 70');
+    //   setErrors({
+    //     ...errors,
+    //     description: 'Description must be at least 70 characters long',
+    //   });
+    // } else if (!form.description.trim(' ').length) {
+    //   setErrors({ ...errors, description: 'Description cant be empty' });
+    // } else if (Number(form.price) < 1) {
+    //   console.log('price < 1');
+    //   setErrors({
+    //     ...errors,
+    //     price: 'Price must be greater than 0',
+    //   });
+    // } else if (form.lat === null) {
+    //   setErrors({
+    //     ...errors,
+    //     lat: 'Must out marker in Map showing your aproximate location',
+    //   });
+    // } else if (!form.images.length || form.images.length !== 3) {
+    //   setErrors({
+    //     ...errors,
+    //     images: 'Must select three images',
+    //   });
+    // } else if (!form.homeDescription.trim(' ').length) {
+    //   setErrors({
+    //     ...errors,
+    //     homeDescription: 'Home description cant be empty',
+    //   });
+    // } else if (form.homeDescription.length < 70) {
+    //   setErrors({
+    //     ...errors,
+    //     homeDescription: 'Home description must be at least 70 characters long',
+    //   });
+    // } else {
+    //   if (form.images.length !== MAX_LENGTH) return;
+    //   dispatch(postCaretaker({ ...form, userId: user.id }));
+    //   setModalOpen(true);
+    // }
+    dispatch(postCaretaker({ ...form, userId: user.id }));
+    setModalOpen(true);
   };
 
   const handleFileInputChange = (e) => {
@@ -149,10 +197,17 @@ export const CuidadorForm = () => {
         reader.readAsDataURL(file);
       });
     });
-    setErrors({
-      ...errors,
-      images: null,
-    });
+    if (filesURL.length !== 3) {
+      setErrors({
+        ...errors,
+        images: 'Must select three images',
+      });
+    } else {
+      setErrors({
+        ...errors,
+        images: '',
+      });
+    }
     setForm({
       ...form,
       images: await Promise.all(filesURL),
@@ -163,10 +218,12 @@ export const CuidadorForm = () => {
     const map = useMapEvents({
       click(e) {
         setForm({ ...form, lat: e.latlng.lat, lng: e.latlng.lng });
+        setErrors({ ...errors, lat: '' });
       },
     });
     return null;
   };
+
   return (
     <>
       {modalOpen && (
@@ -189,10 +246,11 @@ export const CuidadorForm = () => {
           label='The users want to know you before they decide...'
           // helperText={errors.description && errors.description}
           autoFocus
-          error={errors.description && isTouched}
-          value={form.description}
+          //error={errors.description && isTouched}
           onChange={handleInputChange}
-          onBlur={() => setIsTouched(true)}
+          //error={errors.description}
+          value={form.description}
+          //onBlur={() => setIsTouched(true)}
           name='description'
         />
         {errors.description && (
@@ -216,13 +274,13 @@ export const CuidadorForm = () => {
           {/* <button type='submit'>Upload</button> */}
           {/* </form> */}
           {form.images?.length &&
-            form.images.map((image) => (
+            form.images?.map((image) => (
               <img src={image} alt='img' style={{ height: '300px' }} />
             ))}
           {form.images?.length && (
             <>
               <br></br>
-              <Button onClick={() => setForm({ ...form, images: [] })}>
+              <Button onClick={() => setForm({ ...form, images: '' })}>
                 Delete
               </Button>
             </>
@@ -343,18 +401,38 @@ export const CuidadorForm = () => {
           >
             Cancel
           </Button>
-          <Button
-            variant='contained'
-            sx={{
-              backgroundColor: '#F29279',
-              color: 'white',
-              borderColor: '#F29279',
-            }}
-            endIcon={<SaveOutlinedIcon />}
-            onClick={onSave}
-          >
-            Save
-          </Button>
+          {
+            //console.log(Object.values(errors).every((v) => v === ''))
+            Object.values(form).every((v) => v !== '') &&
+            Object.values(errors).every((v) => v === '') ? (
+              <Button
+                variant='contained'
+                sx={{
+                  backgroundColor: '#F29279',
+                  color: 'white',
+                  borderColor: '#F29279',
+                }}
+                endIcon={<SaveOutlinedIcon />}
+                onClick={onSave}
+              >
+                Save
+              </Button>
+            ) : (
+              <Button
+                variant='contained'
+                sx={{
+                  backgroundColor: '#9b9b9b',
+                  color: 'white',
+                  borderColor: '#F29279',
+                }}
+                endIcon={<SaveOutlinedIcon />}
+                //onClick={onSave}
+                disable
+              >
+                Save
+              </Button>
+            )
+          }
         </Box>
       </Box>
     </>
