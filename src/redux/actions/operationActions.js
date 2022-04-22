@@ -18,18 +18,27 @@ export const getUserOperations = (id, user) => async (dispatch) => {
 	}
 };
 
-export const updateOpStatus = (id, status) => async (dispatch) => {
-	try {
-		const { data } = await api.put(`/operations`, { id, status });
+export const updateOpStatus =
+	(idOperation, idPayment, token) => async (dispatch) => {
+		try {
+			const { data } = await api.put(
+				`/operations`,
+				{ idOperation, idPayment },
+				{
+					headers: {
+						'x-token': token,
+					},
+				}
+			);
 
-		dispatch({
-			type: UPDATE_OP_STATUS,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
-};
+			dispatch({
+				type: UPDATE_OP_STATUS,
+				payload: data,
+			});
+		} catch (error) {
+			alert(error);
+		}
+	};
 
 export const setOperation = (payload) => {
 	// console.log(data);

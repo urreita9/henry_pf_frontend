@@ -52,7 +52,7 @@ const TicketCard = ({ price, datesRange }) => {
 			timeLapse,
 		});
 
-		// window.location.href = response.data.response.init_point;
+		window.location.href = response.data.response.init_point;
 	};
 	return (
 		<>

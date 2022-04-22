@@ -9,12 +9,13 @@ export const Payment = () => {
 	const { operation } = useSelector((state) => state.operationsReducer);
 
 	const [searchParams] = useSearchParams();
-	//preference_id=1109688142-aac6c2dd-e12f-4aeb-b1d8-93e6a1fc23c6
-	const status = searchParams.get('collection_status');
-	const id = searchParams.get('preference_id');
+	const token = localStorage.getItem('token');
+	// const status = searchParams.get('collection_status');
+	const idOperation = searchParams.get('preference_id');
+	const idPayment = searchParams.get('merchant_order_id');
 
 	useEffect(() => {
-		dispatch(updateOpStatus(id, status));
+		dispatch(updateOpStatus(idOperation, idPayment, token));
 	}, []);
 
 	return <> {operation?.id && <Operation {...operation} />}</>;
