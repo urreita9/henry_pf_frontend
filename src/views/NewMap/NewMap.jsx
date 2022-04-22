@@ -42,27 +42,6 @@ export const NewMap = () => {
 	}, [filteredCaretakers]);
 	return (
 		<div style={{ height: 'calc(100vh - 64px)' }}>
-			{location.pathname === '/map' && (
-				<Box
-					sx={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						margin: '0 auto',
-						backgroundColor: 'white',
-						borderRadius: '50px',
-						position: 'absolute',
-						bottom: '100px',
-						left: '0px',
-						right: '0px',
-						width: 'fit-content',
-						zIndex: 1000,
-						margin: '0 auto',
-					}}
-				>
-					<GroupSizesColors />
-				</Box>
-			)}
 			<MapContainer
 				center={[myPoint.lat, myPoint.lng]}
 				zoom={myPoint.zoom}

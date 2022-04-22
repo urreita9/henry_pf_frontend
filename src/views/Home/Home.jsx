@@ -9,9 +9,6 @@ import { FAQ } from '../../components/FAQ/FAQ';
 import petsHome from '../../utils/petshome.jpg';
 // import { style } from "@mui/system";
 
-import { FAQ } from '../../components/FAQ/FAQ';
-import petsHome from '../../utils/petshome.jpg';
-
 export const Home = () => {
 	const dispatch = useDispatch();
 	useEffect(() => {
