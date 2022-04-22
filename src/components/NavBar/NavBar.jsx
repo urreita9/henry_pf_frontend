@@ -1,271 +1,217 @@
-import * as React from "react";
+import { useEffect, useState } from 'react';
 import {
-  Button,
-  Container,
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Menu,
-} from "@mui/material/";
-import MenuIcon from "@mui/icons-material/Menu";
-import PetsIcon from "@mui/icons-material/Pets";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+	Button,
+	Container,
+	AppBar,
+	Box,
+	Toolbar,
+	IconButton,
+	Typography,
+	Menu,
+} from '@mui/material/';
+import PetsIcon from '@mui/icons-material/Pets';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  clearUser,
-  getUser,
-  LoginAction,
-  LogoutAction,
-} from "../../redux/actions/actions";
+	clearUser,
+	getUser,
+	LoginAction,
+	LogoutAction,
+} from '../../redux/actions/actions';
 
-import { ButtonMapFilter } from "../MapFilters/ButtonFilter";
-import { ButtonModalToMapFilter } from "../MapFilters/ButtonModalToMapFilter";
-import LoginModal from "../LoginModal/LoginModal";
-import RegisterModal from "../../components/RegisterModal/RegisterModal";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import Avatar from "@mui/material/Avatar";
-// import StepperModal from "../../views/Stepper/Stepper";
-// const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "History", "Be a caretaker!"];
+import LoginModal from '../LoginModal/LoginModal';
+import RegisterModal from '../../components/RegisterModal/RegisterModal';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import Avatar from '@mui/material/Avatar';
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
-  const dispatch = useDispatch();
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const token = localStorage.getItem("token") || null;
-  const id = localStorage.getItem("uid") || null;
+	const dispatch = useDispatch();
+	// const [anchorElNav, setAnchorElNav] = React.useState(null);
+	const [anchorElUser, setAnchorElUser] = useState(null);
+	const token = localStorage.getItem('token') || null;
+	const id = localStorage.getItem('uid') || null;
 
-  const { caretakers } = useSelector((state) => state.cuidadoresReducer);
-  const { user } = useSelector((state) => state.userReducer);
-  const { logged } = useSelector((state) => state.userReducer);
-  const navigate = useNavigate();
-  const location = useLocation();
+	const [settings, setSettings] = useState([
+		{ text: 'Profile', link: '/profile' },
+		{ text: 'History', link: '/history' },
+		{ text: 'Be a caretaker!', link: '/host' },
+	]);
+	const [openRegister, setOpenRegister] = useState(false);
+	const [openLogin, setOpenLogin] = useState(false);
 
-  const checkIfUserIsCaretaker = (idUser) => {
-    const findUser = caretakers.find(
-      (caretaker) => caretaker.userId === idUser
-    );
-    if (findUser) {
-      console.log(findUser);
-      return true;
-    }
-    return false;
-  };
-  const handleOpenNavMenu = (event) => {
-    event.preventDefault();
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    event.preventDefault();
-    setAnchorElUser(event.currentTarget);
-  };
+	const [openMenu, setOpenMenu] = useState(false);
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+	const { caretakers } = useSelector((state) => state.cuidadoresReducer);
+	const { user } = useSelector((state) => state.userReducer);
+	const { logged } = useSelector((state) => state.userReducer);
+	const navigate = useNavigate();
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+	const handleRegisterModal = () => {
+		setOpenRegister(!openRegister);
+	};
+	const handleLoginModal = () => {
+		setOpenLogin(!openLogin);
+	};
+	const checkIfUserIsCaretaker = (idUser) => {
+		const findUser = caretakers.find(
+			(caretaker) => caretaker.userId === idUser
+		);
+		if (findUser) {
+			setSettings([
+				{ text: 'Profile', link: '/profile' },
+				{ text: 'History', link: '/history' },
+			]);
+			return true;
+		}
+		return false;
+	};
 
-  const handleLogout = () => {
-    localStorage.clear();
-    dispatch(LogoutAction());
-    dispatch(clearUser());
-    navigate("/");
-  };
+	const handleOpenUserMenu = (event) => {
+		checkIfUserIsCaretaker(user.id);
+		setAnchorElUser(event.currentTarget);
+		setOpenMenu(true);
+	};
 
-  React.useEffect(() => {
-    // const token = localStorage.getItem('token') || null;
-    // const id = localStorage.getItem('uid') || null;
+	const handleCloseUserMenu = () => {
+		setAnchorElUser(null);
+	};
 
-    if (token && id) {
-      dispatch(getUser(token, id));
-    }
-  }, [logged]);
+	const handleLogout = () => {
+		localStorage.clear();
+		dispatch(LogoutAction());
+		dispatch(clearUser());
+		navigate('/');
+		setOpenLogin(false);
+		setOpenRegister(false);
+	};
 
-  React.useEffect(() => {
-    if (user.hasOwnProperty("id")) {
-      dispatch(LoginAction());
-    } else if (user.hasOwnProperty("msg") || user.hasOwnProperty("error")) {
-      localStorage.clear();
-      dispatch(LogoutAction());
-    }
-  }, [user]);
+	useEffect(() => {
+		if (token && id) {
+			dispatch(getUser(token, id));
+		}
+	}, [logged]);
 
-  return (
-    <>
-     {location.pathname === "/map" && (
-       <ButtonModalToMapFilter />
-           
-      )}
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              <PetsIcon />
+	useEffect(() => {
+		if (user.hasOwnProperty('id')) {
+			dispatch(LoginAction());
+		} else if (user.hasOwnProperty('msg') || user.hasOwnProperty('error')) {
+			localStorage.clear();
+			dispatch(LogoutAction());
+		}
+	}, [user]);
 
-              <Button
-                sx={{
-                  color: "white",
-                }}
-                style={{ marginLeft: "10px" }}
-              >
-                PetTrip App
-              </Button>
-            </Typography>
-          </Link>
-                
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              cursor: "pointer",
-              flexGrow: 1,
-              display: { xs: "flex", md: "none" },
-            }}
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            <PetsIcon />
-            PetTrip App
-          </Typography>
+	return (
+		<AppBar position='static'>
+			<Container maxWidth='xl'>
+				<Toolbar disableGutters>
+					<Typography
+						variant='h6'
+						noWrap
+						component='div'
+						sx={{
+							cursor: 'pointer',
+							flexGrow: 1,
+							display: 'flex',
+						}}
+						onClick={() => {
+							navigate('/');
+						}}
+					>
+						<PetsIcon />
+						PetTrip
+					</Typography>
 
-          <Box
-            sx={{
-              flexGrow: 1,
-              textAlign: "center",
-              display: { xs: "none", md: "flex" },
-            }}
-          >
-            {/* {logged &&
-              !checkIfUserIsCaretaker(user.id) &&
-              pages.map((page) => (
-                // <Link to='/host' key={page}>
-                <Button
-                key={page}
-                  // onClick={handleCloseNavMenu}
-                  onClick={() => {
-                    navigate("/host");
-                  }}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                  {page}
-                  </Button>
-                // </Link>
-              ))}  */}
-          </Box>
-          <Box>
-            <IconButton
-              onClick={() => {
-                typeMode === "light" ? onToggle(true) : onToggle(false);
-              }}
-            >
-              {typeMode === "light" ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-          </Box>
+					<Box
+						sx={{
+							flexGrow: 1,
+							textAlign: 'center',
+							display: { xs: 'none', md: 'flex' },
+						}}
+					></Box>
+					<Box>
+						<IconButton
+							onClick={() => {
+								typeMode === 'light' ? onToggle(true) : onToggle(false);
+							}}
+						>
+							{typeMode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
+						</IconButton>
+					</Box>
 
-          {/* //! VALIDACION PARA VER SI ESTA LOGUEADO 🔻 */}
-          {logged ? (
-            <>
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleOpenNavMenu}
-                  color="inherit"
-                  >
-                  <MenuIcon />
-                </IconButton>
+					{/* //! VALIDACION PARA VER SI ESTA LOGUEADO 🔻 */}
+					{logged ? (
+						<>
+							<Box>
+								<Tooltip title='Open settings'>
+									<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+										<Avatar alt='not found' src={user.img} />
+									</IconButton>
+								</Tooltip>
+								{openMenu && (
+									<Menu
+										sx={{ mt: '45px' }}
+										id='menu-appbar'
+										anchorEl={anchorElUser}
+										anchorOrigin={{
+											vertical: 'top',
+											horizontal: 'right',
+										}}
+										keepMounted
+										transformOrigin={{
+											vertical: 'top',
+											horizontal: 'right',
+										}}
+										open={Boolean(anchorElUser)}
+										onClose={handleCloseUserMenu}
+									>
+										{settings.map((setting) => (
+											<Box onClick={() => navigate(setting.link)}>
+												<MenuItem
+													key={setting.text}
+													onClick={handleCloseUserMenu}
+												>
+													<Typography textAlign='center'>
+														{setting.text}
+													</Typography>
+												</MenuItem>
+											</Box>
+										))}
+										<Box textAlign='center'>
+											<Button
+												sx={{
+													width: '90%',
+													margin: '0 auto',
+												}}
+												variant='contained'
+												onClick={handleLogout}
+											>
+												Logout
+											</Button>
+										</Box>
+									</Menu>
+								)}
+							</Box>
+						</>
+					) : (
+						<>
+							<RegisterModal
+								openRegister={openRegister}
+								handleRegisterModal={handleRegisterModal}
+							/>
 
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorElNav}
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                  }}
-                  open={Boolean(anchorElNav)}
-                  onClose={handleCloseNavMenu}
-                  sx={{
-                    display: { xs: "block", md: "none" },
-                  }}
-                ></Menu>
-              </Box>
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="not found" src={user.img} />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <Link to="/profile">
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Typography textAlign="center">{setting}</Typography>
-                      </MenuItem>
-                    </Link>
-                  ))}
-                  <Button
-                    sx={{
-                      // backgroundColor: '#cc3308',
-                      marginLeft: "10px",
-                    }}
-                    variant="contained"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </Button>
-                </Menu>
-              </Box>
-            </>
-          ) : (
-            <>
-              <RegisterModal />
-
-              <LoginModal />
-            </>
-          )}
-        </Toolbar>
-      </Container>
-    </AppBar>
-          </>
-  );
+							<LoginModal
+								openLogin={openLogin}
+								handleLoginModal={handleLoginModal}
+							/>
+						</>
+					)}
+				</Toolbar>
+			</Container>
+		</AppBar>
+	);
 };
 export default NavBar;
