@@ -22,7 +22,7 @@ const initPassForm = {
     repeat: '',
 };
 
-const initErrors = {
+const initErrorsPass = {
     state: false,
     actual: '',
     new: '',
@@ -38,7 +38,7 @@ const initViews = {
 const PassForm = () => {
     const dispatch = useDispatch();
     const [passForm, setPassForm] = useState(initPassForm);
-    const [errors, setErrors] = useState(initErrors);
+    const [errorsPass, setErrorsPass] = useState(initErrorsPass);
     const [viewPass, setViewPass] = useState(initViews);
     const [editPassword, setEditPassword] = useState(false);
     const token = localStorage.getItem('token');
@@ -51,7 +51,7 @@ const PassForm = () => {
         } else {
             // setEditPassword(!editPassword); //ACA SE SUBMITEA
             const check = checkFormPass(passForm);
-            setErrors((prevState) => {
+            setErrorsPass((prevState) => {
                 return { ...prevState, ...check };
             });
 
@@ -63,8 +63,8 @@ const PassForm = () => {
                     setPassForm(initPassForm);
                     setViewPass(initViews);
                 } else {
-                    setErrors({
-                        ...errors,
+                    setErrorsPass({
+                        ...errorsPass,
                         actual: 'Contraseña erronea',
                     });
                 }
@@ -77,8 +77,8 @@ const PassForm = () => {
             ...passForm,
             [e.target.name]: e.target.value,
         });
-        setErrors({
-            ...errors,
+        setErrorsPass({
+            ...errorsPass,
             [e.target.name]: '',
         });
     };
@@ -121,7 +121,7 @@ const PassForm = () => {
                                 type={viewPass.actual ? 'text' : 'password'}
                                 value={passForm.actual}
                                 onChange={handleChangePassword}
-                                error={!!errors.actual}
+                                error={!!errorsPass.actual}
                                 endAdornment={
                                     <InputAdornment position='end'>
                                         <IconButton
@@ -134,8 +134,9 @@ const PassForm = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
+                                label='password'
                             />
-                            <FormHelperText error>{!!errors.actual && errors.actual}</FormHelperText>
+                            <FormHelperText error>{!!errorsPass.actual && errorsPass.actual}</FormHelperText>
                         </FormControl>
                         <FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
                             <InputLabel htmlFor='new'>New Password</InputLabel>
@@ -144,7 +145,7 @@ const PassForm = () => {
                                 name='new'
                                 type={viewPass.new ? 'text' : 'password'}
                                 value={passForm.new}
-                                error={!!errors.new}
+                                error={!!errorsPass.new}
                                 onChange={handleChangePassword}
                                 endAdornment={
                                     <InputAdornment position='end'>
@@ -160,7 +161,7 @@ const PassForm = () => {
                                 }
                                 label='New Password'
                             />
-                            <FormHelperText error>{!!errors.new && errors.new}</FormHelperText>
+                            <FormHelperText error>{!!errorsPass.new && errorsPass.new}</FormHelperText>
                         </FormControl>
                         <FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
                             <InputLabel htmlFor='repeat'>Repeat Password</InputLabel>
@@ -169,7 +170,7 @@ const PassForm = () => {
                                 name='repeat'
                                 type={viewPass.repeat ? 'text' : 'password'}
                                 value={passForm.repeat}
-                                error={!!errors.repeat}
+                                error={!!errorsPass.repeat}
                                 onChange={handleChangePassword}
                                 endAdornment={
                                     <InputAdornment position='end'>
@@ -185,7 +186,7 @@ const PassForm = () => {
                                 }
                                 label='Repeat Password'
                             />
-                            <FormHelperText error>{!!errors.repeat && errors.repeat}</FormHelperText>
+                            <FormHelperText error>{!!errorsPass.repeat && errorsPass.repeat}</FormHelperText>
                         </FormControl>
                         <Button variant='contained' color='error' onClick={handleSubmitPassword}>
                             Save

@@ -25,6 +25,46 @@ export const deletePet = async (token, id) => {
     }
 };
 
+export const checkFormPet = ({ name, age, img }) => {
+    const e = {
+        state: false,
+        name: '',
+        age: '',
+        img: '',
+    };
+
+    if (name) {
+        if (!/^[a-zA-Z ]{0,16}$/.test(name)) {
+            e.state = true;
+            e.name = 'Solo letras y espacios';
+        }
+    } else {
+        e.state = true;
+        e.name = 'Campo necesario';
+    }
+
+    if (age) {
+        if (age > 25) {
+            e.state = true;
+            e.age = 'Edad maxima 25 años';
+        }
+        if (age < 0) {
+            e.state = true;
+            e.age = 'Edad minima 1 año';
+        }
+    } else {
+        e.state = true;
+        e.age = 'Campo necesario';
+    }
+
+    if (!img) {
+        e.state = true;
+        e.img = 'Campo necesario';
+    }
+
+    return e;
+};
+
 export const checkPassword = async (token, uid, password) => {
     try {
         const { data } = await api.post(
@@ -45,24 +85,46 @@ export const checkPassword = async (token, uid, password) => {
     }
 };
 
-export const checkFormProfile = ({ name, lastname, img, address }) => {
+export const checkFormProfile = ({ name, lastname, address }) => {
     const e = {
         state: false,
         name: '',
         lastname: '',
         address: '',
-        img: '',
     };
 
-    if (img) {
-        if (!/^https?:\/\/[\w]+(\.[\w]+)+[/#?]?.*$/.test(img)) {
-            e.img = 'La img debe ser una URL';
+    if (name) {
+        if (!/^[a-zA-Z ]{0,16}$/.test(name)) {
             e.state = true;
+            e.name = 'Solo letras y espacios';
         }
-        if (!/(.img)|(.svg)|(.png)|(.jpg)|(.gif)/.test(img)) {
-            e.img = 'La img debe ser una imagen';
+    } else {
+        e.state = true;
+        e.name = 'Campo necesario';
+    }
+
+    if (lastname) {
+        if (!/^[a-zA-Z ]{0,16}$/.test(lastname)) {
             e.state = true;
+            e.lastname = 'Solo letras y espacios';
         }
+    } else {
+        e.state = true;
+        e.lastname = 'Campo necesario';
+    }
+
+    if (address) {
+        if (!/^[a-zA-Z0-9. ]{0,16}$/.test(address)) {
+            e.state = true;
+            e.address = 'Solo letras, espacios, puntos y numeros';
+        }
+        if (address.length > 16) {
+            e.state = true;
+            e.address = 'Maximo 16 caracteres';
+        }
+    } else {
+        e.state = true;
+        e.address = 'Campo necesario';
     }
 
     return e;
@@ -85,10 +147,6 @@ export const checkFormPass = ({ actual, new: newPass, repeat }) => {
         new: '',
         repeat: '',
     };
-
-    // [e.state, e.actual] = checkOne(actual, actual.length < 6, 'La contraseña debe tener al menos 6 digitos', e);
-    // console.log(e);
-    // [e.state, e.actual] = checkOne(!actual, true, 'Campo necesario', e.state, e.actual);
 
     if (actual) {
         if (actual.length < 6) {

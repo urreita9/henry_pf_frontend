@@ -9,6 +9,7 @@ import UserProfile from '../../components/UserProfile/UserProfile';
 import PetList from '../../components/PetList/PetList';
 import FormPet from '../../components/FormPet/FormPet';
 import { useParams } from 'react-router-dom';
+import { CuidadorForm } from '../Forms/CuidadorForm';
 
 const defaultProps = {
     display: 'flex',

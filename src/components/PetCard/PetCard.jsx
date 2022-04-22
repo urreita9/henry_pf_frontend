@@ -18,7 +18,7 @@ const PetCard = ({ age, id, img, name, race, size, specialFood, actions = true }
         <Card>
             <CardContent>
                 <Avatar alt='PetImg' src={img} />
-                <Typography>{id}</Typography>
+                {/* <Typography>{id}</Typography> */}
                 <Typography>{name}</Typography>
                 <Typography>{age}</Typography>
                 <Typography>{race}</Typography>

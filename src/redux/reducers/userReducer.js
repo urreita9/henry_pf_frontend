@@ -46,9 +46,11 @@ const userReducer = (state = initialState, action) => {
         case CREATE_PET:
             return {
                 ...state,
-                pet: payload,
+                pet: payload.pet,
+                user: payload.user,
+                pets: payload.user.pets,
             };
-        
+
         default:
             return state;
     }
