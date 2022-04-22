@@ -1,13 +1,18 @@
 import { Avatar, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUser } from '../../redux/actions/actions';
 import { deletePet } from '../../utils/functions';
 
 const PetCard = ({ age, id, img, name, race, size, specialFood, actions = true }) => {
     const dispatch = useDispatch();
+    const [edit, setEdit] = useState(false);
     const token = localStorage.getItem('token');
     const uid = localStorage.getItem('uid');
+
+    const handleEdit = async (e) => {
+        setEdit(!edit);
+    };
 
     const handleDelete = async (e) => {
         const resp = await deletePet(token, id);
@@ -27,7 +32,12 @@ const PetCard = ({ age, id, img, name, race, size, specialFood, actions = true }
             </CardContent>
             {actions ? (
                 <CardActions>
-                    <Button onClick={handleDelete}>Delete Pet</Button>
+                    <Button variant='contained' onClick={handleDelete}>
+                        Delete Pet
+                    </Button>
+                    <Button variant='contained' onClick={handleEdit}>
+                        Edit pet
+                    </Button>
                 </CardActions>
             ) : null}
         </Card>

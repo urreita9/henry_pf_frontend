@@ -88,7 +88,12 @@ const FormProfile = () => {
 
     return (
         <Box>
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
+            <Box
+                sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center' }}
+            >
+                <img src={user?.img} alt='' width={'100px'} sx={{ alignSelf: 'flex-start' }} />
+                <UploadImg />
+
                 <Box component={'form'} onSubmit={handleSubmit}>
                     <Box
                         sx={{
@@ -99,7 +104,6 @@ const FormProfile = () => {
                             alignItems: 'flex-start',
                         }}
                     >
-                        <UploadImg />
                         <TextField
                             id='Name'
                             name='name'
@@ -160,7 +164,6 @@ const FormProfile = () => {
                         </Box>
                     )}
                 </Box>
-                <img src={user?.img} alt='' width={'100px'} sx={{ alignSelf: 'flex-start' }} />
             </Box>
             <PassForm />
         </Box>
