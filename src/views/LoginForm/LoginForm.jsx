@@ -86,6 +86,7 @@ export const LoginForm = () => {
       title: "Login succesful!",
       text: "You will be redirected",
       icon: "success",
+      button: false,
       timer: 1000,
     });
   };
