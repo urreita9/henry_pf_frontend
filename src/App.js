@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import CaretakerProfile from './views/CaretakerProfile/index';
 import NavBar from './components/NavBar/NavBar';
 import { NewMap } from './views/NewMap/NewMap';
@@ -8,13 +9,16 @@ import { Landing } from './views/Landing/Landing.jsx';
 import { CuidadorForm } from './views/Forms/CuidadorForm';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import modeThemePalette from './assets/mui-theme-config/theme-mui';
+import {setThemeMode} from './redux/actions/actions'
 import { Operation } from './components/Operation/Operation';
 import { Operations } from './components/Operations/Operations';
 import { Payment } from './components/Payment/Payment';
 import Profile from './views/Profile/Profile';
 
 function App() {
-	const [mode, setMode] = useState('light');
+	const bodyPettrip = document.getElementById('bodyPettrip')
+	const {mode} = useSelector((state => state.themeModeReducer));
+	const dispatch = useDispatch();
 
 	useEffect(() => {}, [mode]);
 
@@ -22,10 +26,17 @@ function App() {
 		() => createTheme(modeThemePalette(mode)),
 		[mode]
 	);
-
+		console.log(createTheme(modeThemePalette(mode)))
 	function onToggleThemeMode(typeMode) {
-		console.log(typeMode);
-		typeMode ? setMode('dark') : setMode('light');
+		console.log(theme);
+		typeMode ? dispatch(setThemeMode('dark')) : dispatch(setThemeMode('light'));
+		if(typeMode) {
+			bodyPettrip.classList.remove('bodyLight');
+			bodyPettrip.classList.add('bodyDark');
+		} else {
+			bodyPettrip.classList.remove('bodyDark');
+			bodyPettrip.classList.add('bodyLight');
+		}
 	}
 
 	return (

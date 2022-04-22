@@ -24,6 +24,7 @@ export const Home = () => {
 					alignItems: 'center',
 					height: '80vh',
 					marginTop: '2rem',
+					backgroundColor: "background"
 				}}
 			>
 				<Paper

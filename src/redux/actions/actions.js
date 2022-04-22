@@ -128,7 +128,7 @@ export const getUser = (token, id) => async (dispatch) => {
   }
 };
 
-export default function setThemeMode(payload) {
+export const setThemeMode = (payload) => {
   return {
     type: SET_THEME_MODE,
     payload,

@@ -12,7 +12,7 @@ import {
 import PetsIcon from "@mui/icons-material/Pets";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearUser,
@@ -26,10 +26,12 @@ import RegisterModal from "../../components/RegisterModal/RegisterModal";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
+import {ButtonModalToMapFilter} from '../MapFilters/ButtonModalToMapFilter'
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
   // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const token = localStorage.getItem("token") || null;
@@ -105,6 +107,11 @@ const NavBar = ({ onToggle, typeMode }) => {
   }, [user]);
 
   return (
+    <>
+    {location.pathname === "/map" && (
+      <ButtonModalToMapFilter />
+      
+     )}
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -131,7 +138,7 @@ const NavBar = ({ onToggle, typeMode }) => {
               textAlign: "center",
               display: { xs: "none", md: "flex" },
             }}
-          ></Box>
+            ></Box>
           <Box>
             <IconButton
               onClick={() => {
@@ -212,6 +219,7 @@ const NavBar = ({ onToggle, typeMode }) => {
         </Toolbar>
       </Container>
     </AppBar>
+  </>
   );
 };
 export default NavBar;
