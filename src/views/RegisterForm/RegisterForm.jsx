@@ -7,6 +7,7 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  Modal,
   OutlinedInput,
   Paper,
   TextField,
@@ -16,6 +17,10 @@ import { useState } from "react";
 import api from "../../axios";
 import { checkRegForm } from "./functions";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { LoginForm } from "../LoginForm/LoginForm";
+import { Box } from "@mui/system";
+import swal from "sweetalert";
+import Swal from "sweetalert2";
 
 const initRegForm = {
   name: "",
@@ -33,10 +38,15 @@ const initErrors = {
   password: "",
   repeat: "",
 };
+
 const RegisterForm = () => {
   const [regForm, setRegForm] = useState(initRegForm);
   const [errors, setErrors] = useState(initErrors);
   const [viewPass, setViewPass] = useState({ password: false, repeat: false });
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   const changeHandler = (event) => {
     setRegForm({
@@ -49,6 +59,15 @@ const RegisterForm = () => {
     });
   };
 
+  const userCreated = () => {
+    return swal({
+      title: "User created!",
+      text: "You can now log in",
+      icon: "success",
+      button: "OK!",
+    }).then(handleOpen());
+  };
+
   const submitHandler = async (event) => {
     event.preventDefault();
     const check = checkRegForm(regForm);
@@ -59,8 +78,8 @@ const RegisterForm = () => {
       try {
         const post = await api.post("/users", { ...regForm });
         if (post.data.state) {
-          //ABRE EL MODAL DE USUARIO REGISTRADO EXITOSAMENTE
-          alert("usuario creado");
+          //?ABRE EL MODAL DE USUARIO REGISTRADO EXITOSAMENTE
+          userCreated();
         }
       } catch (error) {
         setErrors({
@@ -89,6 +108,12 @@ const RegisterForm = () => {
     margin: "20px auto",
   };
 
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
   return (
     <Grid>
       <Paper elevation={10} style={paperStyle}>
@@ -98,7 +123,16 @@ const RegisterForm = () => {
           </Avatar>
           <h2>Sign up!</h2>
         </Grid>
-
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box style={style}>
+            <LoginForm />
+          </Box>
+        </Modal>
         <TextField
           label="Name*"
           name="name"
@@ -196,7 +230,7 @@ const RegisterForm = () => {
         >
           Register
         </Button>
-        <Button>Already have an account?</Button>
+        <Button onClick={handleOpen}>Already have an account?</Button>
       </Paper>
     </Grid>
   );
