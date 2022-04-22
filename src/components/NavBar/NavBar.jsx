@@ -58,9 +58,11 @@ const NavBar = ({ onToggle, typeMode }) => {
     return false;
   };
   const handleOpenNavMenu = (event) => {
+    event.preventDefault();
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
+    event.preventDefault();
     setAnchorElUser(event.currentTarget);
   };
 
@@ -78,7 +80,6 @@ const NavBar = ({ onToggle, typeMode }) => {
     dispatch(clearUser());
     navigate("/");
   };
-  // const  loginLogout=
 
   React.useEffect(() => {
     // const token = localStorage.getItem('token') || null;
@@ -212,7 +213,6 @@ const NavBar = ({ onToggle, typeMode }) => {
                   }}
                 ></Menu>
               </Box>
-
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
