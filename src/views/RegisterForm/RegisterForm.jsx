@@ -1,7 +1,6 @@
 import {
   Avatar,
   Button,
-  FilledInput,
   FormControl,
   FormHelperText,
   Grid,
@@ -15,7 +14,7 @@ import {
 import PetsIcon from "@mui/icons-material/Pets";
 import { useState } from "react";
 import api from "../../axios";
-import { checkRegForm } from "../../components/PassForm/functions";
+import { checkRegForm } from "./functions";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const initRegForm = {
@@ -35,7 +34,6 @@ const initErrors = {
   repeat: "",
 };
 const RegisterForm = () => {
-  // const dispatch = useDispatch(); esto va a ser para validar el email al tok
   const [regForm, setRegForm] = useState(initRegForm);
   const [errors, setErrors] = useState(initErrors);
   const [viewPass, setViewPass] = useState({ password: false, repeat: false });
