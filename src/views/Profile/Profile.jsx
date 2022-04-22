@@ -1,14 +1,15 @@
-import Box from "@mui/material/Box";
-import Tab from "@mui/material/Tab";
-import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import TabPanel from "@mui/lab/TabPanel";
-import React, { useState } from "react";
-import FormProfile from "../../components/FormProfile/FormProfile";
-import UserProfile from "../../components/UserProfile/UserProfile";
-import PetList from "../../components/PetList/PetList";
-import FormPet from "../../components/FormPet/FormPet";
-import { useParams } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import React, { useState } from 'react';
+import FormProfile from '../../components/FormProfile/FormProfile';
+import UserProfile from '../../components/UserProfile/UserProfile';
+import PetList from '../../components/PetList/PetList';
+import FormPet from '../../components/FormPet/FormPet';
+import { useParams } from 'react-router-dom';
+import { CuidadorForm } from '../Forms/CuidadorForm';
 
 const defaultProps = {
   display: "flex",

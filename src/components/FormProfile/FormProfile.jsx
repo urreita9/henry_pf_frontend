@@ -13,49 +13,29 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser } from '../../redux/actions/actions';
-import { capitalize, checkPassword } from '../../utils/functions';
+import { capitalize, checkFormProfile, checkPassword } from '../../utils/functions';
 import PassForm from '../PassForm/PassForm';
+import UploadImg from '../UploadImg/UploadImg';
+
+const initForm = {
+    name: '',
+    lastname: '',
+    address: '',
+};
+
+const initErrors = {
+    state: false,
+    name: '',
+    lastname: '',
+    address: '',
+};
 
 const FormProfile = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.userReducer.user);
-    const [form, setForm] = useState({
-        name: '',
-        lastname: '',
-        address: '',
-        img: '',
-    });
-
-    const [passForm, setPassForm] = useState({
-        actual: '',
-        new: '',
-        repeat: '',
-    });
-
-    const [errors, setErrors] = useState({
-        state: false,
-        name: '',
-        lastname: '',
-        address: '',
-        img: '',
-    });
-
-    const [passErrors, setPassErrors] = useState({
-        state: false,
-        name: '',
-        lastname: '',
-        address: '',
-        img: '',
-    });
-
-    const [viewPass, setViewPass] = useState({
-        actual: false,
-        new: false,
-        repeat: false,
-    });
-
+    const [form, setForm] = useState(initForm);
+    const [errors, setErrors] = useState(initErrors);
     const [edit, setEdit] = useState(false);
-    const [editPassword, setEditPassword] = useState(false);
     const token = localStorage.getItem('token');
     const id = localStorage.getItem('uid');
 
@@ -64,9 +44,15 @@ const FormProfile = () => {
         if (!edit) {
             setEdit(!edit); //ACA SE EDITA
         } else {
-            setEdit(!edit); //ACA SE SUBMITEA
+            const check = checkFormProfile(form);
+            setErrors((prevState) => {
+                return { ...prevState, ...check };
+            });
 
-            dispatch(editUser(token, id, form));
+            if (!check.state) {
+                setEdit(!edit); //ACA SE SUBMITEA
+                dispatch(editUser(token, id, form));
+            }
         }
     };
 
@@ -74,6 +60,10 @@ const FormProfile = () => {
         setForm({
             ...form,
             [e.target.name]: e.target.value,
+        });
+        setErrors({
+            ...errors,
+            [e.target.name]: '',
         });
     };
 
@@ -109,19 +99,13 @@ const FormProfile = () => {
                             alignItems: 'flex-start',
                         }}
                     >
-                        <TextField
-                            id='Img'
-                            name='img'
-                            disabled={!edit}
-                            variant='filled'
-                            label='Img'
-                            value={form.img}
-                            onChange={handleChange}
-                        />
+                        <UploadImg />
                         <TextField
                             id='Name'
                             name='name'
                             disabled={!!user.name || !edit}
+                            error={!!errors.name}
+                            helperText={!!errors.name && errors.name}
                             variant='filled'
                             label='Name'
                             value={form.name}
@@ -131,6 +115,8 @@ const FormProfile = () => {
                             id='Lastname'
                             name='lastname'
                             disabled={!!user.lastname || !edit}
+                            error={!!errors.lastname}
+                            helperText={!!errors.lastname && errors.lastname}
                             variant='filled'
                             label='Lastname'
                             value={form.lastname}
@@ -140,6 +126,8 @@ const FormProfile = () => {
                             id='Address'
                             disabled={!edit}
                             name='address'
+                            error={!!errors.address}
+                            helperText={!!errors.address && errors.address}
                             variant='filled'
                             label='Address'
                             value={form.address}
@@ -180,3 +168,6 @@ const FormProfile = () => {
 };
 
 export default FormProfile;
+
+// <label htmlFor='file'>Choose 3 pictures that describes your home</label>
+// <input type='file' name='image' onChange={handleFileInputChange}/>
