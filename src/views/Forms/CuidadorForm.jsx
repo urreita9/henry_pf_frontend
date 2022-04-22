@@ -50,6 +50,7 @@ export const CuidadorForm = () => {
   const [isTouched, setIsTouched] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   // const [caretakerLocation, setCaretakerLocation] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [fileInputState, setFileInputState] = useState('');
   const { user, logged } = useSelector((state) => state.userReducer);
@@ -72,6 +73,12 @@ export const CuidadorForm = () => {
   // 		navigate(`/caretaker/${caretakerProfile.id}`);
   // 	}
   // }, [caretakerProfile]);
+
+  useEffect(() => {
+    if (caretakerProfile.caretaker?.images.length) {
+      setLoading(false);
+    }
+  }, [caretakerProfile.caretaker?.images]);
 
   const handleInputChange = (e) => {
     // setErrors({
@@ -177,6 +184,7 @@ export const CuidadorForm = () => {
     //   setModalOpen(true);
     // }
     dispatch(postCaretaker({ ...form, userId: user.id }));
+    setLoading(true);
     setModalOpen(true);
   };
 

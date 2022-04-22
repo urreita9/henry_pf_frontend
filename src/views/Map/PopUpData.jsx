@@ -14,13 +14,22 @@ const StyledRating = styled(Rating)({
 export default function PopUpData({ person }) {
 	// const { id, name } = person;
 	// console.log(person);
+	console.log(person);
 	return (
 		<Box>
-			<Avatar
-				alt='Remy Sharp'
-				src='https://images.pexels.com/users/avatars/11735/muhannad-alatawi-875.jpeg?auto=compress&fit=crop&h=60&w=60'
-			/>
-			<Typography component='legend'>{person.user.name}</Typography>
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'space-around',
+				}}
+			>
+				<Avatar alt='Remy Sharp' src={person.img} />
+				<Typography component='legend' textAlign={'end'}>
+					{person.user.name} {person.user.lastname}
+				</Typography>
+			</Box>
+
 			<Typography component='legend'>${person.price}</Typography>
 			<StyledRating
 				precision={0.5}

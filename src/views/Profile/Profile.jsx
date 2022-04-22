@@ -11,6 +11,14 @@ import FormPet from '../../components/FormPet/FormPet';
 import { CuidadorForm } from '../Forms/CuidadorForm';
 import { useParams } from 'react-router-dom';
 
+const defaultProps = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'flex-start',
+
+  width: '100%',
+};
+
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,

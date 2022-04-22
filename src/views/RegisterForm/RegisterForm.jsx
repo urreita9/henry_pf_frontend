@@ -1,58 +1,85 @@
 import {
   Avatar,
   Button,
+  FormControl,
+  FormHelperText,
   Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   Paper,
   TextField,
 } from "@mui/material";
 import PetsIcon from "@mui/icons-material/Pets";
 import { useState } from "react";
-// import { useNavigate } from "react-router-dom";s
 import api from "../../axios";
+import { checkRegForm } from "./functions";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+const initRegForm = {
+  name: "",
+  lastname: "",
+  email: "",
+  password: "",
+  repeat: "",
+};
+
+const initErrors = {
+  state: false,
+  name: "",
+  lastname: "",
+  email: "",
+  password: "",
+  repeat: "",
+};
 const RegisterForm = () => {
-  // const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [lastname, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setpassword] = useState("");
+  const [regForm, setRegForm] = useState(initRegForm);
+  const [errors, setErrors] = useState(initErrors);
+  const [viewPass, setViewPass] = useState({ password: false, repeat: false });
 
-  const nameChangeHandler = (event) => {
-    setName(event.target.value);
-  };
-
-  const lastnameChangeHandler = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const userChangeHandler = (event) => {
-    setEmail(event.target.value);
-  };
-  const passwordChangeHandler = (event) => {
-    setpassword(event.target.value);
+  const changeHandler = (event) => {
+    setRegForm({
+      ...regForm,
+      [event.target.name]: event.target.value,
+    });
+    setErrors({
+      ...errors,
+      [event.target.name]: "",
+    });
   };
 
   const submitHandler = async (event) => {
-    if (email === "") {
-      event.preventDefault();
-      alert("Complete form correctly");
-    } else {
+    event.preventDefault();
+    const check = checkRegForm(regForm);
+    setErrors((prevState) => {
+      return { ...prevState, ...check };
+    });
+    if (!check.state) {
       try {
-        let data = {
-          name: name,
-          lastname: lastname,
-          email: email,
-          password: password,
-        };
-        const post = await api.post("/users", data);
-        console.log(post);
-        if (post.data) {
-          alert("User created successfully");
+        const post = await api.post("/users", { ...regForm });
+        if (post.data.state) {
+          //ABRE EL MODAL DE USUARIO REGISTRADO EXITOSAMENTE
+          alert("usuario creado");
         }
       } catch (error) {
-        console.log(error.response);
-        alert("That email has alrede been registered!");
+        setErrors({
+          ...errors,
+          email: error.response.data.msg,
+        });
       }
     }
+  };
+  const handleChangeView = (name = "") => {
+    return (e) => {
+      setViewPass({
+        ...viewPass,
+        [name]: !viewPass[name],
+      });
+    };
+  };
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   const paperStyle = {
@@ -71,40 +98,93 @@ const RegisterForm = () => {
           </Avatar>
           <h2>Sign up!</h2>
         </Grid>
+
         <TextField
-          label="Name"
+          label="Name*"
+          name="name"
           placeholder="Enter your name"
           fullWidth
-          required
-          onChange={nameChangeHandler}
-          sx={{ marginTop: "30px" }}
-        />
-        <TextField
-          label="Lastname"
-          placeholder="Enter your lastname"
-          fullWidth
-          required
-          onChange={lastnameChangeHandler}
-          sx={{ marginTop: "30px" }}
-        />
-        <TextField
-          label="Email"
-          placeholder="Enter email.."
-          fullWidth
-          required
-          onChange={userChangeHandler}
+          onChange={changeHandler}
+          autoFocus
+          error={!!errors.name}
+          helperText={errors.name}
           sx={{ marginTop: "30px" }}
         />
 
         <TextField
-          label="Password"
-          placeholder="Enter password"
+          label="Lastname*"
+          name="lastname"
+          placeholder="Enter your lastname"
           fullWidth
-          required
-          type="password"
-          onChange={passwordChangeHandler}
+          error={!!errors.lastname}
+          helperText={errors.lastname}
+          onChange={changeHandler}
           sx={{ marginTop: "30px" }}
         />
+        <TextField
+          name="email"
+          label="Email*"
+          placeholder="Enter email.."
+          fullWidth
+          error={!!errors.email}
+          helperText={errors.email}
+          onChange={changeHandler}
+          sx={{ marginTop: "30px" }}
+        />
+        <FormControl fullWidth sx={{ marginTop: "30px" }}>
+          <InputLabel htmlFor="password">Password*</InputLabel>
+          <OutlinedInput
+            label="password*"
+            id="password"
+            name="password"
+            type={viewPass.password ? "text" : "password"}
+            value={regForm.password}
+            onChange={changeHandler}
+            error={!!errors.password}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleChangeView("password")}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {viewPass.password ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <FormHelperText error>
+            {!!errors.password && errors.password}
+          </FormHelperText>
+        </FormControl>
+        <FormControl fullWidth sx={{ marginTop: "30px" }}>
+          <InputLabel htmlFor="repeat">Repeat Password*</InputLabel>
+          <OutlinedInput
+            label="repeat*"
+            id="repeat"
+            name="repeat"
+            type={viewPass.repeat ? "text" : "password"}
+            value={regForm.repeat}
+            onChange={changeHandler}
+            error={!!errors.repeat}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle repeat visibility"
+                  onClick={handleChangeView("repeat")}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {viewPass.repeat ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          <FormHelperText error>
+            {!!errors.repeat && errors.repeat}
+          </FormHelperText>
+        </FormControl>
 
         <Button
           type="submit"

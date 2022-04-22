@@ -9,8 +9,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import PetsIcon from "@mui/icons-material/Pets";
-// import { useNavigate } from "react-router-dom";
-// import { login } from "./login";
 import { useDispatch } from "react-redux";
 import { LoginAction } from "../../redux/actions/actions";
 import api from "../../axios";
@@ -19,11 +17,10 @@ const changeHandler = (e) => {};
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  // const navigate = useNavigate();
+
   // const [check, setCheck] = useState(null); que no expire el token
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
-  // const [modal, setModal] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();

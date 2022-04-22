@@ -21,19 +21,6 @@ const UserProfile = () => {
                     </CardContent>
                 </Box>
             </Card>
-            <Card sx={{ width: '50vw' }}>
-                <Box sx={{ display: 'grid', gap: 1, gridTemplateColumns: 'repeat(3, 1fr)' }}>
-                    <CardContent>
-                        <Avatar alt='UserImg' src={user.img} sx={{ width: 200, height: 200 }} />
-                    </CardContent>
-                    <CardContent>
-                        <Typography>{`${capitalize(user.name)} ${capitalize(user.lastname)}`}</Typography>
-                    </CardContent>
-                    <CardContent>
-                        <Typography>{user.address}</Typography>
-                    </CardContent>
-                </Box>
-            </Card>
         </Box>
     );
 };

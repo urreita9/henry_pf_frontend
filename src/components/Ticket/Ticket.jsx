@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { intervalToDuration } from 'date-fns';
+import { useState } from 'react';
+import { intervalToDuration, differenceInCalendarDays } from 'date-fns';
 
 import {
 	Box,
@@ -9,22 +9,54 @@ import {
 	Button,
 	Typography,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
+import { useDispatch, useSelector } from 'react-redux';
+
+import { useNavigate } from 'react-router-dom';
+import api from '../../axios';
+import LoginModal from '../LoginModal/LoginModal';
 const TicketCard = ({ price, datesRange }) => {
 	const timeLapse = intervalToDuration({
 		start: new Date(datesRange[0].startDate),
 		end: new Date(datesRange[0].endDate),
 	}).days;
-	const { logged } = useSelector((state) => state.userReducer);
+
+	const time = differenceInCalendarDays(
+		new Date(datesRange[0].endDate),
+		new Date(datesRange[0].startDate)
+	);
+
+	const [openLogin, setOpenLogin] = useState(false);
+	const { logged, user } = useSelector((state) => state.userReducer);
+	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
+
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	// const dates = `${datesRange[0].startDate.getMonth()}/${datesRange[0].startDate.getDate()}/${datesRange[0].startDate.getFullYear()} - ${datesRange[0].endDate.getMonth()}/${datesRange[0].endDate.getDate()}/${datesRange[0].endDate.getFullYear()}`;
-	console.log(datesRange);
+	const handleLoginModal = () => {
+		setOpenLogin(!openLogin);
+	};
 
-	const sum = price * timeLapse;
+	const sum = price * time;
 	const totalCheckout = sum + sum * 0.03;
+
+	const handleOperationSubmit = async (
+		buyerId,
+		sellerId,
+		price,
+		datesRange,
+		timeLapse
+	) => {
+		const response = await api.post('/operations', {
+			buyerId,
+			sellerId,
+			price,
+			datesRange,
+			timeLapse,
+		});
+
+		window.location.href = response.data.response.init_point;
+	};
 	return (
 		<>
 			<CardContent>
@@ -38,7 +70,7 @@ const TicketCard = ({ price, datesRange }) => {
 				<Typography variant='h5' component='div'>
 					Checkout
 				</Typography>
-				{timeLapse !== 0 && datesRange[0].endDate && (
+				{time !== 0 && datesRange[0].endDate && (
 					<>
 						<Typography sx={{ mb: 1, textAlign: 'end' }} color='text.secondary'>
 							{datesRange[0].startDate.getDate()}/
@@ -49,9 +81,9 @@ const TicketCard = ({ price, datesRange }) => {
 							{datesRange[0].endDate.getFullYear()}
 						</Typography>
 						<Typography sx={{ mb: 1 }} color='text.secondary'>
-							{timeLapse === 1
-								? `$${price} x ${timeLapse} night`
-								: `$${price} x ${timeLapse} nights`}
+							{time === 1
+								? `$${price} x ${time} night`
+								: `$${price} x ${time} nights`}
 						</Typography>
 						<Typography sx={{ mb: 1 }} color='text.secondary'>
 							2% Cleaning fee
@@ -70,19 +102,33 @@ const TicketCard = ({ price, datesRange }) => {
 			</CardContent>
 			<CardActions sx={{ justifyContent: 'center', alignItems: 'center' }}>
 				<Box>
-					{' '}
-					<Button
-						variant='contained'
-						size='medium'
-						sx={{ backgroundColor: '#F29278' }}
-						onClick={() => {
-							if (!logged) {
-								navigate('/login');
-							}
-						}}
-					>
-						Checkout
-					</Button>
+					{user?.id ? (
+						<Button
+							variant='contained'
+							size='medium'
+							sx={{ backgroundColor: '#F29278' }}
+							onClick={() => {
+								if (!logged) {
+									return;
+								}
+								handleOperationSubmit(
+									user.id,
+									caretakerProfile.id,
+									price,
+									datesRange,
+									timeLapse
+								);
+							}}
+							disabled={user.id === caretakerProfile.id ? true : false}
+						>
+							Checkout
+						</Button>
+					) : (
+						<LoginModal
+							openLogin={openLogin}
+							handleLoginModal={handleLoginModal}
+						/>
+					)}
 				</Box>
 			</CardActions>
 		</>

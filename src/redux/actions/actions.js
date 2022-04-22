@@ -17,8 +17,6 @@ export const CLEAR_PET = 'CLEAR_PET';
 export const CREATE_PET = 'CREATE_PET';
 export const EDIT_USER = 'EDIT_USER';
 
-
-
 export const getCaretakers = () => async (dispatch) => {
   try {
     const { data } = await api.get(`/caretakers`);
@@ -158,50 +156,47 @@ export const clearUser = () => ({
 });
 
 export const editUser = (token, id, body) => async (dispatch) => {
-    try {
-        const { data } = await api.put(`/users/${id}`, body, {
-            headers: {
-                'x-token': token,
-                uid: id,
-            },
-        });
+  try {
+    const { data } = await api.put(`/users/${id}`, body, {
+      headers: {
+        'x-token': token,
+        uid: id,
+      },
+    });
 
-        dispatch({
-            type: EDIT_USER,
-            payload: data,
-        });
-    } catch (error) {
-        const data = error.response.data;
-        console.log(data);
-        // dispatch({
-        //     type: GET_USER,
-        //     payload: data,
-        // });
-    }
+    dispatch({
+      type: EDIT_USER,
+      payload: data,
+    });
+  } catch (error) {
+    const data = error.response.data;
+    console.log(data);
+    // dispatch({
+    //     type: GET_USER,
+    //     payload: data,
+    // });
+  }
 };
 
 export const createPet = (token, body) => async (dispatch) => {
-    try {
-        const { data } = await api.post('/pets', body, {
-            headers: {
-                'x-token': token,
-            },
-        });
+  try {
+    const { data } = await api.post('/pets', body, {
+      headers: {
+        'x-token': token,
+      },
+    });
 
-        dispatch({
-            type: CREATE_PET,
-            payload: data,
-        });
-    } catch (error) {
-        const data = error.response.data;
-        console.log(data);
-    }
+    dispatch({
+      type: CREATE_PET,
+      payload: data,
+    });
+  } catch (error) {
+    const data = error.response.data;
+    console.log(data);
+  }
 };
 
-
 export const clearPet = () => ({
-    type: CLEAR_PET,
-    payload: {},
+  type: CLEAR_PET,
+  payload: {},
 });
-
-
