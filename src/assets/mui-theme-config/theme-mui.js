@@ -12,6 +12,7 @@ const modeThemePalette = (mode) => (
       },
       background: {
         default: '#fdfafa',
+        paper: '#FAFAFA',
       },
       text: {
         primary: '#222222',

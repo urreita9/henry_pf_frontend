@@ -2,3 +2,15 @@
 	width: 100vw;
 	height: 100vh;
 } */
+
+/* body {
+	background-color: var(--bs-body-bg);
+} */
+
+.bodyDark {
+	background-color: #222222;
+}
+
+.bodyLight {
+	background-color: #FAFAFA;
+}

@@ -1,7 +1,7 @@
 import { SET_THEME_MODE } from "../actions/actions";
 
 const initialState = {
-    mode: true,
+    mode: 'light',
   };
 
   const themeModeReducer = (state = initialState, {type, payload}) => {
