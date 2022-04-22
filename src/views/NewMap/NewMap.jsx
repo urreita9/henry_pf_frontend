@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { GroupSizesColors } from '../../components/ButtonGroup/ButtonGroup';
 import { getCaretakers } from '../../redux/actions/actions';
 import PopUpData from '../Map/PopUpData';
 
