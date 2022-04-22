@@ -20,7 +20,6 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoginForm } from "../LoginForm/LoginForm";
 import { Box } from "@mui/system";
 import swal from "sweetalert";
-import Swal from "sweetalert2";
 
 const initRegForm = {
   name: "",
@@ -103,7 +102,7 @@ const RegisterForm = () => {
 
   const paperStyle = {
     padding: 20,
-    height: "70vh",
+    height: "80vh",
     width: 280,
     margin: "20px auto",
   };
