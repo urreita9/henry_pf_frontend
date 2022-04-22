@@ -77,8 +77,8 @@ const PassForm = () => {
             ...passForm,
             [e.target.name]: e.target.value,
         });
-        setErrors({
-            ...errors,
+        setErrorsPass({
+            ...errorsPass,
             [e.target.name]: '',
         });
     };
