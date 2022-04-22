@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { intervalToDuration, differenceInCalendarDays } from 'date-fns';
 
 import {
@@ -14,8 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import api from '../../axios';
-import { setOperation } from '../../redux/actions/operationActions';
-
+import LoginModal from '../LoginModal/LoginModal';
 const TicketCard = ({ price, datesRange }) => {
 	const timeLapse = intervalToDuration({
 		start: new Date(datesRange[0].startDate),
@@ -27,12 +26,16 @@ const TicketCard = ({ price, datesRange }) => {
 		new Date(datesRange[0].startDate)
 	);
 
-	console.log(time);
+	const [openLogin, setOpenLogin] = useState(false);
 	const { logged, user } = useSelector((state) => state.userReducer);
 	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const handleLoginModal = () => {
+		setOpenLogin(!openLogin);
+	};
 
 	const sum = price * time;
 	const totalCheckout = sum + sum * 0.03;
@@ -99,28 +102,33 @@ const TicketCard = ({ price, datesRange }) => {
 			</CardContent>
 			<CardActions sx={{ justifyContent: 'center', alignItems: 'center' }}>
 				<Box>
-					{' '}
-					<Button
-						variant='contained'
-						size='medium'
-						sx={{ backgroundColor: '#F29278' }}
-						onClick={() => {
-							if (!logged) {
-								navigate('/login');
-								return;
-							}
-							handleOperationSubmit(
-								user.id,
-								caretakerProfile.id,
-								price,
-								datesRange,
-								timeLapse
-							);
-						}}
-						disabled={user.id === caretakerProfile.id ? true : false}
-					>
-						Checkout
-					</Button>
+					{user?.id ? (
+						<Button
+							variant='contained'
+							size='medium'
+							sx={{ backgroundColor: '#F29278' }}
+							onClick={() => {
+								if (!logged) {
+									return;
+								}
+								handleOperationSubmit(
+									user.id,
+									caretakerProfile.id,
+									price,
+									datesRange,
+									timeLapse
+								);
+							}}
+							disabled={user.id === caretakerProfile.id ? true : false}
+						>
+							Checkout
+						</Button>
+					) : (
+						<LoginModal
+							openLogin={openLogin}
+							handleLoginModal={handleLoginModal}
+						/>
+					)}
 				</Box>
 			</CardActions>
 		</>
