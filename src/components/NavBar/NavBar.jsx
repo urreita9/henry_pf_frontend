@@ -205,14 +205,17 @@ const NavBar = ({ onToggle, typeMode }) => {
             </>
           ) : (
             <>
-              <RegisterModal
-                openRegister={openRegister}
-                handleRegisterModal={handleRegisterModal}
-              />
 
               <LoginModal
                 openLogin={openLogin}
                 handleLoginModal={handleLoginModal}
+              />
+              <RegisterModal
+                openRegister={openRegister}
+                handleRegisterModal={handleRegisterModal}
+                sx={{
+                  margin: '2px 5px'
+                }}
               />
             </>
           )}
