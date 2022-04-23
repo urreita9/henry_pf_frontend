@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MapContainer, Marker, TileLayer, useMapEvents } from 'react-leaflet';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { MapContainer, Marker, TileLayer, useMapEvents } from "react-leaflet";
 import {
   Box,
   Button,
@@ -8,39 +8,48 @@ import {
   TextField,
   Typography,
   Input,
-} from '@mui/material';
-import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
+} from "@mui/material";
+import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 // import { Mapa } from '../Map/Mapa';
-import { useDispatch, useSelector } from 'react-redux';
-import { postCaretaker } from '../../redux/actions/actions';
-import { ModalUi } from '../../components/Modal/ModalUi';
-
+import { useDispatch, useSelector } from "react-redux";
+import { postCaretaker } from "../../redux/actions/actions";
+import { ModalUi } from "../../components/Modal/ModalUi";
+import swal from "sweetalert";
 const initialForm = {
   //description: 'Hi Im John and I live in...',
-  description: '',
-  images: '',
-  size: '1',
+  description: "",
+  images: "",
+  size: "1",
   price: 10,
   lat: null,
   lng: null,
   rating: 3.5,
   //homeDescription: 'My house has a garden...',
-  homeDescription: '',
+  homeDescription: "",
   //image:
   // 'https://karlaperezyt.com/wp-content/uploads/kui_system/telegram_profiles/2980022.jpg',
 };
 const initialErrors = {
-  description: '',
-  images: '',
-  size: '',
-  price: '',
-  lat: '',
-  homeDescription: '',
+  description: "",
+  images: "",
+  size: "",
+  price: "",
+  lat: "",
+  homeDescription: "",
 };
 const initialPoint = {
   lng: -58.381592,
   lat: -34.603722,
   zoom: 5,
+};
+
+const congrats = () => {
+  return swal({
+    title: "¡Felicidades!",
+    text: "¡Has creado un cuidador exitosamente!",
+    icon: "success",
+    button: "disabled",
+  });
 };
 
 export const CuidadorForm = () => {
@@ -52,7 +61,7 @@ export const CuidadorForm = () => {
   // const [caretakerLocation, setCaretakerLocation] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [fileInputState, setFileInputState] = useState('');
+  const [fileInputState, setFileInputState] = useState("");
   const { user, logged } = useSelector((state) => state.userReducer);
   const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 
@@ -60,7 +69,7 @@ export const CuidadorForm = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!logged) {
-      navigate('/');
+      navigate("/");
     }
     return () => {
       setForm(initialForm);
@@ -91,43 +100,43 @@ export const CuidadorForm = () => {
     });
 
     switch (e.target.name) {
-      case 'description':
+      case "description":
         if (e.target.value.length < 10) {
           setErrors({
             ...errors,
-            description: 'Description must be at least 70 characters long',
+            description: "Description must be at least 70 characters long",
           });
         } else {
           setErrors({
             ...errors,
-            description: '',
+            description: "",
           });
         }
         break;
-      case 'price':
+      case "price":
         if (e.target.value <= 0) {
           setErrors({
             ...errors,
-            price: 'Price must be greater than 0',
+            price: "Price must be greater than 0",
           });
         } else {
           setErrors({
             ...errors,
-            price: '',
+            price: "",
           });
         }
         break;
-      case 'homeDescription':
+      case "homeDescription":
         if (e.target.value.length < 10) {
           setErrors({
             ...errors,
             homeDescription:
-              'Home description must be at least 70 characters long',
+              "Home description must be at least 70 characters long",
           });
         } else {
           setErrors({
             ...errors,
-            homeDescription: '',
+            homeDescription: "",
           });
         }
         break;
@@ -140,8 +149,8 @@ export const CuidadorForm = () => {
     checked: form.size === item,
     onChange: handleInputChange,
     value: item,
-    name: 'size',
-    inputprops: { 'aria-label': item },
+    name: "size",
+    inputprops: { "aria-label": item },
   });
   const onSave = () => {
     // if (form.description.length < 70) {
@@ -186,6 +195,7 @@ export const CuidadorForm = () => {
     dispatch(postCaretaker({ ...form, userId: user.id }));
     setLoading(true);
     setModalOpen(true);
+    congrats();
   };
 
   const handleFileInputChange = (e) => {
@@ -208,12 +218,12 @@ export const CuidadorForm = () => {
     if (filesURL.length !== 3) {
       setErrors({
         ...errors,
-        images: 'Must select three images',
+        images: "Must select three images",
       });
     } else {
       setErrors({
         ...errors,
-        images: '',
+        images: "",
       });
     }
     setForm({
@@ -226,7 +236,7 @@ export const CuidadorForm = () => {
     const map = useMapEvents({
       click(e) {
         setForm({ ...form, lat: e.latlng.lat, lng: e.latlng.lng });
-        setErrors({ ...errors, lat: '' });
+        setErrors({ ...errors, lat: "" });
       },
     });
     return null;
@@ -242,16 +252,16 @@ export const CuidadorForm = () => {
         />
       )}
       <Box sx={{ marginBottom: 2, paddingX: 2 }}>
-        <Typography variant='h4'>
+        <Typography variant="h4">
           Fill in this form and start recievieng pets!
         </Typography>
         <TextField
           fullWidth
           rows={4}
           sx={{ marginTop: 2, marginBottom: 1 }}
-          placeholder='Hi! Im John. I am 25 years old and...'
+          placeholder="Hi! Im John. I am 25 years old and..."
           multiline
-          label='The users want to know you before they decide...'
+          label="The users want to know you before they decide..."
           // helperText={errors.description && errors.description}
           autoFocus
           //error={errors.description && isTouched}
@@ -259,22 +269,22 @@ export const CuidadorForm = () => {
           //error={errors.description}
           value={form.description}
           //onBlur={() => setIsTouched(true)}
-          name='description'
+          name="description"
         />
         {errors.description && (
-          <Box color='red' textAlign='center'>
+          <Box color="red" textAlign="center">
             {errors.description}
           </Box>
         )}
 
         <div>
-          <label htmlFor='file'>
+          <label htmlFor="file">
             Choose 3 pictures that describes your home
           </label>
           <br />
           <input
-            type='file'
-            name='image'
+            type="file"
+            name="image"
             onChange={handleFileInputChange}
             value={fileInputState}
             multiple
@@ -283,19 +293,19 @@ export const CuidadorForm = () => {
           {/* </form> */}
           {form.images?.length &&
             form.images?.map((image) => (
-              <img src={image} alt='img' style={{ height: '300px' }} />
+              <img src={image} alt="img" style={{ height: "300px" }} />
             ))}
           {form.images?.length && (
             <>
               <br></br>
-              <Button onClick={() => setForm({ ...form, images: '' })}>
+              <Button onClick={() => setForm({ ...form, images: "" })}>
                 Delete
               </Button>
             </>
           )}
         </div>
         {errors.images && (
-          <Box color='red' textAlign='center'>
+          <Box color="red" textAlign="center">
             {errors.images}
           </Box>
         )}
@@ -303,78 +313,78 @@ export const CuidadorForm = () => {
         <div>
           <Typography>Pet size you are able to take care of</Typography>
           <Radio
-            {...controlProps('0')}
-            size='small'
+            {...controlProps("0")}
+            size="small"
             sx={{
-              '& .MuiSvgIcon-root': {
+              "& .MuiSvgIcon-root": {
                 fontSize: 20,
-                color: '#F29279',
+                color: "#F29279",
               },
             }}
-            label='Small'
+            label="Small"
           />
           <Radio
-            {...controlProps('1')}
+            {...controlProps("1")}
             sx={{
-              '& .MuiSvgIcon-root': {
+              "& .MuiSvgIcon-root": {
                 fontSize: 24,
-                color: '#F29279',
+                color: "#F29279",
               },
             }}
-            label='Medium'
+            label="Medium"
           />
           <Radio
-            {...controlProps('2')}
+            {...controlProps("2")}
             sx={{
-              '& .MuiSvgIcon-root': {
+              "& .MuiSvgIcon-root": {
                 fontSize: 30,
-                color: '#F29279',
+                color: "#F29279",
               },
             }}
-            label='Big'
+            label="Big"
           />
         </div>
         <Typography>$ Price per night </Typography>
         <Input
           value={form.price}
-          type='number'
+          type="number"
           onChange={handleInputChange}
-          name='price'
-          placeholder='$10'
+          name="price"
+          placeholder="$10"
           error={errors.price && errors.price}
         />
         {errors.price && (
-          <Box color='red' extAlign='center'>
+          <Box color="red" extAlign="center">
             {errors.price}
           </Box>
         )}
 
         <Typography>Put your Marker on the Map</Typography>
         {errors.lat && (
-          <Box color='red' textAlign='center'>
+          <Box color="red" textAlign="center">
             {errors.lat}
           </Box>
         )}
         <Box
           sx={{
-            position: 'relative',
-            maxWidth: '100%',
-            height: '500px',
+            position: "relative",
+            maxWidth: "100%",
+            height: "500px",
           }}
         >
           <MapContainer
             center={[initialPoint.lat, initialPoint.lng]}
             zoom={initialPoint.zoom}
             scrollWheelZoom={true}
-            style={{ height: '100%' }}
+            style={{ height: "100%" }}
           >
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <LocationFinderDummy />
             {form.lat !== null && (
-              <Marker position={[form.lat, form.lng]} anchor='center' />
+              <Marker position={[form.lat, form.lng]} anchor="center" />
             )}
           </MapContainer>
         </Box>
@@ -383,25 +393,25 @@ export const CuidadorForm = () => {
           fullWidth
           rows={4}
           sx={{ marginTop: 2, marginBottom: 1 }}
-          placeholder='Nice neighborhood, with a small garden...'
+          placeholder="Nice neighborhood, with a small garden..."
           //autoFocus
           multiline
-          label='Tell us about your home...'
+          label="Tell us about your home..."
           // helperText={errors.homeDescription && errors.homeDescription}
           error={errors.homeDescription && isTouched}
           value={form.homeDescription}
           onChange={handleInputChange}
           onBlur={() => setIsTouched(true)}
-          name='homeDescription'
+          name="homeDescription"
         />
         {errors.homeDescription && (
-          <Box color='red' textAlign='center'>
+          <Box color="red" textAlign="center">
             {errors.homeDescription}
           </Box>
         )}
-        <Box display='flex' justifyContent='space-between'>
+        <Box display="flex" justifyContent="space-between">
           <Button
-            variant='text'
+            variant="text"
             onClick={() => {
               setForm(initialForm);
               setIsTouched(false);
@@ -411,14 +421,14 @@ export const CuidadorForm = () => {
           </Button>
           {
             //console.log(Object.values(errors).every((v) => v === ''))
-            Object.values(form).every((v) => v !== '') &&
-            Object.values(errors).every((v) => v === '') ? (
+            Object.values(form).every((v) => v !== "") &&
+            Object.values(errors).every((v) => v === "") ? (
               <Button
-                variant='contained'
+                variant="contained"
                 sx={{
-                  backgroundColor: '#F29279',
-                  color: 'white',
-                  borderColor: '#F29279',
+                  backgroundColor: "#F29279",
+                  color: "white",
+                  borderColor: "#F29279",
                 }}
                 endIcon={<SaveOutlinedIcon />}
                 onClick={onSave}
@@ -427,11 +437,11 @@ export const CuidadorForm = () => {
               </Button>
             ) : (
               <Button
-                variant='contained'
+                variant="contained"
                 sx={{
-                  backgroundColor: '#9b9b9b',
-                  color: 'white',
-                  borderColor: '#F29279',
+                  backgroundColor: "#9b9b9b",
+                  color: "white",
+                  borderColor: "#F29279",
                 }}
                 endIcon={<SaveOutlinedIcon />}
                 //onClick={onSave}

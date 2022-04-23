@@ -90,12 +90,22 @@ export const LoginForm = () => {
       timer: 1000,
     });
   };
+
+  const logError = () => {
+    return swal({
+      title: "Login failed!",
+      text: "Check your credentials",
+      icon: "error",
+      button: "OK!",
+    });
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     const check = checkLoginForm(logForm);
     setErrors((prevState) => {
       return { ...prevState, ...check };
     });
+    logError();
     if (!check.state) {
       api
         .post("/auth/login", { ...logForm })
