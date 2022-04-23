@@ -16,8 +16,6 @@ export const PriceFilter = ({ handleChange, form }) => {
 			sx={{
 				minWidth: 275,
 				height: 100,
-				boxShadow:
-					'0px 3px 1px -2px red,0px 2px 2px 0px #F29279,0px 1px 5px 0px rgba(0,0,0,0.12)',
 			}}
 		>
 			<CardContent sx={{ textAlign: 'center' }}>

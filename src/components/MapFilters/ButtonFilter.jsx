@@ -95,16 +95,17 @@ export const ButtonMapFilter = ({handleCloseModal}) => {
     return (
         <>
         <Box sx={{
-            minHeight: '22rem',
+            minHeight: '350px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            alignItems: 'center'
         }}>
             <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
                 <Tab icon={<LiveHelpIcon />} label="HOW TO DO"  {...a11yProps(0)}/>
                 <Tab icon={<SizeDogs fill='currentColor' width='24px' height='24px' color='primary'/>} label="SIZE" {...a11yProps(1)} />
                 <Tab icon={<PriceChangeIcon />} label="PRICE" {...a11yProps(2)} />
-                <Tab icon={<StarsIcon />} label="RATING" {...a11yProps(3)} />
+                {/* <Tab icon={<StarsIcon />} label="RATING" {...a11yProps(3)} /> */}
             </Tabs>
         <Box>
             <TabPanel value={value} index={0}>
@@ -116,9 +117,9 @@ export const ButtonMapFilter = ({handleCloseModal}) => {
             <TabPanel value={value} index={2}>
                 <PriceFilter handleChange={handleChangeFilter} form={form} />
             </TabPanel>
-            <TabPanel value={value} index={3}>
+            {/* <TabPanel value={value} index={3}>
                 <RatingFilter handleChange={handleChangeFilter} form={form} />
-            </TabPanel>
+            </TabPanel> */}
         </Box>
         <Button
             variant='contained'

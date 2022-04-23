@@ -15,9 +15,10 @@ const style = {
   transform: 'translate(-50%, -50%)',
   borderRadius: '10px',
   bgcolor: 'background.paper',
-
   boxShadow: 24,
   p: 4,
+  minWidth: "450px",
+  maxWidth: '460px',
 };
 
 export const ButtonModalToMapFilter = () => {

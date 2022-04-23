@@ -7,6 +7,10 @@ import { ButtonMapFilter } from '../../components/MapFilters/ButtonFilter';
 // import StepperModal from "../Stepper/Stepper";
 import { FAQ } from '../../components/FAQ/FAQ';
 import petsHome from '../../utils/petshome.jpg';
+import personamascota from '../../utils/personaconmascota.jpg';
+import mascota2 from '../../utils/mascotas2.jpg';
+import * as Carousel from "../../components/Carousel";
+
 // import { style } from "@mui/system";
 
 export const Home = () => {
@@ -56,19 +60,27 @@ export const Home = () => {
 				<Paper
 					elevation={2}
 					sx={{
-						backgroundImage: `url(${petsHome})`,
-						backgroundSize: 'cover',
-						backgroundPosition: 'center',
-						backgroundRepeat: 'no-repeat',
+						// backgroundImage: `url(${petsHome})`,
+						// backgroundSize: 'cover',
+						// backgroundPosition: 'center',
+						// backgroundRepeat: 'no-repeat',
 						display: 'flex',
 						flexDirection: 'column',
 						justifyContent: 'center',
 						alignItems: 'center',
 						width: '80%',
-						height: '100%',
+						// minHeight: '500px',
+						// height: '100%',
 						borderRadius: '10px',
 					}}
 				>
+					    <Carousel.Component options={{ autoplay: 2000 }}>
+							<Carousel.Slide>
+								<img src={petsHome} width='100%' height="500px" alt="" borderRadius="10px" style={{borderRadius: '10px'}} />
+							</Carousel.Slide>
+							<Carousel.Slide ><img src={personamascota} width='100%' height="500px" alt="" style={{borderRadius: '10px'}} /></Carousel.Slide>
+							<Carousel.Slide><img src={mascota2} width='100%' height="500px" alt="" style={{borderRadius: '10px'}} /></Carousel.Slide>
+						</Carousel.Component>
 					{/* <StepperModal /> */}
 					{/* <Typography variant="h2" sx={{ textAlign: "center" }}>
               Find the best place for your pet!
