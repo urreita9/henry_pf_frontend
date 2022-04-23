@@ -105,7 +105,12 @@ export const LoginForm = () => {
     setErrors((prevState) => {
       return { ...prevState, ...check };
     });
-    logError();
+
+    if(errors.state){
+
+      return logError();
+    }
+
     if (!check.state) {
       api
         .post("/auth/login", { ...logForm })

@@ -45,7 +45,7 @@ const NavBar = ({ onToggle, typeMode }) => {
   const [openRegister, setOpenRegister] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
 
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(true);
 
   const { caretakers } = useSelector((state) => state.cuidadoresReducer);
   const { user } = useSelector((state) => state.userReducer);
@@ -74,8 +74,14 @@ const NavBar = ({ onToggle, typeMode }) => {
 
   const handleOpenUserMenu = (event) => {
     checkIfUserIsCaretaker(user.id);
-    setAnchorElUser(event.currentTarget);
-    setOpenMenu(true);
+
+    console.log('ME EJECUTO WUACHIN')
+    if(logged){
+      setOpenMenu(true);
+      if(openMenu){
+        setAnchorElUser(event.currentTarget);
+      }
+    }
   };
 
   const handleCloseUserMenu = () => {
@@ -89,6 +95,7 @@ const NavBar = ({ onToggle, typeMode }) => {
     navigate("/");
     setOpenLogin(false);
     setOpenRegister(false);
+    setAnchorElUser(null);
   };
 
   useEffect(() => {
@@ -115,6 +122,18 @@ const NavBar = ({ onToggle, typeMode }) => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '15px'
+
+          }}>
+
+          <PetsIcon sx={{
+            width: '40px',
+            height: '32px'
+          }} />
           <Typography
             variant="h6"
             noWrap
@@ -127,10 +146,10 @@ const NavBar = ({ onToggle, typeMode }) => {
             onClick={() => {
               navigate("/");
             }}
-          >
-            <PetsIcon />
+            >
             PetTrip
           </Typography>
+          </Box>
 
           <Box
             sx={{
@@ -154,7 +173,7 @@ const NavBar = ({ onToggle, typeMode }) => {
             <>
               <Box>
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} aria-controls="menu-appbar">
                     <Avatar alt="not found" src={user.img} />
                   </IconButton>
                 </Tooltip>
@@ -175,8 +194,8 @@ const NavBar = ({ onToggle, typeMode }) => {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    {settings.map((setting) => (
-                      <Box onClick={() => navigate(setting.link)}>
+                    {settings.map((setting, index) => (
+                      <Box key={index} onClick={() => navigate(setting.link)}>
                         <MenuItem
                           key={setting.text}
                           onClick={handleCloseUserMenu}
