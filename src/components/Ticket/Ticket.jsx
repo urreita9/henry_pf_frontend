@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import api from '../../axios';
 import LoginModal from '../LoginModal/LoginModal';
+
 const TicketCard = ({ price, datesRange }) => {
 	const timeLapse = intervalToDuration({
 		start: new Date(datesRange[0].startDate),
@@ -54,6 +55,9 @@ const TicketCard = ({ price, datesRange }) => {
 			datesRange,
 			timeLapse,
 		});
+
+
+		// ACA
 
 		window.location.href = response.data.response.init_point;
 	};
@@ -116,7 +120,7 @@ const TicketCard = ({ price, datesRange }) => {
 									caretakerProfile.id,
 									price,
 									datesRange,
-									timeLapse
+									time
 								);
 							}}
 							disabled={user.id === caretakerProfile.id ? true : false}
