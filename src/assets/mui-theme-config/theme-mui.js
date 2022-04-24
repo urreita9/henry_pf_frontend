@@ -21,7 +21,7 @@ const modeThemePalette = (mode) => (
         secondary: '#444444',
       },
       error: {
-        main: '#ff1401',
+        main: '#ff200c',
       },
     },
   }
@@ -40,7 +40,7 @@ const modeThemePalette = (mode) => (
       },
       background: {
         default: '#000000',
-        paper: '#717171',
+        paper: '#979797',
       },
       text: {
         primary: '#fff4f6',
@@ -49,7 +49,7 @@ const modeThemePalette = (mode) => (
         secondary: '#ffd6cc',
       },
       error: {
-        main: '#fd2121',
+        main: '#ff5436',
       },
       divider: 'rgba(175,175,175,0.97)',
     },

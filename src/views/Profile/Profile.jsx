@@ -52,9 +52,9 @@ const Profile = () => {
 		<Box
 			sx={{
 				flexGrow: 1,
-				bgcolor: 'background.paper',
+				// bgcolor: 'background.paper',
 				display: 'flex',
-				height: 500,
+				minHeight: '85vh',
 			}}
 		>
 			<TabContext value={firstTab || tab}>
@@ -65,7 +65,7 @@ const Profile = () => {
 						value={tab}
 						onChange={handleChange}
 						aria-label='Vertical tabs example'
-						sx={{ borderRight: 1, borderColor: 'divider' }}
+						sx={{ borderRight: 1, borderColor: 'divider', height: '100%'}}
 					>
 						<Tab label='Profile' {...a11yProps(0)} />
 						<Tab label='Edit Profile' {...a11yProps(1)} />
@@ -90,7 +90,7 @@ const Profile = () => {
 				<TabPanel
 					value='1'
 					index={1}
-					sx={defaultProps}
+					sx={{ margin: 'auto' }}
 					children={<FormProfile />}
 				/>
 				<TabPanel value='2' index={2} children={<PetList />} />

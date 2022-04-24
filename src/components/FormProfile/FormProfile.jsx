@@ -98,24 +98,35 @@ const FormProfile = () => {
 
   return (
     <Paper elevation={4} sx={{
-      minWidth: '550px'
+      minWidth: '550px',
+      width: '100%',
     }}>
-      <Card>
+      <Card sx={{
+        height: '100%',
+      }}>
 
       <Box
         sx={{
+          height: '100%',
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "flex-start",
+          gap: '15px'
         }}
       >
-        <CardContent>
+        <CardContent sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center'
+        }}>
       {/* <Avatar alt='UserImg' src={user?.img} sx={{ width: 200, height: 200 }} /> */}
           <UploadImg image={user?.img}/>
         </CardContent>
       
-        <Box component={"form"} onSubmit={handleSubmit}>
+        <Box component={"form"} onSubmit={handleSubmit} sx={{width: '15rem'}}>
           <Box
             sx={{
               height: "60vh",
@@ -128,11 +139,10 @@ const FormProfile = () => {
             <TextField
               id="Name"
               name="name"
+              label="Name"
               disabled={!!user.name || !edit}
               error={!!errors.name}
               helperText={!!errors.name && errors.name}
-              variant="filled"
-              label="Name"
               value={form.name}
               onChange={handleChange}
             />
@@ -142,7 +152,6 @@ const FormProfile = () => {
               disabled={!!user.lastname || !edit}
               error={!!errors.lastname}
               helperText={!!errors.lastname && errors.lastname}
-              variant="filled"
               label="Lastname"
               value={form.lastname}
               onChange={handleChange}
@@ -153,7 +162,6 @@ const FormProfile = () => {
               name="address"
               error={!!errors.address}
               helperText={!!errors.address && errors.address}
-              variant="filled"
               label="Address"
               value={form.address}
               onChange={handleChange}
@@ -185,8 +193,8 @@ const FormProfile = () => {
             </Box>
           )}
         </Box>
-      </Box>
       <PassForm />
+      </Box>
     </Card>
     </Paper>
   );

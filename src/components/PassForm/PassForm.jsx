@@ -103,19 +103,30 @@ const PassForm = () => {
     };
 
     return (
-        <Box>
-            <Box component={'form'} onSubmit={handleSubmitPassword}>
+            <Box sx={{height: "100%", width: '15rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}} component={'form'} onSubmit={handleSubmitPassword} >
                 {!editPassword ? (
-                    <Box>
-                        <Button variant='contained' color='error' onClick={handleSubmitPassword}>
+                    <Box sx={{
+                        height: "60vh",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-evenly',
+                        alignItems: 'center'
+                    }}>
+                        <Button variant='contained' color='primary' onClick={handleSubmitPassword}>
                             Edit Password
                         </Button>
                     </Box>
                 ) : (
-                    <Box>
-                        <FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
+                    <Box sx={{
+                        height: "60vh",
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-evenly',
+                        alignItems: 'center'
+                    }}>
+                        <FormControl sx={{ m: 1, width: '25ch' }} >
                             <InputLabel htmlFor='actual'>Actual Password</InputLabel>
-                            <FilledInput
+                            <OutlinedInput
                                 id='actual'
                                 name='actual'
                                 type={viewPass.actual ? 'text' : 'password'}
@@ -138,9 +149,9 @@ const PassForm = () => {
                             />
                             <FormHelperText error>{!!errorsPass.actual && errorsPass.actual}</FormHelperText>
                         </FormControl>
-                        <FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
+                        <FormControl sx={{ m: 1, width: '25ch' }} >
                             <InputLabel htmlFor='new'>New Password</InputLabel>
-                            <FilledInput
+                            <OutlinedInput
                                 id='new'
                                 name='new'
                                 type={viewPass.new ? 'text' : 'password'}
@@ -163,9 +174,9 @@ const PassForm = () => {
                             />
                             <FormHelperText error>{!!errorsPass.new && errorsPass.new}</FormHelperText>
                         </FormControl>
-                        <FormControl sx={{ m: 1, width: '25ch' }} variant='outlined'>
+                        <FormControl sx={{ m: 1, width: '25ch' }} >
                             <InputLabel htmlFor='repeat'>Repeat Password</InputLabel>
-                            <FilledInput
+                            <OutlinedInput
                                 id='repeat'
                                 name='repeat'
                                 type={viewPass.repeat ? 'text' : 'password'}
@@ -188,16 +199,17 @@ const PassForm = () => {
                             />
                             <FormHelperText error>{!!errorsPass.repeat && errorsPass.repeat}</FormHelperText>
                         </FormControl>
-                        <Button variant='contained' color='error' onClick={handleSubmitPassword}>
-                            Save
-                        </Button>
-                        <Button variant='contained' color='error' onClick={handleCancelPassword}>
-                            Cancel
-                        </Button>
+                        <Box>
+                            <Button variant='contained' color='error' onClick={handleSubmitPassword}>
+                                Save
+                            </Button>
+                            <Button variant='contained' color='error' onClick={handleCancelPassword}>
+                                Cancel
+                            </Button>
+                        </Box>
                     </Box>
                 )}
             </Box>
-        </Box>
     );
 };
 

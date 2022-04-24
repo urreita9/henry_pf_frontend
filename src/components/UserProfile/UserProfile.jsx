@@ -14,7 +14,7 @@ const UserProfile = () => {
                 <Card sx={{ minWidth: '550px' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                         <CardContent>
-                            <Avatar alt='UserImg' src={user.img} sx={{ width: 200, height: 200 }} />
+                            <Avatar alt='UserImg' src={user.img} sx={{ width: 200, height: 200, border: '5px solid #F29278' }} />
                         </CardContent>
                         <Box sx={{
                             display: 'flex',
