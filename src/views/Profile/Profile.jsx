@@ -33,20 +33,20 @@ function a11yProps(index) {
 const Profile = () => {
 	const params = useParams();
 	// const dispatch = useDispatch();
-	// const user = useSelector((state) => state.userReducer.user);
+	const user = useSelector((state) => state.userReducer.user);
 	const { tab: defaultTab } = params;
 	const [tab, setTab] = useState(defaultTab || '0');
 	const [firstTab, setFirstTab] = useState(defaultTab);
 
-	const { user } = useSelector((state) => state.userReducer);
 	const isUserACaretaker = useRef(false);
 
-	if (user.caretaker) {
-		isUserACaretaker.current = true;
-	}
 	const handleChange = (event, newValue) => {
 		setTab(newValue);
 		setFirstTab(undefined);
+	};
+
+	const setInicial = (e, value) => {
+		setTab(value);
 	};
 
 	return (
@@ -72,14 +72,11 @@ const Profile = () => {
 						<Tab label='Edit Profile' {...a11yProps(1)} />
 						<Tab label='Pet List' {...a11yProps(2)} />
 						<Tab label='Add Pet' {...a11yProps(3)} />
-						<Tab
-							label={
-								isUserACaretaker.current
-									? 'Edit Caretaker Profile'
-									: 'Be a Caretaker'
-							}
-							{...a11yProps(4)}
-						/>
+						{!user.caretaker ? (
+							<Tab label='Be Caretaker' {...a11yProps(4)} />
+						) : (
+							<Tab label='Edit Caretaker Profile' {...a11yProps(4)}></Tab>
+						)}
 						{isUserACaretaker.current && (
 							<Tab label='Caretaker Profile' {...a11yProps(5)} />
 						)}
@@ -94,22 +91,25 @@ const Profile = () => {
 				<TabPanel
 					value='1'
 					index={1}
-					sx={defaultProps}
+					sx={{ margin: 'auto' }}
 					children={<FormProfile />}
 				/>
-				<TabPanel value='2' index={2} children={<PetList />} />
+				<TabPanel
+					value='2'
+					index={2}
+					children={<PetList onClick={setInicial} />}
+				/>
 				<TabPanel
 					value='3'
 					index={3}
 					sx={{ margin: 'auto' }}
 					children={<FormPet />}
 				/>
-				<TabPanel
-					value='4'
-					index={4}
-					children={<CuidadorForm editUser={isUserACaretaker.current} />}
-				/>
-				<TabPanel value='5' index={4} children={<CaretakerUserProfile />} />
+				<TabPanel value='4' index={4} children={<CuidadorForm />} />
+				<TabPanel value='5' index={5} children={<CaretakerUserProfile />} />
+				{/* <TabPanel value='4' index={4}>
+                    Be caretaker
+                </TabPanel> */}
 			</TabContext>
 		</Box>
 	);

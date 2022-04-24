@@ -1,15 +1,4 @@
-import {
-    Box,
-    Button,
-    ButtonBase,
-    FilledInput,
-    FormControl,
-    IconButton,
-    InputAdornment,
-    InputLabel,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Box, Button, ButtonBase, Typography } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editUser } from '../../redux/actions/actions';
@@ -19,59 +8,58 @@ import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import UploadIcon from '@mui/icons-material/Upload';
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
-  position: 'relative',
-  height: 200,
-  [theme.breakpoints.down('sm')]: {
-    width: '100% !important', // Overrides inline-style
-    height: 100,
-  },
-  '&:hover, &.Mui-focusVisible': {
-    zIndex: 1,
-    '& .MuiImageBackdrop-root': {
-      opacity: 0.5,
+    position: 'relative',
+    height: 200,
+    [theme.breakpoints.down('sm')]: {
+        width: '100% !important', // Overrides inline-style
+        height: 100,
     },
-
-  },
+    '&:hover, &.Mui-focusVisible': {
+        zIndex: 1,
+        '& .MuiImageBackdrop-root': {
+            opacity: 0.5,
+        },
+    },
 }));
 
 const ImageSrc = styled('span')({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0,
-  backgroundSize: 'cover',
-  backgroundPosition: 'center 40%',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center 40%',
 });
 
 const Image = styled('span')(({ theme }) => ({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  opacity: 0.4,
-  backgroundColor: theme.palette.common.black,
-  color: theme.palette.common.white,
-  transition: theme.transitions.create('opacity'),
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    opacity: 0.4,
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+    transition: theme.transitions.create('opacity'),
 }));
 
 const ImageBackdrop = styled('span')(({ theme }) => ({
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  top: 0,
-  bottom: 0,
-  opacity: 0
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    opacity: 0,
 }));
 const Input = styled('input')({
     display: 'none',
 });
 
-const UploadImg = ({image}) => {
+const UploadImg = ({ image }) => {
     const dispatch = useDispatch();
     const [form, setForm] = useState('');
     const [error, setError] = useState('');
@@ -123,26 +111,24 @@ const UploadImg = ({image}) => {
 
     return (
         <>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
-        <ImageButton
-          focusRipple 
-          style={{
-            width: "300px",
-          }}
-          type='submit' onClick={handleSubmit}
-        >
-          <ImageSrc style={{ backgroundImage: `url(${image})` }} />
-          <ImageBackdrop className="MuiImageBackdrop-root">
-            <Image>
-                <PhotoCameraIcon />
-            </Image>
-          </ImageBackdrop>
-        </ImageButton>
-
-        </Box>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
+                <ImageButton
+                    focusRipple
+                    style={{
+                        width: '300px',
+                    }}
+                    type='submit'
+                    onClick={handleSubmit}
+                >
+                    <ImageSrc style={{ backgroundImage: `url(${image})` }} />
+                    <ImageBackdrop className='MuiImageBackdrop-root'>
+                        <Image>
+                            <PhotoCameraIcon />
+                        </Image>
+                    </ImageBackdrop>
+                </ImageButton>
+            </Box>
             <Box component={'form'} onSubmit={handleSubmit}>
-
-
                 {/* <TextField type='file' name='img' disabled={!editImg} onChange={handleFileInputChange} label=' '>
                     Cargar Imagen
                 </TextField> */}
@@ -156,29 +142,29 @@ const UploadImg = ({image}) => {
                             alignItems: 'center',
                         }}
                     >
-                                        <label htmlFor='ProfileFormImg'>
-                    <Input
-                        disabled={!editImg}
-                        accept='image/*'
-                        id='ProfileFormImg'
-                        type='file'
-                        name='img'
-                        onChange={handleFileInputChange}
-                    />
-                    <Button
-                        disabled={!editImg}
-                        startIcon={<UploadIcon />}
-                        variant='contained'
-                        onChange={handleFileInputChange}
-                        name='img'
-                        component='span'
-                    >
-                        Upload
-                    </Button>
-                    <Typography variant='subtitle1' color='primary'>
-                        {!!msg || !!error ? msg || error : null}
-                    </Typography>
-                </label>
+                        <label htmlFor='ProfileFormImg'>
+                            <Input
+                                disabled={!editImg}
+                                accept='image/*'
+                                id='ProfileFormImg'
+                                type='file'
+                                name='img'
+                                onChange={handleFileInputChange}
+                            />
+                            <Button
+                                disabled={!editImg}
+                                startIcon={<UploadIcon />}
+                                variant='contained'
+                                onChange={handleFileInputChange}
+                                name='img'
+                                component='span'
+                            >
+                                Upload
+                            </Button>
+                            <Typography variant='subtitle1' color='primary'>
+                                {!!msg || !!error ? msg || error : null}
+                            </Typography>
+                        </label>
                         <Button variant='contained' type='submit' onClick={handleSubmit}>
                             Save
                         </Button>

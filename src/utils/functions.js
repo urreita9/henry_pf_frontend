@@ -65,6 +65,25 @@ export const checkFormPet = ({ name, age, img }) => {
     return e;
 };
 
+export const checkEditPet = ({ name }) => {
+    const e = {
+        state: false,
+        name: '',
+    };
+
+    if (name) {
+        if (!/^[a-zA-Z ]{0,16}$/.test(name)) {
+            e.state = true;
+            e.name = 'Solo letras y espacios';
+        }
+    } else {
+        e.state = true;
+        e.name = 'Campo necesario';
+    }
+
+    return e;
+};
+
 export const checkPassword = async (token, uid, password) => {
     try {
         const { data } = await api.post(
