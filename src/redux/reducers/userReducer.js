@@ -4,6 +4,7 @@ const initialState = {
     user: {},
     logged: false,
     pets: [],
+    userCaretaker: {},
     pet: {},
 };
 
@@ -15,6 +16,7 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 user: payload,
                 pets: payload.pets,
+                userCaretaker: payload.caretaker,
             };
         case LOGIN:
             return {
@@ -37,6 +39,7 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 user: payload,
                 pets: payload.pets,
+                userCaretaker: payload.caretaker,
             };
         case CLEAR_PET:
             return {

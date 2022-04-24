@@ -10,6 +10,7 @@ import PetList from '../../components/PetList/PetList';
 import FormPet from '../../components/FormPet/FormPet';
 import { useParams } from 'react-router-dom';
 import { CuidadorForm } from '../Forms/CuidadorForm';
+import { useSelector } from 'react-redux';
 
 const defaultProps = {
     display: 'flex',
@@ -30,7 +31,7 @@ function a11yProps(index) {
 const Profile = () => {
     const params = useParams();
     // const dispatch = useDispatch();
-    // const user = useSelector((state) => state.userReducer.user);
+    const user = useSelector((state) => state.userReducer.user);
     const { tab: defaultTab } = params;
     const [tab, setTab] = useState(defaultTab || '0');
     const [firstTab, setFirstTab] = useState(defaultTab);
@@ -38,6 +39,10 @@ const Profile = () => {
     const handleChange = (event, newValue) => {
         setTab(newValue);
         setFirstTab(undefined);
+    };
+
+    const setInicial = (e, value) => {
+        setTab(value);
     };
 
     return (
@@ -56,12 +61,16 @@ const Profile = () => {
                         <Tab label='Edit Profile' {...a11yProps(1)} />
                         <Tab label='Pet List' {...a11yProps(2)} />
                         <Tab label='Add Pet' {...a11yProps(3)} />
-                        <Tab label='Be Caretaker' {...a11yProps(4)} />
+                        {!user.caretaker ? (
+                            <Tab label='Be Caretaker' {...a11yProps(4)} />
+                        ) : (
+                            <Tab label='Edit Caretaker Profile' {...a11yProps(5)}></Tab>
+                        )}
                     </TabList>
                 </Box>
                 <TabPanel value='0' index={0} sx={{ margin: 'auto' }} children={<UserProfile />} />
                 <TabPanel value='1' index={1} sx={defaultProps} children={<FormProfile />} />
-                <TabPanel value='2' index={2} children={<PetList />} />
+                <TabPanel value='2' index={2} children={<PetList onClick={setInicial} />} />
                 <TabPanel value='3' index={3} sx={{ margin: 'auto' }} children={<FormPet />} />
                 <TabPanel value='4' index={4} children={<CuidadorForm />} />
                 {/* <TabPanel value='4' index={4}>
