@@ -74,8 +74,6 @@ const NavBar = ({ onToggle, typeMode }) => {
 
   const handleOpenUserMenu = (event) => {
     checkIfUserIsCaretaker(user.id);
-
-    console.log('ME EJECUTO WUACHIN')
     if(logged){
       setOpenMenu(true);
       if(openMenu){
