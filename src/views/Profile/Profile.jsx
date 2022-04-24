@@ -11,6 +11,8 @@ import UserProfile from '../../components/UserProfile/UserProfile';
 import PetList from '../../components/PetList/PetList';
 import FormPet from '../../components/FormPet/FormPet';
 import { CuidadorForm } from '../Forms/CuidadorForm';
+import CaretakerDescription from '../../components/CaretakerDescription';
+import { CaretakerUserProfile } from '../../components/CaretakerUserProfile/CaretakerUserProfile';
 
 const defaultProps = {
 	display: 'flex',
@@ -42,7 +44,6 @@ const Profile = () => {
 	if (user.caretaker) {
 		isUserACaretaker.current = true;
 	}
-	console.log('isUSerACaret', isUserACaretaker.current);
 	const handleChange = (event, newValue) => {
 		setTab(newValue);
 		setFirstTab(undefined);
@@ -79,6 +80,9 @@ const Profile = () => {
 							}
 							{...a11yProps(4)}
 						/>
+						{isUserACaretaker.current && (
+							<Tab label='Caretaker Profile' {...a11yProps(5)} />
+						)}
 					</TabList>
 				</Box>
 				<TabPanel
@@ -105,9 +109,7 @@ const Profile = () => {
 					index={4}
 					children={<CuidadorForm editUser={isUserACaretaker.current} />}
 				/>
-				{/* <TabPanel value='4' index={4}>
-                    Be caretaker
-                </TabPanel> */}
+				<TabPanel value='5' index={4} children={<CaretakerUserProfile />} />
 			</TabContext>
 		</Box>
 	);

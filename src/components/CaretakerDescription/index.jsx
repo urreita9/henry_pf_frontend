@@ -40,8 +40,6 @@ const CaretakerDescription = ({
 		},
 	]);
 
-	// const nameUppercase = name[0].toUpperCase() + name.slice(1);
-	// const lastnameUppercase = lastname[0].toUpperCase() + lastname.slice(1);
 	return (
 		<>
 			{images?.length && (
@@ -142,8 +140,6 @@ const CaretakerDescription = ({
 				<Calendar datesRange={datesRange} setDatesRange={setDatesRange} />
 				<Ticket price={price} datesRange={datesRange} />
 			</Grid>
-
-			{/* <Grid item xs={12} sm={6} md={6} sx={{ marginTop: '20px' }}></Grid> */}
 		</>
 	);
 };
