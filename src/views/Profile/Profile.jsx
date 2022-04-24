@@ -11,7 +11,6 @@ import UserProfile from '../../components/UserProfile/UserProfile';
 import PetList from '../../components/PetList/PetList';
 import FormPet from '../../components/FormPet/FormPet';
 import { CuidadorForm } from '../Forms/CuidadorForm';
-import { useSelector } from 'react-redux';
 
 const defaultProps = {
     display: 'flex',
@@ -38,6 +37,11 @@ const Profile = () => {
     const [firstTab, setFirstTab] = useState(defaultTab);
 
     const isUserACaretaker = useRef(false);
+
+    const handleChange = (event, newValue) => {
+        setTab(newValue);
+        setFirstTab(undefined);
+    };
 
     const setInicial = (e, value) => {
         setTab(value);
