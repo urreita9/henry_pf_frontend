@@ -12,14 +12,6 @@ import { useParams } from 'react-router-dom';
 import { CuidadorForm } from '../Forms/CuidadorForm';
 import { useSelector } from 'react-redux';
 
-const defaultProps = {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-
-    width: '100%',
-};
-
 function a11yProps(index) {
     return {
         id: `vertical-tab-${index}`,
@@ -69,8 +61,8 @@ const Profile = () => {
                     </TabList>
                 </Box>
                 <TabPanel value='0' index={0} sx={{ margin: 'auto' }} children={<UserProfile />} />
-                <TabPanel value='1' index={1} sx={defaultProps} children={<FormProfile />} />
-                <TabPanel value='2' index={2} children={<PetList onClick={setInicial} />} />
+                <TabPanel value='1' index={1} sx={{margin: 'auto'}} children={<FormProfile />} />
+                <TabPanel value='2' index={2} children={<PetList />} />
                 <TabPanel value='3' index={3} sx={{ margin: 'auto' }} children={<FormPet />} />
                 <TabPanel value='4' index={4} children={<CuidadorForm />} />
                 {/* <TabPanel value='4' index={4}>

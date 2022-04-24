@@ -31,7 +31,7 @@ const NavBar = ({ onToggle, typeMode }) => {
     const [openRegister, setOpenRegister] = useState(false);
     const [openLogin, setOpenLogin] = useState(false);
 
-    const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(true);
 
     const { caretakers } = useSelector((state) => state.cuidadoresReducer);
     const { user } = useSelector((state) => state.userReducer);
@@ -56,24 +56,29 @@ const NavBar = ({ onToggle, typeMode }) => {
         return false;
     };
 
-    const handleOpenUserMenu = (event) => {
-        checkIfUserIsCaretaker(user.id);
+  const handleOpenUserMenu = (event) => {
+    checkIfUserIsCaretaker(user.id);
+    if(logged){
+      setOpenMenu(true);
+      if(openMenu){
         setAnchorElUser(event.currentTarget);
-        setOpenMenu(true);
-    };
+      }
+    }
+  };
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
 
-    const handleLogout = () => {
-        localStorage.clear();
-        dispatch(LogoutAction());
-        dispatch(clearUser());
-        navigate('/');
-        setOpenLogin(false);
-        setOpenRegister(false);
-    };
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch(LogoutAction());
+    dispatch(clearUser());
+    navigate("/");
+    setOpenLogin(false);
+    setOpenRegister(false);
+    setAnchorElUser(null);
+  };
 
     useEffect(() => {
         if (token && id) {
@@ -90,106 +95,135 @@ const NavBar = ({ onToggle, typeMode }) => {
         }
     }, [user]);
 
-    return (
-        <>
-            {location.pathname === '/map' && <ButtonModalToMapFilter />}
-            <AppBar position='static'>
-                <Container maxWidth='xl'>
-                    <Toolbar disableGutters>
-                        <Typography
-                            variant='h6'
-                            noWrap
-                            component='div'
-                            sx={{
-                                cursor: 'pointer',
-                                flexGrow: 1,
-                                display: 'flex',
-                            }}
-                            onClick={() => {
-                                navigate('/');
-                            }}
+  return (
+    <>
+    {location.pathname === "/map" && (
+      <ButtonModalToMapFilter />
+      
+     )}
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '15px'
+
+          }}>
+
+          <PetsIcon sx={{
+            width: '40px',
+            height: '32px'
+          }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{
+              cursor: "pointer",
+              flexGrow: 1,
+              display: "flex",
+            }}
+            onClick={() => {
+              navigate("/");
+            }}
+            >
+            PetTrip
+          </Typography>
+          </Box>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              textAlign: "center",
+              display: { xs: "none", md: "flex" },
+            }}
+            ></Box>
+          <Box>
+            <IconButton
+              onClick={() => {
+                typeMode === "light" ? onToggle(true) : onToggle(false);
+              }}
+            >
+              {typeMode === "light" ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+          </Box>
+
+          {/* //! VALIDACION PARA VER SI ESTA LOGUEADO 🔻 */}
+          {logged ? (
+            <>
+              <Box>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} aria-controls="menu-appbar">
+                    <Avatar alt="not found" src={user.img} />
+                  </IconButton>
+                </Tooltip>
+                {openMenu && (
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting, index) => (
+                      <Box key={index} onClick={() => navigate(setting.link)}>
+                        <MenuItem
+                          key={setting.text}
+                          onClick={handleCloseUserMenu}
                         >
-                            <PetsIcon />
-                            PetTrip
-                        </Typography>
+                          <Typography textAlign="center">
+                            {setting.text}
+                          </Typography>
+                        </MenuItem>
+                      </Box>
+                    ))}
+                    <Box textAlign="center">
+                      <Button
+                        sx={{
+                          width: "90%",
+                          margin: "0 auto",
+                        }}
+                        variant="contained"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </Button>
+                    </Box>
+                  </Menu>
+                )}
+              </Box>
+            </>
+          ) : (
+            <>
 
-                        <Box
-                            sx={{
-                                flexGrow: 1,
-                                textAlign: 'center',
-                                display: { xs: 'none', md: 'flex' },
-                            }}
-                        ></Box>
-                        <Box>
-                            <IconButton
-                                onClick={() => {
-                                    typeMode === 'light' ? onToggle(true) : onToggle(false);
-                                }}
-                            >
-                                {typeMode === 'light' ? <Brightness7Icon /> : <Brightness4Icon />}
-                            </IconButton>
-                        </Box>
-
-                        {/* //! VALIDACION PARA VER SI ESTA LOGUEADO 🔻 */}
-                        {logged ? (
-                            <>
-                                <Box>
-                                    <Tooltip title='Open settings'>
-                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt='not found' src={user.img} />
-                                        </IconButton>
-                                    </Tooltip>
-                                    {openMenu && (
-                                        <Menu
-                                            sx={{ mt: '45px' }}
-                                            id='menu-appbar'
-                                            anchorEl={anchorElUser}
-                                            anchorOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right',
-                                            }}
-                                            keepMounted
-                                            transformOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right',
-                                            }}
-                                            open={Boolean(anchorElUser)}
-                                            onClose={handleCloseUserMenu}
-                                        >
-                                            {settings.map((setting) => (
-                                                <Box onClick={() => navigate(setting.link)}>
-                                                    <MenuItem key={setting.text} onClick={handleCloseUserMenu}>
-                                                        <Typography textAlign='center'>{setting.text}</Typography>
-                                                    </MenuItem>
-                                                </Box>
-                                            ))}
-                                            <Box textAlign='center'>
-                                                <Button
-                                                    sx={{
-                                                        width: '90%',
-                                                        margin: '0 auto',
-                                                    }}
-                                                    variant='contained'
-                                                    onClick={handleLogout}
-                                                >
-                                                    Logout
-                                                </Button>
-                                            </Box>
-                                        </Menu>
-                                    )}
-                                </Box>
-                            </>
-                        ) : (
-                            <>
-                                <RegisterModal openRegister={openRegister} handleRegisterModal={handleRegisterModal} />
-
-                                <LoginModal openLogin={openLogin} handleLoginModal={handleLoginModal} />
-                            </>
-                        )}
-                    </Toolbar>
-                </Container>
-            </AppBar>
-        </>
-    );
+              <LoginModal
+                openLogin={openLogin}
+                handleLoginModal={handleLoginModal}
+              />
+              <RegisterModal
+                openRegister={openRegister}
+                handleRegisterModal={handleRegisterModal}
+                sx={{
+                  margin: '2px 5px'
+                }}
+              />
+            </>
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
+  </>
+  );
 };
 export default NavBar;

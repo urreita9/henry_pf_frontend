@@ -105,7 +105,12 @@ export const LoginForm = () => {
     setErrors((prevState) => {
       return { ...prevState, ...check };
     });
-    logError();
+
+    if(errors.state){
+
+      return logError();
+    }
+
     if (!check.state) {
       api
         .post("/auth/login", { ...logForm })
@@ -123,31 +128,39 @@ export const LoginForm = () => {
 
   const paperStyle = {
     padding: 20,
-    height: "80vh",
-    width: 280,
+    // height: "80vh",
+    width: 350,
     margin: "20px auto",
+    borderRadius: '15px'
   };
 
-  const avatarStyle = {};
+  const avatarStyle = {
+  };
   return (
-    <Grid>
+    <>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box style={style}>
+        <RegisterForm />
+      </Box>
+    </Modal>
+    <Box>
       <Paper elevation={10} style={paperStyle}>
-        <Grid align="center">
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
           <Avatar style={avatarStyle}>
-            <PetsIcon />
+            <PetsIcon  color='primary'/>
           </Avatar>
           <h2>Sign in</h2>
-        </Grid>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box style={style}>
-            <RegisterForm />
-          </Box>
-        </Modal>
+        </Box>
         <TextField
           name="email"
           label="Email*"
@@ -156,9 +169,9 @@ export const LoginForm = () => {
           error={!!errors.email}
           helperText={errors.email}
           onChange={changeHandler}
-          sx={{ marginTop: "30px" }}
+          margin="normal"
         />
-        <FormControl fullWidth sx={{ marginTop: "30px" }}>
+        <FormControl fullWidth margin="normal">
           <InputLabel htmlFor="password">Password*</InputLabel>
           <OutlinedInput
             label="password*"
@@ -207,6 +220,7 @@ export const LoginForm = () => {
         </Button>
         <Button onClick={handleOpen}>DON'T HAVE AN ACCOUNT?</Button>
       </Paper>
-    </Grid>
+    </Box>
+    </>
   );
 };

@@ -3,7 +3,6 @@ import {
   Button,
   FormControl,
   FormHelperText,
-  Grid,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -102,9 +101,10 @@ const RegisterForm = () => {
 
   const paperStyle = {
     padding: 20,
-    height: "80vh",
-    width: 280,
+    // height: "80vh",
+    width: 350,
     margin: "20px auto",
+    borderRadius: '15px'
   };
 
   const style = {
@@ -114,24 +114,31 @@ const RegisterForm = () => {
     transform: "translate(-50%, -50%)",
   };
   return (
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
-        <Grid align="center">
+    <>
+    <Modal
+    open={open}
+    onClose={handleClose}
+    aria-labelledby="modal-modal-title"
+    aria-describedby="modal-modal-description"
+    >
+      <Box style={style}>
+        <LoginForm />
+      </Box>
+    </Modal>
+    <Box>
+    <Paper elevation={10} style={paperStyle}>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
           <Avatar>
-            <PetsIcon />
+            <PetsIcon color='primary'/>
           </Avatar>
           <h2>Sign up!</h2>
-        </Grid>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box style={style}>
-            <LoginForm />
-          </Box>
-        </Modal>
+        </Box>
+
         <TextField
           label="Name*"
           name="name"
@@ -141,7 +148,7 @@ const RegisterForm = () => {
           autoFocus
           error={!!errors.name}
           helperText={errors.name}
-          sx={{ marginTop: "30px" }}
+          margin="normal"
         />
 
         <TextField
@@ -152,7 +159,7 @@ const RegisterForm = () => {
           error={!!errors.lastname}
           helperText={errors.lastname}
           onChange={changeHandler}
-          sx={{ marginTop: "30px" }}
+          margin="normal"
         />
         <TextField
           name="email"
@@ -162,9 +169,9 @@ const RegisterForm = () => {
           error={!!errors.email}
           helperText={errors.email}
           onChange={changeHandler}
-          sx={{ marginTop: "30px" }}
+          margin="normal"
         />
-        <FormControl fullWidth sx={{ marginTop: "30px" }}>
+        <FormControl fullWidth margin="normal">
           <InputLabel htmlFor="password">Password*</InputLabel>
           <OutlinedInput
             label="password*"
@@ -191,7 +198,7 @@ const RegisterForm = () => {
             {!!errors.password && errors.password}
           </FormHelperText>
         </FormControl>
-        <FormControl fullWidth sx={{ marginTop: "30px" }}>
+        <FormControl fullWidth margin="normal">
           <InputLabel htmlFor="repeat">Repeat Password*</InputLabel>
           <OutlinedInput
             label="repeat*"
@@ -231,7 +238,8 @@ const RegisterForm = () => {
         </Button>
         <Button onClick={handleOpen}>Already have an account?</Button>
       </Paper>
-    </Grid>
+    </Box>
+    </>
   );
 };
 
