@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,7 +18,9 @@ const PetList = (props) => {
                 ) : (
                     <>
                         <Typography>"No tienes ningun pet" </Typography>
-                        <Typography onClick={(e) => props.onClick(e, '3')}>Agregar</Typography>
+                        <Button variant='contained' onClick={(e) => props.onClick(e, '3')}>
+                            Agregar Pet
+                        </Button>
                     </>
                 )}
             </Box>

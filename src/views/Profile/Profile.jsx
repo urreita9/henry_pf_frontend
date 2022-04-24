@@ -61,8 +61,8 @@ const Profile = () => {
                     </TabList>
                 </Box>
                 <TabPanel value='0' index={0} sx={{ margin: 'auto' }} children={<UserProfile />} />
-                <TabPanel value='1' index={1} sx={{margin: 'auto'}} children={<FormProfile />} />
-                <TabPanel value='2' index={2} children={<PetList />} />
+                <TabPanel value='1' index={1} sx={{ margin: 'auto' }} children={<FormProfile />} />
+                <TabPanel value='2' index={2} children={<PetList onClick={setInicial} />} />
                 <TabPanel value='3' index={3} sx={{ margin: 'auto' }} children={<FormPet />} />
                 <TabPanel value='4' index={4} children={<CuidadorForm />} />
                 {/* <TabPanel value='4' index={4}>

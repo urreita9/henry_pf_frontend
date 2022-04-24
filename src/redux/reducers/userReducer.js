@@ -3,9 +3,6 @@ import { CLEAR_PET, CLEAR_USER, CREATE_PET, EDIT_USER, GET_USER, LOGIN, LOGOUT }
 const initialState = {
     user: {},
     logged: false,
-    pets: [],
-    userCaretaker: {},
-    pet: {},
 };
 
 const userReducer = (state = initialState, action) => {
@@ -15,8 +12,6 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: payload,
-                pets: payload.pets,
-                userCaretaker: payload.caretaker,
             };
         case LOGIN:
             return {
@@ -32,26 +27,11 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: payload,
-                pets: [],
             };
         case EDIT_USER:
             return {
                 ...state,
                 user: payload,
-                pets: payload.pets,
-                userCaretaker: payload.caretaker,
-            };
-        case CLEAR_PET:
-            return {
-                ...state,
-                pet: payload,
-            };
-        case CREATE_PET:
-            return {
-                ...state,
-                pet: payload.pet,
-                user: payload.user,
-                pets: payload.user.pets,
             };
 
         default:
