@@ -77,7 +77,7 @@ const Profile = () => {
 						) : (
 							<Tab label='Edit Caretaker Profile' {...a11yProps(4)}></Tab>
 						)}
-						{isUserACaretaker.current && (
+						{user.caretaker && (
 							<Tab label='Caretaker Profile' {...a11yProps(5)} />
 						)}
 					</TabList>
