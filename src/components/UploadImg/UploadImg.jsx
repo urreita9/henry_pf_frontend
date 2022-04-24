@@ -16,6 +16,7 @@ import { editUser } from '../../redux/actions/actions';
 import { capitalize, checkPassword } from '../../utils/functions';
 import { styled } from '@mui/material/styles';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
+import UploadIcon from '@mui/icons-material/Upload';
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
   position: 'relative',
@@ -140,7 +141,22 @@ const UploadImg = ({image}) => {
 
         </Box>
             <Box component={'form'} onSubmit={handleSubmit}>
-                <label htmlFor='ProfileFormImg'>
+
+
+                {/* <TextField type='file' name='img' disabled={!editImg} onChange={handleFileInputChange} label=' '>
+                    Cargar Imagen
+                </TextField> */}
+                {editImg && (
+                    <Box
+                        sx={{
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    >
+                                        <label htmlFor='ProfileFormImg'>
                     <Input
                         disabled={!editImg}
                         accept='image/*'
@@ -149,24 +165,20 @@ const UploadImg = ({image}) => {
                         name='img'
                         onChange={handleFileInputChange}
                     />
+                    <Button
+                        disabled={!editImg}
+                        startIcon={<UploadIcon />}
+                        variant='contained'
+                        onChange={handleFileInputChange}
+                        name='img'
+                        component='span'
+                    >
+                        Upload
+                    </Button>
                     <Typography variant='subtitle1' color='primary'>
                         {!!msg || !!error ? msg || error : null}
                     </Typography>
                 </label>
-
-                {/* <TextField type='file' name='img' disabled={!editImg} onChange={handleFileInputChange} label=' '>
-                    Cargar Imagen
-                </TextField> */}
-                {editImg && (
-                    <Box
-                        sx={{
-                            width: '15vw',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-evenly',
-                            alignItems: 'flex-start',
-                        }}
-                    >
                         <Button variant='contained' type='submit' onClick={handleSubmit}>
                             Save
                         </Button>
