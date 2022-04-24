@@ -39,7 +39,7 @@ export const NewMap = () => {
 		if (!filteredCaretakers.length) {
 			dispatch(getCaretakers());
 		}
-	}, [filteredCaretakers]);
+	}, [dispatch]);
 	return (
 		<div style={{ height: 'calc(100vh - 64px)' }}>
 			<MapContainer

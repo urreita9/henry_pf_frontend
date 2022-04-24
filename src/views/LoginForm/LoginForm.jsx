@@ -105,9 +105,9 @@ export const LoginForm = () => {
 		setErrors((prevState) => {
 			return { ...prevState, ...check };
 		});
+
 		if (errors.state) {
-			logError();
-			return;
+			return logError();
 		}
 
 		if (!check.state) {

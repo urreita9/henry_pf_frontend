@@ -3,11 +3,15 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {
   Box,
   Button,
+  Card, 
+  Avatar,
+  CardContent,
   FilledInput,
   FormControl,
   IconButton,
   InputAdornment,
   InputLabel,
+  Paper,
   TextField,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
@@ -21,6 +25,7 @@ import {
 import PassForm from "../PassForm/PassForm";
 import UploadImg from "../UploadImg/UploadImg";
 import swal from "sweetalert";
+import { ImgButtonBases } from "../UploadImg/ImgButtonBases";
 
 const initForm = {
   name: "",
@@ -92,15 +97,24 @@ const FormProfile = () => {
   }, [user]);
 
   return (
-    <Box>
+    <Paper elevation={4} sx={{
+      minWidth: '550px'
+    }}>
+      <Card>
+
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-evenly",
+          justifyContent: "center",
           alignItems: "center",
         }}
       >
+        <CardContent>
+      {/* <Avatar alt='UserImg' src={user?.img} sx={{ width: 200, height: 200 }} /> */}
+          <UploadImg image={user?.img}/>
+        </CardContent>
+      
         <Box component={"form"} onSubmit={handleSubmit}>
           <Box
             sx={{
@@ -110,8 +124,7 @@ const FormProfile = () => {
               justifyContent: "space-evenly",
               alignItems: "flex-start",
             }}
-          >
-            <UploadImg />
+            >
             <TextField
               id="Name"
               name="name"
@@ -155,7 +168,7 @@ const FormProfile = () => {
             </Box>
           ) : (
             <Box
-              sx={{
+            sx={{
                 width: "15vw",
                 display: "flex",
                 flexDirection: "row",
@@ -172,15 +185,10 @@ const FormProfile = () => {
             </Box>
           )}
         </Box>
-        <img
-          src={user?.img}
-          alt=""
-          width={"100px"}
-          sx={{ alignSelf: "flex-start" }}
-        />
       </Box>
       <PassForm />
-    </Box>
+    </Card>
+    </Paper>
   );
 };
 
