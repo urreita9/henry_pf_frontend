@@ -11,6 +11,7 @@ import personamascota from '../../utils/personaconmascota.jpg';
 import mascota2 from '../../utils/mascotas2.jpg';
 import * as Carousel from "../../components/Carousel";
 
+
 // import { style } from "@mui/system";
 
 export const Home = () => {
@@ -31,6 +32,7 @@ export const Home = () => {
 					backgroundColor: "background"
 				}}
 			>
+
 				<Paper
 					elevation={3}
 					sx={{

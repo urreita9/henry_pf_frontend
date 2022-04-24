@@ -25,7 +25,7 @@ export const ModalUi = ({ modalOpen, setModalOpen, id, loading }) => {
 	// const handleOpen = () => setOpen(true);
 	const handleClose = () => {
 		setModalOpen(false);
-		navigate(`/caretaker/${id}`);
+		// navigate(`/caretaker/${id}`);
 	};
 
 	return (

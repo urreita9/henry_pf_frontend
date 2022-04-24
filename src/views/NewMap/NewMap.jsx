@@ -35,40 +35,40 @@ export const NewMap = () => {
   // 	});
   // }, []);
 
-  useEffect(() => {
-    if (!filteredCaretakers.length) {
-      dispatch(getCaretakers());
-    }
-  }, [dispatch]);
-  return (
-    <div style={{ height: "calc(100vh - 64px)" }}>
-      <MapContainer
-        center={[myPoint.lat, myPoint.lng]}
-        zoom={myPoint.zoom}
-        scrollWheelZoom={true}
-        style={{ height: "100%" }}
-        minZoom={3}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          noWrap={true}
-        />
-        {filteredCaretakers.map((cuidador, index) => (
-          <Marker
-            key={`marker-${index}`}
-            position={[cuidador.lat, cuidador.lng]}
-            // latitude={cuidador.lat}
-            anchor="center"
-            // icon={<LocationOnIcon />}
-            color="#F29279"
-          >
-            <Popup>
-              <PopUpData person={cuidador} />
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-    </div>
-  );
+	useEffect(() => {
+		if (!filteredCaretakers.length) {
+			dispatch(getCaretakers());
+		}
+	}, [dispatch]);
+	return (
+		<div style={{ height: 'calc(100vh - 64px)' }}>
+			<MapContainer
+				center={[myPoint.lat, myPoint.lng]}
+				zoom={myPoint.zoom}
+				scrollWheelZoom={true}
+				style={{ height: '100%' }}
+				minZoom={3}
+			>
+				<TileLayer
+					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+					url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+					noWrap={true}
+				/>
+				{filteredCaretakers.map((cuidador, index) => (
+					<Marker
+						key={`marker-${index}`}
+						position={[cuidador.lat, cuidador.lng]}
+						// latitude={cuidador.lat}
+						anchor='center'
+						// icon={<LocationOnIcon />}
+						color='#F29279'
+					>
+						<Popup>
+							<PopUpData person={cuidador} />
+						</Popup>
+					</Marker>
+				))}
+			</MapContainer>
+		</div>
+	);
 };
