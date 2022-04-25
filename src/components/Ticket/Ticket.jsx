@@ -28,8 +28,8 @@ const TicketCard = ({ price, datesRange }) => {
   const { logged, user } = useSelector((state) => state.userReducer);
   const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  //   const dispatch = useDispatch();
+  //   const navigate = useNavigate();
 
   const handleLoginModal = () => {
     setOpenLogin(!openLogin);

@@ -54,6 +54,7 @@ function App() {
             <Route exact path="/profile/:tab" element={<Profile />} />
             <Route exact path="/history" element={<Operations />} />
             <Route exact path="/operation" element={<Payment />} />
+            <Route exact path="/newOperation" element={<Operation />} />
           </Routes>
         </Router>
       </ThemeProvider>
