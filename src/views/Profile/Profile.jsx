@@ -105,7 +105,16 @@ const Profile = () => {
 					sx={{ margin: 'auto' }}
 					children={<FormPet />}
 				/>
-				<TabPanel value='4' index={4} children={<CuidadorForm />} />
+				{user.caretaker ? (
+					<TabPanel
+						value='4'
+						index={4}
+						children={<CuidadorForm editUser={true} />}
+					/>
+				) : (
+					<TabPanel value='4' index={4} children={<CuidadorForm />} />
+				)}
+
 				<TabPanel value='5' index={5} children={<CaretakerUserProfile />} />
 				{/* <TabPanel value='4' index={4}>
                     Be caretaker

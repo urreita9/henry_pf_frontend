@@ -10,7 +10,6 @@ import {
 	Input,
 } from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-// import { Mapa } from '../Map/Mapa';
 import { useDispatch, useSelector } from 'react-redux';
 import {
 	editCaretaker,
@@ -19,6 +18,7 @@ import {
 } from '../../redux/actions/actions';
 import { ModalUi } from '../../components/Modal/ModalUi';
 import swal from 'sweetalert';
+
 const initialForm = {
 	description: '',
 	images: '',
