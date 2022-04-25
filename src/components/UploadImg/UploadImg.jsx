@@ -2,20 +2,13 @@ import {
   Box,
   Button,
   ButtonBase,
-  FilledInput,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { editUser } from "../../redux/actions/actions";
 import { capitalize, checkPassword } from "../../utils/functions";
 import { styled } from "@mui/material/styles";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import UploadIcon from "@mui/icons-material/Upload";
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({
@@ -122,6 +115,7 @@ const UploadImg = ({ image }) => {
     }
   };
 
+
   return (
     <>
       <Box
@@ -216,6 +210,7 @@ const UploadImg = ({ image }) => {
       </Box>
     </>
   );
+
 };
 
 export default UploadImg;

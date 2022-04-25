@@ -1,39 +1,39 @@
-import { Box } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { MapContainer, Marker, TileLayer, Popup } from 'react-leaflet';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
-import { getCaretakers } from '../../redux/actions/actions';
-import PopUpData from '../Map/PopUpData';
+import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import { MapContainer, Marker, TileLayer, Popup } from "react-leaflet";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { getCaretakers } from "../../redux/actions/actions";
+import PopUpData from "../Map/PopUpData";
 
 const initialPoint = {
-	lng: -58.381592,
-	lat: -34.603722,
-	zoom: 5,
+  lng: -58.381592,
+  lat: -34.603722,
+  zoom: 5,
 };
 
 export const NewMap = () => {
-	const [myPoint, setMyPoint] = useState(initialPoint);
-	const location = useLocation();
-	const dispatch = useDispatch();
+  const [myPoint, setMyPoint] = useState(initialPoint);
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-	// const [myCoordsInForm, setMyCoordsInForm] = useState(null);
-	// const dispatch = useDispatch();
-	const { filteredCaretakers } = useSelector(
-		(state) => state.cuidadoresReducer
-	);
-	// useEffect(() => {
-	// 	navigator.geolocation.getCurrentPosition((pos) => {
-	// 		const crd = pos.coords;
-	// 		if (crd.latitude) {
-	// 			setMyPoint({
-	// 				longitude: crd.longitude,
-	// 				latitude: crd.latitude,
-	// 				zoom: 12,
-	// 			});
-	// 		}
-	// 	});
-	// }, []);
+  // const [myCoordsInForm, setMyCoordsInForm] = useState(null);
+  // const dispatch = useDispatch();
+  const { filteredCaretakers } = useSelector(
+    (state) => state.cuidadoresReducer
+  );
+  // useEffect(() => {
+  // 	navigator.geolocation.getCurrentPosition((pos) => {
+  // 		const crd = pos.coords;
+  // 		if (crd.latitude) {
+  // 			setMyPoint({
+  // 				longitude: crd.longitude,
+  // 				latitude: crd.latitude,
+  // 				zoom: 12,
+  // 			});
+  // 		}
+  // 	});
+  // }, []);
 
 	useEffect(() => {
 		if (!filteredCaretakers.length) {
