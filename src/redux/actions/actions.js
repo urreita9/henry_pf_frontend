@@ -157,7 +157,14 @@ export const clearUser = () => ({
 
 export const editUser = (token, id, body) => async (dispatch) => {
     try {
-        const { data } = await api.put(`/users/${id}`, body, {
+        const editUser = await api.put(`/users/${id}`, body, {
+            headers: {
+                'x-token': token,
+                uid: id,
+            },
+        });
+
+        const { data } = await api.get(`/users/userjwt/jwt`, {
             headers: {
                 'x-token': token,
                 uid: id,
