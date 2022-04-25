@@ -3,11 +3,12 @@ import {
   GET_USER_OPERATIONS,
   UPDATE_OP_STATUS,
   CAPTURE_OPERATION,
-} from "../actions/operationActions";
+} from '../actions/operationActions';
 
 const initialState = {
   operations: [],
   filteredOperations: [],
+  createdOperation: {},
   operation: {},
 };
 
@@ -23,7 +24,7 @@ const operationsReducer = (state = initialState, action) => {
     case SET_OPERATION:
       return {
         ...state,
-        operation: payload,
+        createdOperation: payload,
       };
     case UPDATE_OP_STATUS:
       return {
