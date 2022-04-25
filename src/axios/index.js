@@ -5,5 +5,3 @@ export default axios.create({
 	baseURL: process.env.REACT_APP_API || 'http://localhost:3001/api',
 	// baseURL: 'http://localhost:3001/api',
 });
-
-//iolhefio
