@@ -66,7 +66,7 @@ const Profile = () => {
 						value={tab}
 						onChange={handleChange}
 						aria-label='Vertical tabs example'
-						sx={{ borderRight: 1, borderColor: 'divider', height: '100%'}}
+						sx={{ borderRight: 1, borderColor: 'divider', height: '100%' }}
 					>
 						<Tab label='Profile' {...a11yProps(0)} />
 						<Tab label='Edit Profile' {...a11yProps(1)} />
@@ -105,8 +105,29 @@ const Profile = () => {
 					sx={{ margin: 'auto' }}
 					children={<FormPet />}
 				/>
-				<TabPanel value='4' index={4} sx={{ width: '80%', margin: 'auto' }} children={<CuidadorForm />} />
-				<TabPanel value='5' index={5} sx={{ margin: 'auto' }} children={<CaretakerUserProfile />} />
+
+				{user.caretaker ? (
+					<TabPanel
+						value='4'
+						index={4}
+						sx={{ width: '80%', margin: 'auto' }}
+						children={<CuidadorForm editUser={true} />}
+					/>
+				) : (
+					<TabPanel
+						value='4'
+						index={4}
+						sx={{ width: '80%', margin: 'auto' }}
+						children={<CuidadorForm />}
+					/>
+				)}
+
+				<TabPanel
+					value='5'
+					index={5}
+					sx={{ margin: 'auto' }}
+					children={<CaretakerUserProfile />}
+				/>
 				{/* <TabPanel value='4' index={4}>
                     Be caretaker
                 </TabPanel> */}
