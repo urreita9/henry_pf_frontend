@@ -105,7 +105,6 @@ const Profile = () => {
 					sx={{ margin: 'auto' }}
 					children={<FormPet />}
 				/>
-
 				{user.caretaker ? (
 					<TabPanel
 						value='4'
@@ -122,12 +121,14 @@ const Profile = () => {
 					/>
 				)}
 
-				<TabPanel
-					value='5'
-					index={5}
-					sx={{ margin: 'auto' }}
-					children={<CaretakerUserProfile />}
-				/>
+				{user.caretaker && (
+					<TabPanel
+						value='5'
+						index={5}
+						sx={{ margin: 'auto' }}
+						children={<CaretakerUserProfile />}
+					/>
+				)}
 				{/* <TabPanel value='4' index={4}>
                     Be caretaker
                 </TabPanel> */}

@@ -24,7 +24,7 @@ export default function PopUpData({ person }) {
 					justifyContent: 'space-around',
 				}}
 			>
-				<Avatar alt='Remy Sharp' src={person.img} />
+				<Avatar alt='Remy Sharp' src={person.user.img} />
 				<Typography component='legend' textAlign={'end'}>
 					{person.user.name} {person.user.lastname}
 				</Typography>
