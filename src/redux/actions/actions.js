@@ -47,7 +47,6 @@ export const postCaretaker = (careTaker) => async (dispatch) => {
     try {
         const { data } = await api.post(`/caretakers`, { ...careTaker });
 
-        console.log(data);
         dispatch({
             type: POST_CARETAKER,
             payload: data,
@@ -75,7 +74,7 @@ export const postCaretakerQuestion = (id, question) => async (dispatch) => {
 export const editCaretaker = (id, caretaker) => async (dispatch) => {
     try {
         const { data } = await api.put(`/caretakers/${id}`, {
-            caretaker,
+            ...caretaker,
         });
 
         dispatch({
