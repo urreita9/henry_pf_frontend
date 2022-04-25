@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -10,16 +10,9 @@ import petsHome from "../../utils/petshome.jpg";
 import personamascota from "../../utils/personaconmascota.jpg";
 import mascota2 from "../../utils/mascotas2.jpg";
 import * as Carousel from "../../components/Carousel";
-import axios from "axios";
+
 // import { style } from "@mui/system";
 
-const clickHandler = async () => {
-  const response = await axios.post(
-    "http://localhost:3001/api/operations/create-order"
-  );
-  console.log(response);
-  window.location.href = response.data.links[1].href; //! importante
-};
 export const Home = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -125,7 +118,6 @@ export const Home = () => {
       <Container>
         <FAQ />
       </Container>
-      <Button onClick={clickHandler}> Checkout test</Button>
     </>
   );
 };

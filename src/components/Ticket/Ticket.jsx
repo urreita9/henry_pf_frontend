@@ -12,8 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import api from "../../axios";
 import LoginModal from "../LoginModal/LoginModal";
+import { setOperation } from "../../redux/actions/operationActions";
 
 const TicketCard = ({ price, datesRange }) => {
+  const dispatch = useDispatch();
   const timeLapse = intervalToDuration({
     start: new Date(datesRange[0].startDate),
     end: new Date(datesRange[0].endDate),
@@ -38,28 +40,28 @@ const TicketCard = ({ price, datesRange }) => {
   const sum = price * time;
   const totalCheckout = sum + sum * 0.03;
 
-  const handleOperationSubmit = async (
-    buyerId,
-    sellerId,
-    price,
-    datesRange,
-    timeLapse,
-    totalCheckout
-  ) => {
-    const response = await api.post(
-      "http://localhost:3001/api/operations/create-order",
-      {
-        buyerId,
-        sellerId,
-        price,
-        datesRange,
-        timeLapse,
-        totalCheckout,
-      }
-    );
-
-    window.location.href = response.data.links[1].href;
-  };
+  const handleOperationSubmit = () =>
+    //     buyerId,
+    //     sellerId,
+    //     price,
+    //     datesRange,
+    //     timeLapse,
+    //     totalCheckout
+    {
+      dispatch(setOperation({ totalCheckout }));
+      //     const response = await api.post(
+      //       "http://localhost:3001/api/operations/create-order",
+      //       {
+      //         buyerId,
+      //         sellerId,
+      //         price,
+      //         datesRange,
+      //         timeLapse,
+      //         totalCheckout,
+      //       }
+      //     );
+      //     window.location.href = response.data.links[1].href;
+    };
   return (
     <>
       <CardContent>
