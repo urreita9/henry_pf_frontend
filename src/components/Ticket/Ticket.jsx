@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../axios";
 import LoginModal from "../LoginModal/LoginModal";
 import { setOperation } from "../../redux/actions/operationActions";
+import { useParams } from "react-router-dom";
 
 const TicketCard = ({ price, datesRange }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,8 @@ const TicketCard = ({ price, datesRange }) => {
     new Date(datesRange[0].endDate),
     new Date(datesRange[0].startDate)
   );
-
+  const params = useParams();
+  const { id } = params;
   const [openLogin, setOpenLogin] = useState(false);
   const { logged, user } = useSelector((state) => state.userReducer);
   const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
@@ -39,6 +41,7 @@ const TicketCard = ({ price, datesRange }) => {
 
   const sum = price * time;
   const totalCheckout = sum + sum * 0.03;
+  const uid = localStorage.getItem("uid");
 
   const handleOperationSubmit = () =>
     //     buyerId,
@@ -48,7 +51,7 @@ const TicketCard = ({ price, datesRange }) => {
     //     timeLapse,
     //     totalCheckout
     {
-      dispatch(setOperation({ totalCheckout }));
+      dispatch(setOperation({ id, totalCheckout, timeLapse, uid }));
       //     const response = await api.post(
       //       "http://localhost:3001/api/operations/create-order",
       //       {
