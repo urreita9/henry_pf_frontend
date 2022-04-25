@@ -7,7 +7,6 @@ import PetCard from '../PetCard/PetCard';
 const PetList = (props) => {
     const user = useSelector((state) => state.userReducer.user);
     const navigate = useNavigate();
-    console.log(user.pets)
     return (
         <div>
             <Typography variant='h4' component='h1'>PetList </Typography>

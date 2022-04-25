@@ -159,7 +159,7 @@ const UploadImgPet = ({ image, id }) => {
                 focusRipple
                 style={{
                     width: '150px',
-                    borderRadius: '150%',
+                    borderRadius: '50%',
                     zIndex: '0',
                     border: '5px solid #F29278'
                 }}
