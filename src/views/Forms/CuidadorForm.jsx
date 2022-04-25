@@ -8,6 +8,9 @@ import {
 	TextField,
 	Typography,
 	Input,
+	Card,
+    CardActions,
+    CardContent,
 } from '@mui/material';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
 // import { Mapa } from '../Map/Mapa';
@@ -18,6 +21,7 @@ import {
 	postCaretaker,
 } from '../../redux/actions/actions';
 import { ModalUi } from '../../components/Modal/ModalUi';
+import UploadIcon from '@mui/icons-material/Upload';
 import swal from 'sweetalert';
 const initialForm = {
 	description: '',
@@ -232,39 +236,55 @@ export const CuidadorForm = ({ editUser = false }) => {
 					id={caretakerProfile.id}
 				/>
 			)}
-			<Box sx={{ marginBottom: 2, paddingX: 2 }}>
-				<Typography variant='h4'>
+			<Box sx={{ width: '100%', marginBottom: 2, paddingX: '2rem' }} elevation={5}>
+				<Typography variant='h3' sx={{fontWeight: 'bold'}}>
 					{editUser
 						? 'Edit your caretaker form'
 						: 'Fill in this form and start recievieng pets!'}
 				</Typography>
-				<TextField
-					fullWidth
-					rows={4}
-					sx={{ marginTop: 2, marginBottom: 1 }}
-					placeholder='Hi! Im John. I am 25 years old and...'
-					multiline
-					label='The users want to know you before they decide...'
-					// helperText={errors.description && errors.description}
-					autoFocus
-					//error={errors.description && isTouched}
-					onChange={handleInputChange}
-					//error={errors.description}
-					value={form.description}
-					//onBlur={() => setIsTouched(true)}
-					name='description'
-				/>
+				<Card elevation={5} sx={{
+					padding: '0.9rem 1.2rem',
+					margin: '1.2rem 0'
+					
+				}}>
+
+					<Typography variant='h6' >
+						About me
+					</Typography>
+					<TextField
+						fullWidth
+						rows={4}
+						sx={{ marginTop: 2, marginBottom: 1 }}
+						placeholder='Hi! Im John. I am 25 years old and...'
+						multiline
+						label='The users want to know you before they decide...'
+						// helperText={errors.description && errors.description}
+						autoFocus
+						//error={errors.description && isTouched}
+						onChange={handleInputChange}
+						//error={errors.description}
+						value={form.description}
+						//onBlur={() => setIsTouched(true)}
+						name='description'
+					/>
+
 				{errors.description && (
 					<Box color='red' textAlign='center'>
 						{errors.description}
 					</Box>
 				)}
+				</Card>
 
-				<div>
+				<Card elevation={5} sx={{
+					padding: '0.9rem 1.2rem',
+					margin: '1.2rem 0'
+				}}>
+					<Typography variant='h6' >
+					Choose 3 pictures that describes your home
+					</Typography>
+					<CardContent>
+
 					<label htmlFor='file'>
-						Choose 3 pictures that describes your home
-					</label>
-					<br />
 					<input
 						type='file'
 						name='image'
@@ -272,33 +292,78 @@ export const CuidadorForm = ({ editUser = false }) => {
 						value={fileInputState}
 						multiple
 					/>
-
-					{form.images?.length &&
-						form.images?.map((image) => (
-							<img
-								key={image}
-								src={image}
-								alt='img'
-								style={{ height: '300px' }}
-							/>
-						))}
-					{form.images?.length && (
+					</label>
+					{form.images && (
 						<>
-							<br></br>
-							<Button onClick={() => setForm({ ...form, images: '' })}>
+							<Button color='error' variant='contained' onClick={() => setForm({ ...form, images: '' })}>
 								Delete
 							</Button>
 						</>
 					)}
-				</div>
+					<Box sx={{
+						width: '100%',
+						display: 'flex',
+						flexDirection: 'row',
+						justifyContent: 'space-between',
+						alignItems: 'center',
+					}}>
+
+					{form.images &&
+						form.images?.map((image) => (
+							<img
+							key={image}
+								src={image}
+								alt='img'
+								style={{ width: '30%', height: '30%' }}
+							/>
+							))}
+					</Box>
+
 				{errors.images && (
 					<Box color='red' textAlign='center'>
 						{errors.images}
 					</Box>
 				)}
+								</CardContent>
+								<CardContent>
 
-				<div>
-					<Typography>Pet size you are able to take care of</Typography>
+								
+								<TextField
+					fullWidth
+					rows={4}
+					sx={{ marginTop: 2, marginBottom: 1 }}
+					placeholder='Nice neighborhood, with a small garden...'
+					//autoFocus
+					multiline
+					label='Tell us about your home...'
+					// helperText={errors.homeDescription && errors.homeDescription}
+					error={errors.homeDescription && isTouched}
+					value={form.homeDescription}
+					onChange={handleInputChange}
+					onBlur={() => setIsTouched(true)}
+					name='homeDescription'
+				/>
+				{errors.homeDescription && (
+					<Box color='red' textAlign='center'>
+						{errors.homeDescription}
+					</Box>
+				)}
+				</CardContent>
+				</Card>
+
+				<Card elevation={5} sx={{
+					width: '100%',
+					padding: '0.9rem 1.2rem',
+					margin: '1.2rem 0',
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'space-evenly',
+					alignItems: 'center'
+				}}>
+					<CardContent>
+
+			
+					<Typography variant='subtitle1'>Pet size you are able to take care of</Typography>
 					<Radio
 						{...controlProps('0')}
 						size='small'
@@ -330,8 +395,12 @@ export const CuidadorForm = ({ editUser = false }) => {
 						}}
 						label='Big'
 					/>
-				</div>
-				<Typography>$ Price per night </Typography>
+							</CardContent>
+
+				<CardContent>
+
+
+				<Typography variant='subtitle1' >$ Price per night </Typography>
 				<Input
 					value={form.price}
 					type='number'
@@ -345,8 +414,18 @@ export const CuidadorForm = ({ editUser = false }) => {
 						{errors.price}
 					</Box>
 				)}
+								</CardContent>
+				</Card>
+				
+				<Card elevation={5} sx={{
+					width: '100%',
+					padding: '0.9rem 1.2rem',
+					margin: '1.2rem 0',
+				}}
+					>
 
-				<Typography>Put your Marker on the Map</Typography>
+
+				<Typography variant='h6'>Put your Marker on the Map</Typography>
 				{errors.lat && (
 					<Box color='red' textAlign='center'>
 						{errors.lat}
@@ -376,29 +455,12 @@ export const CuidadorForm = ({ editUser = false }) => {
 					</MapContainer>
 				</Box>
 
-				<TextField
-					fullWidth
-					rows={4}
-					sx={{ marginTop: 2, marginBottom: 1 }}
-					placeholder='Nice neighborhood, with a small garden...'
-					//autoFocus
-					multiline
-					label='Tell us about your home...'
-					// helperText={errors.homeDescription && errors.homeDescription}
-					error={errors.homeDescription && isTouched}
-					value={form.homeDescription}
-					onChange={handleInputChange}
-					onBlur={() => setIsTouched(true)}
-					name='homeDescription'
-				/>
-				{errors.homeDescription && (
-					<Box color='red' textAlign='center'>
-						{errors.homeDescription}
-					</Box>
-				)}
-				<Box display='flex' justifyContent='space-between'>
+				</Card>
+
+				<Box display='flex' justifyContent='flex-end' sx={{gap: '20px'}}>
 					<Button
-						variant='text'
+						variant='contained'
+						color='error'
 						onClick={() => {
 							setForm(initialForm);
 							setIsTouched(false);

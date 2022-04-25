@@ -102,6 +102,7 @@ const UploadImg = ({ image }) => {
     if (!editImg) {
       setEditImg(!editImg); //ACA SE EDITA
       setMsg("");
+      setNameFile('');
     } else {
       if (!!form) {
         setEditImg(!editImg); //ACA SE SUBMITEA

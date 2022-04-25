@@ -105,8 +105,8 @@ const Profile = () => {
 					sx={{ margin: 'auto' }}
 					children={<FormPet />}
 				/>
-				<TabPanel value='4' index={4} children={<CuidadorForm />} />
-				<TabPanel value='5' index={5} children={<CaretakerUserProfile />} />
+				<TabPanel value='4' index={4} sx={{ width: '80%', margin: 'auto' }} children={<CuidadorForm />} />
+				<TabPanel value='5' index={5} sx={{ margin: 'auto' }} children={<CaretakerUserProfile />} />
 				{/* <TabPanel value='4' index={4}>
                     Be caretaker
                 </TabPanel> */}

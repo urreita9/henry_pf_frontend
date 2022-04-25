@@ -13,6 +13,7 @@ import {
     Switch,
     TextField,
     Typography,
+    Fab,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,6 +22,7 @@ import { capitalize, checkEditPet, deletePet } from '../../utils/functions';
 import swal from 'sweetalert';
 import { height } from '@mui/system';
 import UploadImgPet from '../UploadImg/UploadImgPet';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const PetCard = ({ age, id, img, name, race, size, specialFood, actions = true }) => {
     const dispatch = useDispatch();
@@ -114,19 +116,50 @@ const PetCard = ({ age, id, img, name, race, size, specialFood, actions = true }
     };
 
     return (
-        <Card sx={{ width: '300px', height: '600px', display: 'flex', flexDirection: 'column' }}>
+        <Card sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', borderRadius: '10px', boxSizing: 'content-box'}} elevation={5}>
+            <Box sx={{position: 'relative', width: '100%'}}>
+            {actions ? (
+                <Fab size="small" color="error" aria-label="delete" onClick={handleDelete} sx={{
+                    position: 'absolute',
+                    right: '5px',
+                    top: '5px'
+                }}>
+                <DeleteIcon />
+                </Fab>
+
+            ): null}
+
             <CardContent
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexDirection: 'row',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    height: '500px',
                 }}
             >
-                <UploadImgPet image={img} id={id} />
-                {/* <Avatar alt='PetImg' src={img} sx={{ width: '150px', height: '150px' }} /> */}
+                <Box sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+                    <UploadImgPet image={img} id={id} />
 
+                </Box>
+                {/* <Avatar alt='PetImg' src={img} sx={{ width: '150px', height: '150px' }} /> */}
+                <Box sx={{
+                    width: '100%',
+                    height: '100%',
+                    padding: '0.7rem',
+                    marginRight: '0.7rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-evenly',
+                    gap: '10px',
+
+                }}>
+                    
                 <TextField
                     error={!!errors.name}
                     helperText={!!errors.name && errors.name}
@@ -169,31 +202,30 @@ const PetCard = ({ age, id, img, name, race, size, specialFood, actions = true }
                     label='Special Food'
                     labelPlacement='start'
                 />
-            </CardContent>
-            {actions ? (
-                <CardActions display='flex' sx={{ flexDirection: 'column' }}>
+                        {actions ? (
+                <CardActions display='flex' sx={{ width: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                     {!edit ? (
-                        <Box>
-                            <Button variant='contained' onClick={handleEdit}>
+                       <Button variant='contained' onClick={handleEdit}>
                                 Edit pet
-                            </Button>
-                        </Box>
+                        </Button>
+
                     ) : (
-                        <Box>
+                        <>
                             <Button variant='contained' onClick={handleSave}>
                                 Save
                             </Button>
                             <Button variant='contained' onClick={handleCancel}>
                                 Cancel
                             </Button>
-                        </Box>
+                        </>
                     )}
-
-                    <Button variant='contained' color='error' onClick={handleDelete}>
-                        Delete Pet
-                    </Button>
                 </CardActions>
             ) : null}
+            </Box>
+
+            </CardContent>
+
+            </Box>
         </Card>
     );
 };

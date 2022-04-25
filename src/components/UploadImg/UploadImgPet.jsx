@@ -52,7 +52,7 @@ const Image = styled('span')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    opacity: 0.4,
+    opacity: 0.8,
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
     transition: theme.transitions.create('opacity'),
@@ -82,15 +82,18 @@ const UploadImgPet = ({ image, id }) => {
     const [editImg, setEditImg] = useState(false);
     const token = localStorage.getItem('token');
     const uid = localStorage.getItem('uid');
+    const [nameFile, setNameFile] = useState("");
 
     const handleEditImg = (e) => {
         setEditImg(true);
         setError('');
         setMsg('');
+        setNameFile("");
     };
 
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
+        setNameFile(file.name);
         previewFile(file);
     };
 
@@ -115,6 +118,7 @@ const UploadImgPet = ({ image, id }) => {
             ...form,
             img: '',
         });
+        setNameFile("");
         document.getElementById('PetImg').value = '';
     };
 
@@ -130,6 +134,7 @@ const UploadImgPet = ({ image, id }) => {
                 img: '',
             });
             setMsg('Imagen subida correctamente');
+            setNameFile("");
         } else {
             setError('Necesita cargar primero una imagen');
         }
@@ -137,25 +142,49 @@ const UploadImgPet = ({ image, id }) => {
 
     return (
         <>
+        <Box
+            sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            flexWrap: "wrap",
+            gap: '10px',
+            height: '100%',
+            minWidth: '150px',
+            width: "100%",
+            }}
+        >
             <ImageButton
                 focusRipple
                 style={{
                     width: '150px',
                     borderRadius: '150%',
                     zIndex: '0',
+                    border: '5px solid #F29278'
                 }}
                 onClick={handleEditImg}
             >
                 <ImageSrc style={{ backgroundImage: `url(${image})`, borderRadius: '50%' }} />
                 <ImageBackdrop className='MuiImageBackdrop-root'>
                     <Image style={{ borderRadius: '50%' }}>
-                        <PhotoCameraIcon />
+                        Edit Photo
                     </Image>
                 </ImageBackdrop>
             </ImageButton>
-            <Typography variant='subtitle1' color='primary'>
+            {editImg && (
+          <>
+            {nameFile ? (
+              <Typography variant="subtitle1" sx={{color: '#444'}}>
+                {nameFile}
+              </Typography>
+            ) : (
+              <Typography variant="subtitle1" color="primary">
                 {!!msg || !!error ? msg || error : null}
-            </Typography>
+              </Typography>
+            )}
+          </>
+        )}
             {editImg && (
                 <Box
                     sx={{
@@ -194,6 +223,7 @@ const UploadImgPet = ({ image, id }) => {
                     </Button>
                 </Box>
             )}
+            </Box>
         </>
     );
 };

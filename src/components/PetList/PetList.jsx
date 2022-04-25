@@ -7,14 +7,14 @@ import PetCard from '../PetCard/PetCard';
 const PetList = (props) => {
     const user = useSelector((state) => state.userReducer.user);
     const navigate = useNavigate();
-
+    console.log(user.pets)
     return (
         <div>
-            <h1>PetList</h1>
-
+            <Typography variant='h4' component='h1'>PetList </Typography>
+            
             <Box gap={2} sx={{ display: 'flex' }}>
-                {user.pets?.length !== 0 ? (
-                    user.pets.map((el) => <PetCard key={el.id} {...el} />)
+                {typeof user.pets !== 'undefined' && user.pets.length > 0 ? (
+                        user.pets?.map((el) => <PetCard key={el.id} {...el} />)
                 ) : (
                     <>
                         <Typography>"No tienes ningun pet" </Typography>
