@@ -8,17 +8,18 @@ export const Operation = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
-  console.log(token);
+  const PayerID = searchParams.get('PayerID');
+  //console.log(token);
 
   const { operation, createdOperation } = useSelector(
     (state) => state.operationsReducer
   );
-  console.log(operation);
-  console.log(createdOperation);
+  //console.log(operation);
+  //console.log(createdOperation);
   const { id, status } = operation;
   // const { email_address, name: given_name, name: surname } = operation.payer;
   useEffect(() => {
-    dispatch(captureOperation(token));
+    dispatch(captureOperation(token, PayerID));
   }, [dispatch]);
 
   return (
