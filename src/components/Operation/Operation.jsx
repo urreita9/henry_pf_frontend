@@ -10,7 +10,12 @@ import {
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { captureOperation } from '../../redux/actions/operationActions';
-import { useParams, useSearchParams } from 'react-router-dom';
+import {
+	useLocation,
+	useNavigate,
+	useParams,
+	useSearchParams,
+} from 'react-router-dom';
 import { capitalize } from '../../utils/functions';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 
@@ -22,12 +27,15 @@ export const Operation = () => {
 	//console.log(token);
 
 	const { operation } = useSelector((state) => state.operationsReducer);
-	//console.log(operation);
-	//console.log(createdOperation);
+	const location = useLocation();
+	const navigate = useNavigate();
+
 	const { id, status } = operation;
 	// const { email_address, name: given_name, name: surname } = operation.payer;
 	useEffect(() => {
-		dispatch(captureOperation(token, PayerID));
+		if (location.pathname.includes('/newOperation')) {
+			dispatch(captureOperation(token, PayerID));
+		}
 	}, [dispatch]);
 
 	const date = operation.operation && new Date(operation.operation.createdAt);

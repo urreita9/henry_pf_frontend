@@ -13,7 +13,7 @@ import FormPet from '../../components/FormPet/FormPet';
 import { CuidadorForm } from '../Forms/CuidadorForm';
 import CaretakerDescription from '../../components/CaretakerDescription';
 import { CaretakerUserProfile } from '../../components/CaretakerUserProfile/CaretakerUserProfile';
-import { Operations } from '../../components/Operations/Operations';
+import { History } from '../../components/History/History';
 
 const defaultProps = {
 	display: 'flex',
@@ -138,7 +138,7 @@ const Profile = () => {
 					value='6'
 					index={6}
 					sx={{ margin: 'auto' }}
-					children={<Operations />}
+					children={<History />}
 				/>
 			</TabContext>
 		</Box>
