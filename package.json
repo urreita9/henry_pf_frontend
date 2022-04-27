@@ -24,6 +24,7 @@
         "react": "^18.0.0",
         "react-date-range": "^1.4.0",
         "react-dom": "^18.0.0",
+        "react-google-login": "^5.2.2",
         "react-leaflet": "^4.0.0",
         "react-photoswipe-gallery": "^2.0.4",
         "react-redux": "^7.2.6",

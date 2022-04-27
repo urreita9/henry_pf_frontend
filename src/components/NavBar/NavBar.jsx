@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import { ButtonModalToMapFilter } from '../MapFilters/ButtonModalToMapFilter';
+import { useGoogleLogout, GoogleLogout } from 'react-google-login';
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
@@ -22,6 +23,11 @@ const NavBar = ({ onToggle, typeMode }) => {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const token = localStorage.getItem('token') || null;
     const id = localStorage.getItem('uid') || null;
+    const handleLogoutGoogle = (event) => {};
+    const { signOut, loaded } = useGoogleLogout({
+        clientId: '221755505254-ckd8nt7ukp091rrvgp9gnuns7fq18rpk.apps.googleusercontent.com',
+        onLogoutSuccess: handleLogoutGoogle,
+    });
 
     const [settings, setSettings] = useState([
         { text: 'Profile', link: '/profile' },
@@ -73,7 +79,7 @@ const NavBar = ({ onToggle, typeMode }) => {
         setAnchorElUser(null);
     };
 
-    const handleLogout = () => {
+    const handleLogout = (e) => {
         localStorage.clear();
         dispatch(LogoutAction());
         dispatch(clearUser());
@@ -81,6 +87,7 @@ const NavBar = ({ onToggle, typeMode }) => {
         setOpenLogin(false);
         setOpenRegister(false);
         setAnchorElUser(null);
+        signOut();
     };
 
     useEffect(() => {
