@@ -14,8 +14,12 @@ import api from '../../axios';
 import LoginModal from '../LoginModal/LoginModal';
 import { setOperation } from '../../redux/actions/operationActions';
 import { useParams } from 'react-router-dom';
+import { BasicSelect } from '../Select/HistorySelect';
+import { TicketSelect } from '../Select/TicketSelect';
 
 const TicketCard = ({ price, datesRange }) => {
+	const { logged, user } = useSelector((state) => state.userReducer);
+	const [pet, setPet] = useState(user.pets[0].id);
 	const dispatch = useDispatch();
 	const timeLapse = intervalToDuration({
 		start: new Date(datesRange[0].startDate),
@@ -29,7 +33,6 @@ const TicketCard = ({ price, datesRange }) => {
 	const params = useParams();
 	const { id } = params;
 	const [openLogin, setOpenLogin] = useState(false);
-	const { logged, user } = useSelector((state) => state.userReducer);
 	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 
 	const handleLoginModal = () => {
@@ -42,7 +45,7 @@ const TicketCard = ({ price, datesRange }) => {
 	const uid = localStorage.getItem('uid');
 
 	const handleOperationSubmit = () => {
-		dispatch(setOperation({ id, totalCheckout, timeLapse, uid }));
+		dispatch(setOperation({ id, totalCheckout, timeLapse, uid, pet }));
 	};
 	return (
 		<>
@@ -87,6 +90,7 @@ const TicketCard = ({ price, datesRange }) => {
 					Total ${totalCheckout}
 				</Typography>
 			</CardContent>
+			<TicketSelect pets={user.pets} pet={pet} setPet={setPet} />
 			<CardActions sx={{ justifyContent: 'center', alignItems: 'center' }}>
 				<Box>
 					{user?.id ? (
@@ -101,14 +105,7 @@ const TicketCard = ({ price, datesRange }) => {
 								if (!time) {
 									return;
 								}
-								handleOperationSubmit(
-									user.id,
-									caretakerProfile.id,
-									price,
-									datesRange,
-									time,
-									totalCheckout
-								);
+								handleOperationSubmit();
 							}}
 							disabled={user.id === caretakerProfile.id ? true : false}
 						>

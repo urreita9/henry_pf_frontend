@@ -5,6 +5,8 @@ export const UPDATE_OP_STATUS = 'UPDATE_OP_STATUS';
 
 export const SET_OPERATION = 'SET_OPERATION'; //MOMENTANEA
 export const CAPTURE_OPERATION = 'CAPTURE_OPERATION';
+export const SELECT_OPERATION = 'SELECT_OPERATION';
+export const FILTER_BY_DATE = 'FILTER_BY_DATE';
 
 export const getUserOperations = (uid, token, user) => async (dispatch) => {
 	try {
@@ -57,22 +59,28 @@ export const updateOpStatus =
 // };
 
 export const setOperation =
-	({ id, totalCheckout, timeLapse, uid }) =>
+	({ id, totalCheckout, timeLapse, uid, petId }) =>
 	async (dispatch) => {
 		try {
-			const { data } = await api.post('/operations/create-order', {
-				headers: {
-					uid,
+			const { data } = await api.post(
+				'/operations/create-order',
+				{
+					id,
+					totalCheckout,
+					timeLapse,
+					petId,
 				},
-				id,
-				totalCheckout,
-				timeLapse,
-			});
+				{
+					headers: {
+						uid,
+					},
+				}
+			);
 			dispatch({
 				type: SET_OPERATION,
 				payload: data,
 			});
-			console.log(data);
+
 			window.location.href = data.links[1].href;
 		} catch (error) {
 			alert(error);
@@ -93,3 +101,13 @@ export const captureOperation = (token, PayerID) => async (dispatch) => {
 		alert(error);
 	}
 };
+
+export const selectOperation = (id, user) => ({
+	type: SELECT_OPERATION,
+	payload: { id, user },
+});
+
+export const filterByDate = (days) => ({
+	type: FILTER_BY_DATE,
+	payload: days,
+});

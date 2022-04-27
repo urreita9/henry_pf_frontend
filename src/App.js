@@ -11,7 +11,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import modeThemePalette from './assets/mui-theme-config/theme-mui';
 import { setThemeMode } from './redux/actions/actions';
 import { Operation } from './components/Operation/Operation';
-import { Operations } from './components/Operations/Operations';
+import { History } from './components/History/History';
 import Profile from './views/Profile/Profile';
 import Admin from './views/Admin/Admin';
 
@@ -51,7 +51,7 @@ function App() {
 						<Route exact path='/host' element={<CuidadorForm />} />
 						<Route exact path='/profile' element={<Profile />} />
 						<Route exact path='/profile/:tab' element={<Profile />} />
-						<Route exact path='/history' element={<Operations />} />
+						<Route exact path='/history' element={<History />} />
 						<Route exact path='/operation' element={<Payment />} />
 						<Route exact path='/newOperation' element={<Operation />} />
 						<Route exact path='/admin' element={<Admin />} />

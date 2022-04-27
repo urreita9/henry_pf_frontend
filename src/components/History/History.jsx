@@ -3,30 +3,31 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getUserOperations } from '../../redux/actions/operationActions';
+import CustomizedTables from '../HistoryTable/HistoryTable';
 import { Operation } from '../Operation/Operation';
+import { HistorySelect } from '../Select/HistorySelect';
+import { Transaction } from '../Transaction/Transaction';
 
-export const Operations = () => {
+export const History = () => {
 	const dispatch = useDispatch();
-	const { operations } = useSelector((state) => state.operationsReducer);
+	const { filteredOperations } = useSelector(
+		(state) => state.operationsReducer
+	);
 	// const { user } = useSelector((state) => state.userReducer);
 
 	const token = localStorage.getItem('token');
 	const uid = localStorage.getItem('uid');
+	console.log(filteredOperations);
 	useEffect(() => {
-		if (!operations.length) {
+		if (!filteredOperations.length) {
 			dispatch(getUserOperations(uid, token, true));
 		}
 	}, []);
+
 	return (
-		<Container>
-			<Grid container spacing={3}>
-				{operations?.length &&
-					operations.map((operation) => (
-						<Grid item key={operation.id}>
-							{operation.id}
-						</Grid>
-					))}
-			</Grid>
-		</Container>
+		<>
+			<HistorySelect />
+			<CustomizedTables operations={filteredOperations} />
+		</>
 	);
 };
