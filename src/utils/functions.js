@@ -34,7 +34,7 @@ export const checkFormPet = ({ name, age, img }) => {
     };
 
     if (name) {
-        if (!/^[a-zA-Z ]{0,16}$/.test(name)) {
+        if (!/^[a-zA-Z ]{0,30}$/.test(name)) {
             e.state = true;
             e.name = 'Solo letras y espacios';
         }
@@ -72,7 +72,7 @@ export const checkEditPet = ({ name }) => {
     };
 
     if (name) {
-        if (!/^[a-zA-Z ]{0,16}$/.test(name)) {
+        if (!/^[a-zA-Z ]{0,30}$/.test(name)) {
             e.state = true;
             e.name = 'Solo letras y espacios';
         }
@@ -113,7 +113,7 @@ export const checkFormProfile = ({ name, lastname, address }) => {
     };
 
     if (name) {
-        if (!/^[a-zA-Z ]{0,16}$/.test(name)) {
+        if (!/^[a-zA-Z ]{0,30}$/.test(name)) {
             e.state = true;
             e.name = 'Solo letras y espacios';
         }
@@ -123,7 +123,7 @@ export const checkFormProfile = ({ name, lastname, address }) => {
     }
 
     if (lastname) {
-        if (!/^[a-zA-Z ]{0,16}$/.test(lastname)) {
+        if (!/^[a-zA-Z ]{0,30}$/.test(lastname)) {
             e.state = true;
             e.lastname = 'Solo letras y espacios';
         }
@@ -133,13 +133,13 @@ export const checkFormProfile = ({ name, lastname, address }) => {
     }
 
     if (address) {
-        if (!/^[a-zA-Z0-9. ]{0,16}$/.test(address)) {
+        if (!/^[a-zA-Z0-9. ]{0,30}$/.test(address)) {
             e.state = true;
             e.address = 'Solo letras, espacios, puntos y numeros';
         }
-        if (address.length > 16) {
+        if (address.length > 30) {
             e.state = true;
-            e.address = 'Maximo 16 caracteres';
+            e.address = 'Maximo 30 caracteres';
         }
     } else {
         e.state = true;
@@ -195,6 +195,45 @@ export const checkFormPass = ({ actual, new: newPass, repeat }) => {
             e.state = true;
             e.new = 'La contraseña actual y nueva no pueden ser iguales';
             e.actual = 'La contraseña actual y nueva no pueden ser iguales';
+        }
+    }
+
+    if (newPass) {
+        if (newPass.length < 6) {
+            e.state = true;
+            e.new = 'La contraseña debe tener al menos 6 digitos';
+        }
+        if (newPass.includes(' ')) {
+            e.state = true;
+            e.new = 'No se permiten espacios';
+        }
+    } else {
+        e.state = true;
+        e.new = 'Campo necesario';
+    }
+
+    if (!repeat) {
+        e.state = true;
+        e.repeat = 'Campo necesario';
+    }
+
+    return e;
+};
+
+export const checkFormSetPass = ({ actual, new: newPass, repeat }) => {
+    const e = {
+        state: false,
+        actual: '',
+        new: '',
+        repeat: '',
+    };
+
+    ///////////////////////
+    if (newPass && repeat) {
+        if (newPass !== repeat) {
+            e.state = true;
+            e.new = 'Contraseñas no coinciden';
+            e.repeat = 'Contraseñas no coinciden';
         }
     }
 

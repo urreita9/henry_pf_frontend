@@ -2,7 +2,7 @@ import { CLEAR_PET, CLEAR_USER, CREATE_PET, EDIT_USER, GET_USER, LOGIN, LOGOUT }
 
 const initialState = {
     user: {},
-    logged: false,
+    logged: true,
 };
 
 const userReducer = (state = initialState, action) => {

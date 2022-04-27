@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -35,6 +35,8 @@ const Profile = () => {
 	const params = useParams();
 	// const dispatch = useDispatch();
 	const user = useSelector((state) => state.userReducer.user);
+	const logged = useSelector((state) => state.userReducer.logged);
+	const navigate = useNavigate();
 	const { tab: defaultTab } = params;
 	const [tab, setTab] = useState(defaultTab || '0');
 	const [firstTab, setFirstTab] = useState(defaultTab);

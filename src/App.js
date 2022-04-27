@@ -13,6 +13,7 @@ import { setThemeMode } from './redux/actions/actions';
 import { Operation } from './components/Operation/Operation';
 import { Operations } from './components/Operations/Operations';
 import Profile from './views/Profile/Profile';
+import Admin from './views/Admin/Admin';
 
 function App() {
 	const bodyPettrip = document.getElementById('bodyPettrip');
@@ -51,7 +52,9 @@ function App() {
 						<Route exact path='/profile' element={<Profile />} />
 						<Route exact path='/profile/:tab' element={<Profile />} />
 						<Route exact path='/history' element={<Operations />} />
+						<Route exact path='/operation' element={<Payment />} />
 						<Route exact path='/newOperation' element={<Operation />} />
+						<Route exact path='/admin' element={<Admin />} />
 					</Routes>
 				</Router>
 			</ThemeProvider>

@@ -25,9 +25,12 @@ import { checkLoginForm } from './functions';
 import { DisabledByDefaultTwoTone, Visibility, VisibilityOff } from '@mui/icons-material';
 import RegisterForm from '../RegisterForm/RegisterForm';
 import swal from 'sweetalert';
+import { format } from 'date-fns';
+import { GoogleLogin } from 'react-google-login';
 const initLogForm = {
     email: '',
     password: '',
+    remember: false,
 };
 
 const initErrors = {
@@ -40,7 +43,7 @@ export const LoginForm = () => {
     const dispatch = useDispatch();
 
     // const [check, setCheck] = useState(null); que no expire el token
-    const [logForm, setInitLogForm] = useState(initLogForm);
+    const [logForm, setLogForm] = useState(initLogForm);
     const [errors, setErrors] = useState(initErrors);
     const [viewPass, setViewPass] = useState({ password: false, repeat: false });
     const [msg, setMsg] = useState('');
@@ -57,13 +60,21 @@ export const LoginForm = () => {
     };
 
     const changeHandler = (event) => {
-        setInitLogForm({
+        setLogForm({
             ...logForm,
             [event.target.name]: event.target.value,
         });
         setErrors({
             ...errors,
             [event.target.name]: '',
+        });
+        setMsg('');
+    };
+
+    const handleSwitch = (e) => {
+        setLogForm({
+            ...logForm,
+            [e.target.name]: e.target.checked,
         });
         setMsg('');
     };
@@ -88,6 +99,21 @@ export const LoginForm = () => {
             button: false,
             timer: 1000,
         });
+    };
+
+    const responseGoogle = async (resp) => {
+        const data = {
+            name: resp.Ru.wY,
+            lastname: resp.Ru.LW,
+            email: resp.Ru.Hv,
+            img: resp.Ru.NN,
+        };
+        const loginorcreate = await api.post('/auth/googlelogin', data);
+
+        localStorage.setItem('token', loginorcreate.data.token);
+        localStorage.setItem('uid', loginorcreate.data.id);
+        dispatch(LoginAction());
+        loggedIn();
     };
 
     const logError = () => {
@@ -195,7 +221,14 @@ export const LoginForm = () => {
                         <FormHelperText error>{!!errors.password && errors.password}</FormHelperText>
                     </FormControl>
                     <FormControlLabel
-                        control={<Checkbox onChange={changeHandler} name='checkedB' color='primary' />}
+                        control={
+                            <Checkbox
+                                checked={logForm.remember}
+                                onChange={handleSwitch}
+                                name='remember'
+                                color='primary'
+                            />
+                        }
                         label='Remember me'
                     />
                     <Typography variant='subtitle1' color='error'>
@@ -211,6 +244,15 @@ export const LoginForm = () => {
                     >
                         Sign in
                     </Button>
+                    <GoogleLogin
+                        clientId='221755505254-ckd8nt7ukp091rrvgp9gnuns7fq18rpk.apps.googleusercontent.com'
+                        buttonText='Login with Google'
+                        onSuccess={responseGoogle}
+                        onFailure={() => {
+                            console.log('No papa');
+                        }}
+                        cookiePolicy={'single_host_origin'}
+                    />
                     <Button onClick={handleOpen}>DON'T HAVE AN ACCOUNT?</Button>
                 </Paper>
             </Box>
