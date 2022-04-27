@@ -13,6 +13,7 @@ import FormPet from '../../components/FormPet/FormPet';
 import { CuidadorForm } from '../Forms/CuidadorForm';
 import CaretakerDescription from '../../components/CaretakerDescription';
 import { CaretakerUserProfile } from '../../components/CaretakerUserProfile/CaretakerUserProfile';
+import { Operations } from '../../components/Operations/Operations';
 
 const defaultProps = {
 	display: 'flex',
@@ -80,6 +81,7 @@ const Profile = () => {
 						{user.caretaker && (
 							<Tab label='Caretaker Profile' {...a11yProps(5)} />
 						)}
+						<Tab label='History' {...a11yProps(6)} />
 					</TabList>
 				</Box>
 				<TabPanel
@@ -132,6 +134,12 @@ const Profile = () => {
 				{/* <TabPanel value='4' index={4}>
                     Be caretaker
                 </TabPanel> */}
+				<TabPanel
+					value='6'
+					index={6}
+					sx={{ margin: 'auto' }}
+					children={<Operations />}
+				/>
 			</TabContext>
 		</Box>
 	);

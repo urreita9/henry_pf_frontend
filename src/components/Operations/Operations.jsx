@@ -10,27 +10,22 @@ export const Operations = () => {
 	const { operations } = useSelector((state) => state.operationsReducer);
 	// const { user } = useSelector((state) => state.userReducer);
 
+	const token = localStorage.getItem('token');
 	const uid = localStorage.getItem('uid');
 	useEffect(() => {
-		dispatch(getUserOperations(uid, true));
-	}, [dispatch]);
+		if (!operations.length) {
+			dispatch(getUserOperations(uid, token, true));
+		}
+	}, []);
 	return (
 		<Container>
 			<Grid container spacing={3}>
 				{operations?.length &&
-					operations.map(
-						({ id, userId, caretakerId, timeLapse, price, status }) => (
-							<Operation
-								key={id}
-								price={price}
-								id={id}
-								userId={userId}
-								caretakerId={caretakerId}
-								timeLapse={timeLapse}
-								status={status}
-							/>
-						)
-					)}
+					operations.map((operation) => (
+						<Grid item key={operation.id}>
+							{operation.id}
+						</Grid>
+					))}
 			</Grid>
 		</Container>
 	);

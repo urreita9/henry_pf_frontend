@@ -3,14 +3,14 @@
 	height: 100vh;
 } */
 
-/* body {
-	background-color: var(--bs-body-bg);
-} */
+body {
+	font-family: 'Roboto', sans-serif;
+}
 
 .bodyDark {
 	background-color: #222222;
 }
 
 .bodyLight {
-	background-color: #FAFAFA;
+	background-color: #fafafa;
 }
