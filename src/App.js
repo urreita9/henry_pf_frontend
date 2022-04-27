@@ -52,7 +52,7 @@ function App() {
 						<Route exact path='/profile' element={<Profile />} />
 						<Route exact path='/profile/:tab' element={<Profile />} />
 						<Route exact path='/history' element={<History />} />
-						<Route exact path='/operation' element={<Payment />} />
+						<Route exact path='/operation/:id' element={<Operation />} />
 						<Route exact path='/newOperation' element={<Operation />} />
 						<Route exact path='/admin' element={<Admin />} />
 					</Routes>

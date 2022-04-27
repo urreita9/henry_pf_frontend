@@ -59,23 +59,18 @@ export const updateOpStatus =
 // };
 
 export const setOperation =
-	({ id, totalCheckout, timeLapse, uid, petId }) =>
+	({ id, totalCheckout, timeLapse, uid, pet }) =>
 	async (dispatch) => {
 		try {
-			const { data } = await api.post(
-				'/operations/create-order',
-				{
-					id,
-					totalCheckout,
-					timeLapse,
-					petId,
+			const { data } = await api.post('/operations/create-order', {
+				id,
+				totalCheckout,
+				timeLapse,
+				petId: pet,
+				headers: {
+					uid,
 				},
-				{
-					headers: {
-						uid,
-					},
-				}
-			);
+			});
 			dispatch({
 				type: SET_OPERATION,
 				payload: data,

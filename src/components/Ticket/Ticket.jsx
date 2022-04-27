@@ -47,6 +47,8 @@ const TicketCard = ({ price, datesRange }) => {
 	const handleOperationSubmit = () => {
 		dispatch(setOperation({ id, totalCheckout, timeLapse, uid, pet }));
 	};
+
+	console.log('PET TICKER', pet);
 	return (
 		<>
 			<CardContent>
