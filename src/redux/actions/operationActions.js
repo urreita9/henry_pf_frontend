@@ -59,7 +59,7 @@ export const updateOpStatus =
 // };
 
 export const setOperation =
-	({ id, totalCheckout, timeLapse, uid, pet }) =>
+	({ id, totalCheckout, timeLapse, uid, pet, startDate, endDate }) =>
 	async (dispatch) => {
 		try {
 			const { data } = await api.post('/operations/create-order', {
@@ -67,6 +67,8 @@ export const setOperation =
 				totalCheckout,
 				timeLapse,
 				petId: pet,
+				startDate,
+				endDate,
 				headers: {
 					uid,
 				},

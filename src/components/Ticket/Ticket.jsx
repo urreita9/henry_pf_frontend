@@ -45,7 +45,19 @@ const TicketCard = ({ price, datesRange }) => {
 	const uid = localStorage.getItem('uid');
 
 	const handleOperationSubmit = () => {
-		dispatch(setOperation({ id, totalCheckout, timeLapse, uid, pet }));
+		const startDate = new Date(datesRange[0].startDate);
+		const endDate = new Date(datesRange[0].endDate);
+		dispatch(
+			setOperation({
+				id,
+				totalCheckout,
+				timeLapse,
+				uid,
+				pet,
+				startDate,
+				endDate,
+			})
+		);
 	};
 
 	console.log('PET TICKER', pet);
