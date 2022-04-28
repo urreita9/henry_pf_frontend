@@ -32,15 +32,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
-function createData(
-	name: string,
-	calories: number,
-	fat: number,
-	carbs: number
-) {
-	return { name, calories, fat, carbs };
-}
-
 export default function CustomizedTables({ operations }) {
 	const { user } = useSelector((state) => state.userReducer);
 	const dispatch = useDispatch();
