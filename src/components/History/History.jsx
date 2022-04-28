@@ -9,29 +9,31 @@ import { HistorySelect } from '../Select/HistorySelect';
 import { Transaction } from '../Transaction/Transaction';
 
 export const History = () => {
-	const dispatch = useDispatch();
-	const { filteredOperations } = useSelector(
-		(state) => state.operationsReducer
-	);
-	// const { user } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+  const { filteredOperations } = useSelector(
+    (state) => state.operationsReducer
+  );
+  // const { user } = useSelector((state) => state.userReducer);
 
-	const token = localStorage.getItem('token');
-	const uid = localStorage.getItem('uid');
-	console.log(filteredOperations);
-	useEffect(() => {
-		if (!filteredOperations.length) {
-			dispatch(getUserOperations(uid, token, true));
-		}
-	}, []);
+  const token = localStorage.getItem('token');
+  const uid = localStorage.getItem('uid');
+  console.log(filteredOperations);
+  useEffect(() => {
+    // if (!filteredOperations.length) {
+    // }
+    dispatch(getUserOperations(uid, token, true));
+  }, []);
 
-	return (
-		<>
-			{!filteredOperations?.length ? null : (
-				<>
-					<HistorySelect />
-					<CustomizedTables operations={filteredOperations} />
-				</>
-			)}
-		</>
-	);
+  return (
+    <>
+      {!filteredOperations?.length ? (
+        <p> {filteredOperations.msg} </p>
+      ) : (
+        <>
+          <HistorySelect />
+          <CustomizedTables operations={filteredOperations} />
+        </>
+      )}
+    </>
+  );
 };

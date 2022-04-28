@@ -7,6 +7,7 @@ export const SET_OPERATION = 'SET_OPERATION'; //MOMENTANEA
 export const CAPTURE_OPERATION = 'CAPTURE_OPERATION';
 export const SELECT_OPERATION = 'SELECT_OPERATION';
 export const FILTER_BY_DATE = 'FILTER_BY_DATE';
+export const CLEAR_OPERATIONS = 'CLEAR_OPERATIONS';
 
 export const getUserOperations = (uid, token, user) => async (dispatch) => {
 	try {
@@ -17,12 +18,12 @@ export const getUserOperations = (uid, token, user) => async (dispatch) => {
 			},
 		});
 
-		if (data.length) {
-			dispatch({
-				type: GET_USER_OPERATIONS,
-				payload: data,
-			});
-		}
+		//if (data.length) {
+		dispatch({
+			type: GET_USER_OPERATIONS,
+			payload: data,
+		});
+		//}
 	} catch (error) {
 		alert(error);
 	}
@@ -107,4 +108,9 @@ export const selectOperation = (id, user) => ({
 export const filterByDate = (days) => ({
 	type: FILTER_BY_DATE,
 	payload: days,
+});
+
+export const clearOperations = () => ({
+	type: CLEAR_OPERATIONS,
+	payload: [],
 });
