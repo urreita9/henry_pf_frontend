@@ -45,10 +45,12 @@ export default function CustomizedTables({ operations }) {
 	const { user } = useSelector((state) => state.userReducer);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	console.log('TABLE', operations);
 	return (
 		<TableContainer
 			component={Paper}
-			sx={{ maxWidth: 700, margin: '20px auto' }}
+			sx={{ maxWidth: 800, margin: '20px auto' }}
 		>
 			<Table sx={{ minWidth: 400 }} aria-label='customized table'>
 				<TableHead>
@@ -57,7 +59,9 @@ export default function CustomizedTables({ operations }) {
 						<StyledTableCell align='center'>Nights</StyledTableCell>
 						<StyledTableCell align='center'>Total</StyledTableCell>
 						<StyledTableCell align='center'>Date</StyledTableCell>
-						<StyledTableCell align='right'>Status</StyledTableCell>
+						<StyledTableCell align='center'>Pet</StyledTableCell>
+						<StyledTableCell align='center'>Status</StyledTableCell>
+						<StyledTableCell align='center'>Actions</StyledTableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -84,8 +88,19 @@ export default function CustomizedTables({ operations }) {
 								{new Date(operation.operation.createdAt).getMonth() + 1}/
 								{new Date(operation.operation.createdAt).getFullYear()}
 							</StyledTableCell>
+							<StyledTableCell component='th' scope='row'>
+								<Box style={{ display: 'flex', alignItems: 'center' }}>
+									{' '}
+									<Avatar src={operation.pet.img} />
+									<Typography sx={{ marginLeft: '5px' }}>
+										{capitalize(operation.pet.name)}{' '}
+									</Typography>
+								</Box>
+							</StyledTableCell>
 							<StyledTableCell align='right'>
 								<Typography>{operation.operation.status}</Typography>
+							</StyledTableCell>
+							<StyledTableCell align='right'>
 								<Button
 									onClick={() => {
 										navigate(`/caretaker/${operation.caretaker.id}`);

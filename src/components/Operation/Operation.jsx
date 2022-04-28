@@ -108,8 +108,7 @@ export const Operation = () => {
 												marginRight: '20px',
 											}}
 										/>
-									</Box>
-									<Box>
+
 										<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
 											{capitalize(operation.user.name)}{' '}
 											{capitalize(operation.user.lastname)}
@@ -117,6 +116,25 @@ export const Operation = () => {
 
 										<Typography variant='body'>
 											{operation.user.email}
+										</Typography>
+									</Box>
+									<Box>
+										<Avatar
+											src={operation.pet.img}
+											sx={{
+												width: 100,
+												height: 100,
+												border: '5px solid #F29278',
+												marginRight: '20px',
+											}}
+										/>
+
+										<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+											{capitalize(operation.pet.name)}
+										</Typography>
+
+										<Typography variant='body'>
+											{operation.pet.size} ({operation.pet.race})
 										</Typography>
 									</Box>
 								</Box>

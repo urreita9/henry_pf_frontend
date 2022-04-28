@@ -19,15 +19,19 @@ export const History = () => {
 	const uid = localStorage.getItem('uid');
 	console.log(filteredOperations);
 	useEffect(() => {
-		if (filteredOperations.length) {
+		if (!filteredOperations.length) {
 			dispatch(getUserOperations(uid, token, true));
 		}
 	}, []);
 
 	return (
 		<>
-			<HistorySelect />
-			<CustomizedTables operations={filteredOperations} />
+			{!filteredOperations?.length ? null : (
+				<>
+					<HistorySelect />
+					<CustomizedTables operations={filteredOperations} />
+				</>
+			)}
 		</>
 	);
 };

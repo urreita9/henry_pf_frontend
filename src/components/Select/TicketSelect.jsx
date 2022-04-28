@@ -28,9 +28,9 @@ export const TicketSelect = ({ pets, pet, setPet }) => {
 	return (
 		<Box
 			sx={{
-				minWidth: 40,
-				mazWidth: 120,
-				width: '200px',
+				minWidth: 120,
+				// maxWidth: 120,
+				width: '400px',
 				display: 'flex',
 				justifyContent: 'right',
 			}}
