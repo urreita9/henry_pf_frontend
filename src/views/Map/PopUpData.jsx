@@ -1,9 +1,11 @@
 import Typography from '@mui/material/Typography';
 import { Avatar, Box, Button, Rating } from '@mui/material';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import { styled } from '@mui/material/styles';
+import { useDispatch } from 'react-redux';
+import { getCaretakerDetails } from '../../redux/actions/actions';
 
 const StyledRating = styled(Rating)({
 	'& .MuiRating-iconFilled': {
@@ -12,6 +14,8 @@ const StyledRating = styled(Rating)({
 });
 
 export default function PopUpData({ person }) {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	// const { id, name } = person;
 	// console.log(person);
 	console.log(person);
@@ -40,12 +44,19 @@ export default function PopUpData({ person }) {
 				icon={<PetsOutlinedIcon fontSize='inherit' />}
 				emptyIcon={<PetsOutlinedIcon fontSize='inherit' />}
 			/>
-			<Link
-				to={`/caretaker/${person.user.id}`}
+			{/* <Link
+				// to={`/caretaker/${person.user.id}`}
 				style={{ textDecoration: 'none' }}
+			> */}
+			<Button
+				onClick={() => {
+					navigate(`/caretaker/${person.user.id}`);
+					// dispatch(getCaretakerDetails(person.user.id));
+				}}
 			>
-				<Button>Detail</Button>
-			</Link>
+				Detail
+			</Button>
+			{/* </Link> */}
 		</Box>
 	);
 }

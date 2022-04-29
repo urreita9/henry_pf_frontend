@@ -34,10 +34,12 @@ const CaretakerProfile = () => {
 			}}
 		>
 			<Grid container>
-				<CaretakerDescription
-					{...caretakerProfile}
-					{...caretakerProfile.caretaker}
-				/>
+				{caretakerProfile?.id && (
+					<CaretakerDescription
+						{...caretakerProfile}
+						{...caretakerProfile.caretaker}
+					/>
+				)}
 			</Grid>
 
 			<Grid
