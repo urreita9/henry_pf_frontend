@@ -15,8 +15,7 @@ const StyledRating = styled(Rating)({
 export default function PopUpData({ person }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	// const { id, name } = person;
-	// console.log(person);
+
 	console.log(person);
 	return (
 		<Box>
