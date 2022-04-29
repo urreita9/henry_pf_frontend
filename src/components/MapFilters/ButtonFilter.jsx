@@ -20,57 +20,57 @@ import Paper from '@mui/material/Paper';
 import { DescriptionFilter } from './DesciptionFilter/DescriptionFilter';
 
 function TabPanel(props) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== index}
-        id={`simple-tabpanel-${index}`}
-        aria-labelledby={`simple-tab-${index}`}
-        {...other}
-      >
-        {value === index && (
-          <Box sx={{ p: 3 }}>
-            <Typography component={'span'}>{children}</Typography>
-          </Box>
-        )}
-      </div>
-    );
-  }
-  
-  TabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-  };
-  
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
+	const { children, value, index, ...other } = props;
+
+	return (
+		<div
+			role='tabpanel'
+			hidden={value !== index}
+			id={`simple-tabpanel-${index}`}
+			aria-labelledby={`simple-tab-${index}`}
+			{...other}
+		>
+			{value === index && (
+				<Box sx={{ p: 3 }}>
+					<Typography component={'span'}>{children}</Typography>
+				</Box>
+			)}
+		</div>
+	);
 }
 
-export const ButtonMapFilter = ({handleCloseModal}) => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+TabPanel.propTypes = {
+	children: PropTypes.node,
+	index: PropTypes.number.isRequired,
+	value: PropTypes.number.isRequired,
+};
 
-    const [value, setValue] = useState(0);
-    const [form, setForm] = useState({
-        size: '0',
+function a11yProps(index) {
+	return {
+		id: `simple-tab-${index}`,
+		'aria-controls': `simple-tabpanel-${index}`,
+	};
+}
+
+export const ButtonMapFilter = ({ setOpen }) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	const [value, setValue] = useState(0);
+	const [form, setForm] = useState({
+		size: '0',
 		price: [0, 10000],
 		rating: 2.5,
 	});
 	const [clickState, setClickState] = useState({
-        size: false,
+		size: false,
 		price: false,
 		rating: false,
 	});
 
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
+	const handleChange = (event, newValue) => {
+		setValue(newValue);
+	};
 
 	const handleChangeFilter = (event) => {
 		if (event.target.name === 'rating') {
@@ -89,53 +89,68 @@ export const ButtonMapFilter = ({handleCloseModal}) => {
 
 	const handleFilterClick = () => {
 		dispatch(filterByPetSize(form));
+		setOpen(false);
 		navigate('/map');
 	};
 
-    return (
-        <>
-        <Box sx={{
-            minHeight: '350px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'center'
-        }}>
-            <Tabs value={value} onChange={handleChange} aria-label="icon label tabs example">
-                <Tab icon={<LiveHelpIcon />} label="HOW TO DO"  {...a11yProps(0)}/>
-                <Tab icon={<SizeDogs fill='currentColor' width='24px' height='24px' color='primary'/>} label="SIZE" {...a11yProps(1)} />
-                <Tab icon={<PriceChangeIcon />} label="PRICE" {...a11yProps(2)} />
-                {/* <Tab icon={<StarsIcon />} label="RATING" {...a11yProps(3)} /> */}
-            </Tabs>
-        <Box>
-            <TabPanel value={value} index={0}>
-                <DescriptionFilter />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <SizeFilter handleChange={handleChangeFilter} form={form} />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                <PriceFilter handleChange={handleChangeFilter} form={form} />
-            </TabPanel>
-            {/* <TabPanel value={value} index={3}>
+	return (
+		<>
+			<Box
+				sx={{
+					minHeight: '350px',
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+				}}
+			>
+				<Tabs
+					value={value}
+					onChange={handleChange}
+					aria-label='icon label tabs example'
+				>
+					<Tab icon={<LiveHelpIcon />} label='HOW TO DO' {...a11yProps(0)} />
+					<Tab
+						icon={
+							<SizeDogs
+								fill='currentColor'
+								width='24px'
+								height='24px'
+								color='primary'
+							/>
+						}
+						label='SIZE'
+						{...a11yProps(1)}
+					/>
+					<Tab icon={<PriceChangeIcon />} label='PRICE' {...a11yProps(2)} />
+					{/* <Tab icon={<StarsIcon />} label="RATING" {...a11yProps(3)} /> */}
+				</Tabs>
+				<Box>
+					<TabPanel value={value} index={0}>
+						<DescriptionFilter />
+					</TabPanel>
+					<TabPanel value={value} index={1}>
+						<SizeFilter handleChange={handleChangeFilter} form={form} />
+					</TabPanel>
+					<TabPanel value={value} index={2}>
+						<PriceFilter handleChange={handleChangeFilter} form={form} />
+					</TabPanel>
+					{/* <TabPanel value={value} index={3}>
                 <RatingFilter handleChange={handleChangeFilter} form={form} />
             </TabPanel> */}
-        </Box>
-        <Button
-            variant='contained'
-			onClick={() => {handleFilterClick(); handleCloseModal()}}
-			sx={{
-				textAlign: 'center',
-                borderRadius: '5px',
-                
-			}}
-            >
-            <Typography>
-                Search caretakers
-            </Typography>
-			<SearchOutlinedIcon />
-		</Button>
-        </Box>
-        </>
-    );
+				</Box>
+				<Button
+					variant='contained'
+					onClick={handleFilterClick}
+					sx={{
+						textAlign: 'center',
+						borderRadius: '5px',
+					}}
+				>
+					<Typography>Search caretakers</Typography>
+					<SearchOutlinedIcon />
+				</Button>
+			</Box>
+		</>
+	);
 };
