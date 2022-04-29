@@ -60,7 +60,7 @@ const TicketCard = ({ price, datesRange }) => {
 				totalCheckout,
 				timeLapse,
 				uid,
-				pet: pet.id,
+				pet: pet,
 				startDate,
 				endDate,
 			})
