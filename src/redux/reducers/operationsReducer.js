@@ -7,6 +7,7 @@ import {
   SELECT_OPERATION,
   FILTER_BY_DATE,
   CLEAR_OPERATIONS,
+  GET_ALL_OPERATIONS,
 } from '../actions/operationActions';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   filteredOperations: [],
   createdOperation: {},
   operation: {},
+  allOperationsAdmins: []
 };
 
 const operationsReducer = (state = initialState, action) => {
@@ -72,6 +74,11 @@ const operationsReducer = (state = initialState, action) => {
         operations: payload,
         filteredOperations: payload,
       };
+    case GET_ALL_OPERATIONS:
+      return  {
+        ...state,
+        allOperationsAdmins: payload
+      }
     default:
       return state;
   }

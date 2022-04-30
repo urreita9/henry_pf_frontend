@@ -8,6 +8,7 @@ export const CAPTURE_OPERATION = 'CAPTURE_OPERATION';
 export const SELECT_OPERATION = 'SELECT_OPERATION';
 export const FILTER_BY_DATE = 'FILTER_BY_DATE';
 export const CLEAR_OPERATIONS = 'CLEAR_OPERATIONS';
+export const GET_ALL_OPERATIONS = 'GET_ALL_OPERATIONS';
 
 export const getUserOperations = (uid, token, user) => async (dispatch) => {
 	try {
@@ -28,6 +29,24 @@ export const getUserOperations = (uid, token, user) => async (dispatch) => {
 		alert(error);
 	}
 };
+
+export const getAllOperations = (token, uid) => async (dispatch) => {
+	try {
+		const { data } = await api.get(`/operations/all`, {
+				headers: {
+					'x-token': token,
+					uid,
+				},
+			});
+
+		dispatch({
+				type: GET_ALL_OPERATIONS,
+				payload: data,
+			});
+	}catch(error){
+		alert(error)
+	}
+}
 
 export const updateOpStatus =
 	(idOperation, idPayment, token) => async (dispatch) => {
