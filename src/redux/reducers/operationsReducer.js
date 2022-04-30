@@ -35,7 +35,7 @@ const operationsReducer = (state = initialState, action) => {
     case UPDATE_OP_STATUS:
       return {
         ...state,
-        operation: payload,
+        operations: payload,
       };
     case CAPTURE_OPERATION:
       return {
