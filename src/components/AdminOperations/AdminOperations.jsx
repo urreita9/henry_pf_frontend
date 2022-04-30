@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
-import { getAllOperations } from "../../redux/actions/operationActions"
+import { getAllOperations, selectOperation, updateOperationStatus } from "../../redux/actions/operationActions"
 import { Avatar, Box, Button, Card, CardActions, CardContent, Grid, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
@@ -33,19 +33,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const AdminOperations = () => {
   const dispatch = useDispatch()
 	const navigate = useNavigate();
-  const { allOperationsAdmins } = useSelector(state => state.operationsReducer)
-  const token = localStorage.getItem('token');
+  //const { allOperationsAdmins } = useSelector(state => state.operationsReducer)
+  const { operations } = useSelector(state => state.operationsReducer)
+	const token = localStorage.getItem('token');
   const uid = localStorage.getItem('uid');
-
-  if(allOperationsAdmins.length){
-    //const {operation, user, caretaker, pet} = allOperationsAdmins
-    //console.log(operation)
-    //const {operationId, price, timeLapse, status} = allOperationsAdmins.operation
-    // const {name, lastname, mail, address, img} = allOperationsAdmins.user
-    // const {name: caretakerName, lastname: caretakerLastname, mail: caretakerMail, address: caretakerAddress, img: caretakerImg} = allOperationsAdmins.caretaker
-    // const {name: petName} = allOperationsAdmins.pet
-
-  } 
 
   useEffect(() => {
     dispatch(getAllOperations(token, uid));
@@ -69,15 +60,14 @@ const AdminOperations = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{allOperationsAdmins.map((op) => { 
+					{operations.map((op) => { 
             const {operation, user, caretaker, pet} = op
-            console.log(operation)
-            const {operationId, price, timeLapse, status, createdAt} = op.operation
+            const {id: operationId, price, timeLapse, status, createdAt} = op.operation
             const {name, lastname, mail, address, img} = op.user
             const {name: caretakerName, lastname: caretakerLastname, mail: caretakerMail, address: caretakerAddress, id: caretakerId} = op.caretaker
             const {name: petName} = op.pet
             return ( 
-						<StyledTableRow key={op.operation.id}>
+						<StyledTableRow key={operation.id}>
 							<StyledTableCell component='th' scope='row'>
 								<Box style={{ display: 'flex', alignItems: 'center' }}>
 									{/* <Avatar src={operation.caretaker.img} /> */}
@@ -119,12 +109,21 @@ const AdminOperations = () => {
 								</Button>
 								<Button
 									onClick={() => {
-										// dispatch(selectOperation(op.operation.id, user));
-										// navigate(`/operation/${op.operation.id}`);
+										dispatch(selectOperation(operation.id, op.user));
+										navigate(`/operation/${operation.id}`);
 									}}
 								>
 									Operation Detail
 								</Button>
+								{status === 'APPROVED' ?
+									<Button
+										onClick={() => {
+											dispatch(updateOperationStatus(token, uid, operationId));
+										}}
+									>
+										Complete Operation
+									</Button>:null
+								}
 							</StyledTableCell>
 						</StyledTableRow>
             )
