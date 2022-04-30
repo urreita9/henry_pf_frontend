@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { intervalToDuration, differenceInCalendarDays } from 'date-fns';
 import {
 	Box,
@@ -19,7 +19,7 @@ import { TicketSelect } from '../Select/TicketSelect';
 
 const TicketCard = ({ price, datesRange }) => {
 	const { logged, user } = useSelector((state) => state.userReducer);
-	const [pet, setPet] = useState(user.pets[0].id);
+	const [pet, setPet] = useState('');
 	const dispatch = useDispatch();
 	const timeLapse = intervalToDuration({
 		start: new Date(datesRange[0].startDate),
@@ -35,6 +35,12 @@ const TicketCard = ({ price, datesRange }) => {
 	const [openLogin, setOpenLogin] = useState(false);
 	const { caretakerProfile } = useSelector((state) => state.cuidadoresReducer);
 
+	useEffect(() => {
+		if (user?.pets.length) {
+			setPet(user.pets[0].id);
+		}
+	}, []);
+
 	const handleLoginModal = () => {
 		setOpenLogin(!openLogin);
 	};
@@ -47,20 +53,21 @@ const TicketCard = ({ price, datesRange }) => {
 	const handleOperationSubmit = () => {
 		const startDate = new Date(datesRange[0].startDate);
 		const endDate = new Date(datesRange[0].endDate);
+
 		dispatch(
 			setOperation({
 				id,
 				totalCheckout,
 				timeLapse,
 				uid,
-				pet,
+				pet: pet,
 				startDate,
 				endDate,
 			})
 		);
 	};
 
-	console.log('PET TICKER', pet);
+	// console.log('TICKET USER', user);
 	return (
 		<>
 			<CardContent>
@@ -104,10 +111,13 @@ const TicketCard = ({ price, datesRange }) => {
 					Total ${totalCheckout}
 				</Typography>
 			</CardContent>
-			<TicketSelect pets={user.pets} pet={pet} setPet={setPet} />
+			{user?.pets.length && (
+				<TicketSelect pets={user.pets} pet={pet} setPet={setPet} />
+			)}
+
 			<CardActions sx={{ justifyContent: 'center', alignItems: 'center' }}>
 				<Box>
-					{user?.id ? (
+					{user?.id || !user?.pets.length ? (
 						<Button
 							variant='contained'
 							size='medium'
