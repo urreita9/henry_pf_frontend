@@ -15,7 +15,7 @@ const initialState = {
   filteredOperations: [],
   createdOperation: {},
   operation: {},
-  allOperationsAdmins: []
+  //allOperationsAdmins: []
 };
 
 const operationsReducer = (state = initialState, action) => {
@@ -77,7 +77,8 @@ const operationsReducer = (state = initialState, action) => {
     case GET_ALL_OPERATIONS:
       return  {
         ...state,
-        allOperationsAdmins: payload
+        //allOperationsAdmins: payload,
+        operations: payload
       }
     default:
       return state;
