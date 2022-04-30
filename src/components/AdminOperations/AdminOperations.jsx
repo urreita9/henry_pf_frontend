@@ -2,13 +2,10 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import { getAllOperations, selectOperation, updateOperationStatus } from "../../redux/actions/operationActions"
-import { Avatar, Box, Button, Card, CardActions, CardContent, Grid, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Paper, Table, TableBody, TableContainer, TableHead, TableRow } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import { capitalize } from '../../utils/functions';
-
-
-
+import AdminOperationCard from "../AdminOperationCard/AdminOperationCard";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -31,19 +28,31 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 const AdminOperations = () => {
-  const dispatch = useDispatch()
+	const dispatch = useDispatch()
 	const navigate = useNavigate();
-  //const { allOperationsAdmins } = useSelector(state => state.operationsReducer)
-  const { operations } = useSelector(state => state.operationsReducer)
+	const { operations } = useSelector(state => state.operationsReducer)
 	const token = localStorage.getItem('token');
-  const uid = localStorage.getItem('uid');
+	const uid = localStorage.getItem('uid');
+	console.log(operations)
+	useEffect(() => {
+		dispatch(getAllOperations(token, uid));
+	}, [dispatch])
 
-  useEffect(() => {
-    dispatch(getAllOperations(token, uid));
-  }, [dispatch])
+	const handleProfile = (caretakerId) => {
+		navigate(`/caretaker/${caretakerId}`);
+	}
 
-  return (
-    <TableContainer
+	const handleDetails = (id, user) => {
+		dispatch(selectOperation(id, user));
+		navigate(`/operation/${id}`);
+	}
+
+	const handleStatus = (operationId) => {
+		dispatch(updateOperationStatus(token, uid, operationId));
+	}
+
+	return (
+		<TableContainer
 			component={Paper}
 			sx={{ maxWidth: 800, margin: '20px auto' }}
 		>
@@ -60,78 +69,14 @@ const AdminOperations = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{operations.map((op) => { 
-            const {operation, user, caretaker, pet} = op
-            const {id: operationId, price, timeLapse, status, createdAt} = op.operation
-            const {name, lastname, mail, address, img} = op.user
-            const {name: caretakerName, lastname: caretakerLastname, mail: caretakerMail, address: caretakerAddress, id: caretakerId} = op.caretaker
-            const {name: petName} = op.pet
-            return ( 
-						<StyledTableRow key={operation.id}>
-							<StyledTableCell component='th' scope='row'>
-								<Box style={{ display: 'flex', alignItems: 'center' }}>
-									{/* <Avatar src={operation.caretaker.img} /> */}
-									<Typography sx={{ marginLeft: '5px' }}>
-										{capitalize(caretakerName)}{' '}
-										{capitalize(caretakerLastname)}
-									</Typography>
-								</Box>
-							</StyledTableCell>
-							<StyledTableCell align='center'>
-								{timeLapse}
-							</StyledTableCell>
-							<StyledTableCell align='center'>
-								${price}
-							</StyledTableCell>
-							<StyledTableCell align='right'>
-								{new Date(createdAt).getDate()}/
-								{new Date(createdAt).getMonth() + 1}/
-								{new Date(createdAt).getFullYear()}
-							</StyledTableCell>
-							<StyledTableCell component='th' scope='row'>
-								<Box style={{ display: 'flex', alignItems: 'center' }}>
-									{/*<Avatar src={operation.pet.img} />*/}
-									<Typography sx={{ marginLeft: '5px' }}>
-										{capitalize(petName)}
-									</Typography>
-								</Box>
-							</StyledTableCell>
-							<StyledTableCell align='right'>
-								<Typography>{status}</Typography>
-							</StyledTableCell>
-							<StyledTableCell align='right'>
-								<Button
-									onClick={() => {
-										navigate(`/caretaker/${caretakerId}`);
-									}}
-								>
-									See Profile
-								</Button>
-								<Button
-									onClick={() => {
-										dispatch(selectOperation(operation.id, op.user));
-										navigate(`/operation/${operation.id}`);
-									}}
-								>
-									Operation Detail
-								</Button>
-								{status === 'APPROVED' ?
-									<Button
-										onClick={() => {
-											dispatch(updateOperationStatus(token, uid, operationId));
-										}}
-									>
-										Complete Operation
-									</Button>:null
-								}
-							</StyledTableCell>
-						</StyledTableRow>
-            )
-					})}
+					{!Object.keys(operations).includes('msg') &&
+						operations.length ? operations?.map((op) => (
+							<AdminOperationCard op={op} handleProfile={handleProfile} handleDetails={handleDetails} handleStatus={handleStatus} />
+						)) : <p>Empty Operations</p>}
 				</TableBody>
 			</Table>
 		</TableContainer>
-  )
+	)
 }
 
 export default AdminOperations
