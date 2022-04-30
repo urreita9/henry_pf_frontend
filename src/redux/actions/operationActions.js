@@ -48,15 +48,16 @@ export const getAllOperations = (token, uid) => async (dispatch) => {
 	}
 }
 
-export const updateOpStatus =
-	(idOperation, idPayment, token) => async (dispatch) => {
+export const updateOperationStatus =
+	(token, uid, operationId) => async (dispatch) => {
 		try {
 			const { data } = await api.put(
-				`/operations`,
-				{ idOperation, idPayment },
+				'/operations',
+				{ operationId },
 				{
 					headers: {
 						'x-token': token,
+						uid,
 					},
 				}
 			);
@@ -109,7 +110,7 @@ export const captureOperation = (token, PayerID) => async (dispatch) => {
 		const { data } = await api.get(
 			`/operations/capture-order?token=${token}&PayerID=${PayerID}`
 		);
-		console.log('ACTION CAPTURE', data);
+		//console.log('ACTION CAPTURE', data);
 		dispatch({
 			type: CAPTURE_OPERATION,
 			payload: data,
