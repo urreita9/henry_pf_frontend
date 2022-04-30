@@ -7,6 +7,7 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import AdminUsers from '../../components/AdminUsers/AdminUsers';
+import AdminOperations from '../../components/AdminOperations/AdminOperations';
 
 const defaultProps = {
     display: 'flex',
@@ -33,6 +34,8 @@ const Admin = () => {
     const { tab: defaultTab } = params;
     const [tab, setTab] = useState(defaultTab || '0');
     const [firstTab, setFirstTab] = useState(defaultTab);
+    
+
 
     const handleChange = (event, newValue) => {
         setTab(newValue);
@@ -69,10 +72,13 @@ const Admin = () => {
                         sx={{ borderRight: 1, borderColor: 'divider', height: '100%' }}
                     >
                         <Tab label='Users' {...a11yProps(0)} />
+                        <Tab label='Operations' {...a11yProps(1)} />
+
                         {/* <Tab label='Edit Profile' {...a11yProps(1)} /> */}
                     </TabList>
                 </Box>
                 <TabPanel value='0' index={0} sx={{ width: '100%', heigth: '100%' }} children={<AdminUsers />} />
+                <TabPanel value='1' index={1} sx={{ width: '100%', heigth: '100%' }} children={<AdminOperations />} />
                 {/* <TabPanel value='1' index={1} sx={{ margin: 'auto' }} children={<FormProfile />} /> */}
             </TabContext>
         </Box>
