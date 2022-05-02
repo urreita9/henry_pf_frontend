@@ -18,251 +18,250 @@ export const CREATE_PET = 'CREATE_PET';
 export const EDIT_USER = 'EDIT_USER';
 
 export const getCaretakers = () => async (dispatch) => {
-	try {
-		const { data } = await api.get(`/caretakers`);
-		console.log(data);
-		dispatch({
-			type: GET_CARETAKERS,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+    try {
+        const { data } = await api.get(`/caretakers`);
+
+        dispatch({
+            type: GET_CARETAKERS,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const getCaretakerDetails = (id) => async (dispatch) => {
-	try {
-		const { data } = await api.get(`/caretakers/${id}`);
+    try {
+        const { data } = await api.get(`/caretakers/${id}`);
 
-		console.log('CARETAKER DATA', data);
-		dispatch({
-			type: GET_CARETAKER_DETAILS,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: GET_CARETAKER_DETAILS,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const postCaretaker = (careTaker) => async (dispatch) => {
-	try {
-		const { data } = await api.post(`/caretakers`, { ...careTaker });
+    try {
+        const { data } = await api.post(`/caretakers`, { ...careTaker });
 
-		dispatch({
-			type: POST_CARETAKER,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: POST_CARETAKER,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const postCaretakerQuestion = (id, question) => async (dispatch) => {
-	try {
-		const { data } = await api.post(`/caretakers/questions/${id}`, {
-			question,
-		});
+    try {
+        const { data } = await api.post(`/caretakers/questions/${id}`, {
+            question,
+        });
 
-		dispatch({
-			type: POST_CARETAKER_QUESTION,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: POST_CARETAKER_QUESTION,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const editCaretaker = (id, caretaker) => async (dispatch) => {
-	try {
-		const { data } = await api.put(`/caretakers/${id}`, {
-			...caretaker,
-		});
+    try {
+        const { data } = await api.put(`/caretakers/${id}`, {
+            ...caretaker,
+        });
 
-		dispatch({
-			type: EDIT_CARETAKER,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: EDIT_CARETAKER,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const deleteCaretaker = (id) => async (dispatch) => {
-	try {
-		const { data } = await api.delete(`/caretakers/${id}`);
+    try {
+        const { data } = await api.delete(`/caretakers/${id}`);
 
-		dispatch({
-			type: DELETE_CARETAKER,
-			payload: data,
-		});
-	} catch (error) {
-		alert(error);
-	}
+        dispatch({
+            type: DELETE_CARETAKER,
+            payload: data,
+        });
+    } catch (error) {
+        alert(error);
+    }
 };
 
 export const filterByPetSize = (payload) => ({
-	type: FILTER_BY_PET,
-	payload,
+    type: FILTER_BY_PET,
+    payload,
 });
 
 export const getUser = (token, id) => async (dispatch) => {
-	try {
-		const { data } = await api.get(`/users/userjwt/jwt`, {
-			headers: {
-				'x-token': token,
-				uid: id,
-			},
-		});
+    try {
+        const { data } = await api.get(`/users/userjwt/jwt`, {
+            headers: {
+                'x-token': token,
+                uid: id,
+            },
+        });
 
-		dispatch({
-			type: GET_USER,
-			payload: data,
-		});
-	} catch (error) {
-		const data = error.response;
-		console.log('reducer getUser', data);
-		dispatch({
-			type: GET_USER,
-			payload: data,
-		});
-	}
+        dispatch({
+            type: GET_USER,
+            payload: data,
+        });
+    } catch (error) {
+        const data = error.response;
+
+        dispatch({
+            type: GET_USER,
+            payload: data,
+        });
+    }
 };
 
 export const setThemeMode = (payload) => {
-	return {
-		type: SET_THEME_MODE,
-		payload,
-	};
+    return {
+        type: SET_THEME_MODE,
+        payload,
+    };
 };
 
 export const cleanCaretaker = () => ({
-	type: CLEAN_CARETAKER,
-	payload: null,
+    type: CLEAN_CARETAKER,
+    payload: null,
 });
 
 export const LoginAction = () => ({
-	type: LOGIN,
-	payload: null,
+    type: LOGIN,
+    payload: null,
 });
 
 export const LogoutAction = () => ({
-	type: LOGOUT,
-	payload: null,
+    type: LOGOUT,
+    payload: null,
 });
 
 export const clearUser = () => ({
-	type: CLEAR_USER,
-	payload: {},
+    type: CLEAR_USER,
+    payload: {},
 });
 
 export const editUser = (token, id, body) => async (dispatch) => {
-	try {
-		const editUser = await api.put(`/users/${id}`, body, {
-			headers: {
-				'x-token': token,
-				uid: id,
-			},
-		});
+    try {
+        const editUser = await api.put(`/users/${id}`, body, {
+            headers: {
+                'x-token': token,
+                uid: id,
+            },
+        });
 
-		const { data } = await api.get(`/users/userjwt/jwt`, {
-			headers: {
-				'x-token': token,
-				uid: id,
-			},
-		});
+        const { data } = await api.get(`/users/userjwt/jwt`, {
+            headers: {
+                'x-token': token,
+                uid: id,
+            },
+        });
 
-		dispatch({
-			type: EDIT_USER,
-			payload: data,
-		});
-	} catch (error) {
-		const data = error.response.data;
-		console.log(data);
-		// dispatch({
-		//     type: GET_USER,
-		//     payload: data,
-		// });
-	}
+        dispatch({
+            type: EDIT_USER,
+            payload: data,
+        });
+    } catch (error) {
+        const data = error.response.data;
+        console.log(data);
+        // dispatch({
+        //     type: GET_USER,
+        //     payload: data,
+        // });
+    }
 };
 
 export const setPassword = (token, id, body) => async (dispatch) => {
-	try {
-		const editUser = await api.put(`/users/setpassword/${id}`, body, {
-			headers: {
-				'x-token': token,
-				uid: id,
-			},
-		});
+    try {
+        const editUser = await api.put(`/users/setpassword/${id}`, body, {
+            headers: {
+                'x-token': token,
+                uid: id,
+            },
+        });
 
-		const { data } = await api.get(`/users/userjwt/jwt`, {
-			headers: {
-				'x-token': token,
-				uid: id,
-			},
-		});
+        const { data } = await api.get(`/users/userjwt/jwt`, {
+            headers: {
+                'x-token': token,
+                uid: id,
+            },
+        });
 
-		dispatch({
-			type: EDIT_USER,
-			payload: data,
-		});
-	} catch (error) {
-		const data = error.response.data;
-		console.log(data);
-	}
+        dispatch({
+            type: EDIT_USER,
+            payload: data,
+        });
+    } catch (error) {
+        const data = error.response.data;
+        console.log(data);
+    }
 };
 
 export const createPet = (token, userId, body) => async (dispatch) => {
-	try {
-		const pet = await api.post('/pets', body, {
-			headers: {
-				'x-token': token,
-			},
-		});
+    try {
+        const pet = await api.post('/pets', body, {
+            headers: {
+                'x-token': token,
+            },
+        });
 
-		const { data } = await api.get(`/users/userjwt/jwt`, {
-			headers: {
-				'x-token': token,
-				uid: userId,
-			},
-		});
+        const { data } = await api.get(`/users/userjwt/jwt`, {
+            headers: {
+                'x-token': token,
+                uid: userId,
+            },
+        });
 
-		dispatch({
-			type: EDIT_USER,
-			payload: data,
-		});
-	} catch (error) {
-		const data = error.response.data;
-		console.log(data);
-	}
+        dispatch({
+            type: EDIT_USER,
+            payload: data,
+        });
+    } catch (error) {
+        const data = error.response.data;
+        console.log(data);
+    }
 };
 
 export const clearPet = () => ({
-	type: CLEAR_PET,
-	payload: {},
+    type: CLEAR_PET,
+    payload: {},
 });
 
 export const editPet = (token, userId, body) => async (dispatch) => {
-	try {
-		const { id, ...resto } = body;
-		const pet = await api.put(`/pets/${body.id}`, resto, {
-			headers: {
-				'x-token': token,
-			},
-		});
+    try {
+        const { id, ...resto } = body;
+        const pet = await api.put(`/pets/${body.id}`, resto, {
+            headers: {
+                'x-token': token,
+            },
+        });
 
-		const { data } = await api.get(`/users/userjwt/jwt`, {
-			headers: {
-				'x-token': token,
-				uid: userId,
-			},
-		});
+        const { data } = await api.get(`/users/userjwt/jwt`, {
+            headers: {
+                'x-token': token,
+                uid: userId,
+            },
+        });
 
-		dispatch({
-			type: EDIT_USER,
-			payload: data,
-		});
-	} catch (error) {
-		const data = error.response.data;
-		console.log(data);
-	}
+        dispatch({
+            type: EDIT_USER,
+            payload: data,
+        });
+    } catch (error) {
+        const data = error.response.data;
+        console.log(data);
+    }
 };
