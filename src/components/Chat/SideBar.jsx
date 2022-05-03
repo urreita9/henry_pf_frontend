@@ -1,20 +1,32 @@
-import React, { useContext } from 'react';
-// import { ChatContext } from '../context/chat/ChatContext';
-// import { AuthContext } from '../auth/AuthContext';
+import React, { useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { SideBarChatItem } from './SideBarChatItem';
 
 export const SideBar = () => {
-	// const { chatState } = useContext(ChatContext);
-	// const { auth } = useContext(AuthContext);
+	const [loading, setLoading] = useState(false);
+	const { user } = useSelector((state) => state.userReducer);
+	const [state, setState] = useState({});
+	const { chats } = useSelector((state) => state.chatReducer);
 
-	const arr = [1, 2, 3, 4, 5, 6];
+	useEffect(() => {
+		if (user.id) {
+			setLoading(true);
+		}
+	}, [user]);
+
+	// console.log(user);
 	return (
 		<div className='inbox_chat'>
-			{arr
-				// .filter((user) => user.uid !== auth.uid)
-				.map((user) => (
-					<SideBarChatItem key={user} user={user} />
-				))}
+			{loading ? (
+				<>
+					{chats.map((chat) => (
+						<SideBarChatItem key={chat.chatId} chat={chat} />
+					))}
+				</>
+			) : (
+				<p>loading...</p>
+			)}
 			<div className='extra_space'></div>
 		</div>
 	);

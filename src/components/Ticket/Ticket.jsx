@@ -63,6 +63,7 @@ const TicketCard = ({ price, datesRange }) => {
 				pet: pet,
 				startDate,
 				endDate,
+				user,
 			})
 		);
 	};

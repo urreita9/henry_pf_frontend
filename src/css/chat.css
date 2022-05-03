@@ -1,6 +1,6 @@
 html,
 body {
-	height: 100vh;
+	height: 93vh;
 	margin: 0;
 }
 
@@ -20,7 +20,7 @@ img {
 	border: 1px solid #c4c4c4;
 	clear: both;
 	overflow: hidden;
-	height: 100vh;
+	height: 93vh;
 }
 
 .top_spac {
@@ -46,7 +46,7 @@ img {
 }
 
 .recent_heading h4 {
-	color: #7674fe;
+	color: #f29278;
 	font-size: 18px;
 	margin: auto;
 }
@@ -112,7 +112,7 @@ img {
 }
 
 .inbox_chat {
-	height: 100vh;
+	height: 93vh;
 	overflow-y: scroll;
 }
 
@@ -157,11 +157,11 @@ img {
 	float: left;
 	padding: 30px 15px 0 25px;
 	width: 60%;
-	height: 100vh;
+	height: 93vh;
 }
 
 .sent_msg p {
-	background: #7674fe none repeat scroll 0 0;
+	background: #f29278 none repeat scroll 0 0;
 	border-radius: 3px;
 	font-size: 14px;
 	margin: 0;
@@ -195,7 +195,7 @@ img {
 }
 
 .msg_send_btn {
-	background: #7674fe none repeat scroll 0 0;
+	background: #f29278 none repeat scroll 0 0;
 	border: medium none;
 	border-radius: 5px;
 	color: #fff;
