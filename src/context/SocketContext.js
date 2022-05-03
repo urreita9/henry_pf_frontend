@@ -1,52 +1,72 @@
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useEffect } from 'react';
 
 import { useSocket } from '../hooks/useSocket';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { addMessage, getChats } from '../redux/actions/chatActions';
+import {
+	scrollToBottom,
+	scrollToBottomAnimated,
+} from '../utils/scrollToBottom';
 
 export const SocketContext = createContext();
 
 const URL = process.env.REACT_APP_URL;
 
 export const SocketProvider = ({ children }) => {
-    const { socket, online, conectarSocket, desconectarSocket } = useSocket(URL);
+	const { socket, online, conectarSocket, desconectarSocket } = useSocket(URL);
 
-    const { user, logged } = useSelector((state) => state.userReducer);
+	const { logged } = useSelector((state) => state.userReducer);
 
-    // const { auth } = useContext(AuthContext);
+	const { messages } = useSelector((state) => state.chatReducer);
+	const dispatch = useDispatch();
 
-    // const { dispatch } = useContext(ChatContext);
+	useEffect(() => {
+		if (logged) {
+			conectarSocket();
+		}
+	}, [logged]);
 
-    useEffect(() => {
-        if (logged) {
-            conectarSocket();
-        }
-    }, [logged]);
+	useEffect(() => {
+		if (!logged) {
+			desconectarSocket();
+		}
+	}, [logged]);
 
-    useEffect(() => {
-        if (!logged) {
-            desconectarSocket();
-        }
-    }, [logged]);
+	useEffect(() => {
+		socket?.on('chats', (chats) => {
+			dispatch(getChats(chats));
+		});
+	}, [socket, dispatch]);
 
-    // useEffect(() => {
-    //     socket?.on('lista-usuarios', (usuarios) => {
-    //         dispatch({
-    //             type: types.usuariosCargados,
-    //             payload: usuarios,
-    //         });
-    //     });
-    // }, [socket, dispatch]);
+	useEffect(() => {
+		socket?.on('actualizate-perro', (payload) => {
+			dispatch(getChats(payload));
+		});
+	}, [socket, dispatch]);
 
-    // useEffect(() => {
-    //     socket?.on('mensaje-personal', (mensaje) => {
-    //         dispatch({
-    //             type: types.nuevoMensaje,
-    //             payload: mensaje,
-    //         });
+	useEffect(() => {
+		socket?.on('personal-message', (payload) => {
+			dispatch(addMessage(payload));
+		});
+	}, [socket, dispatch]);
+	useEffect(() => {
+		scrollToBottom('messagesDiv');
+	}, [messages]);
 
-    //         scrollToBottomAnimated('mensajes');
-    //     });
-    // }, [socket, dispatch]);
+	// useEffect(() => {
+	//     socket?.on('mensaje-personal', (mensaje) => {
+	//         dispatch({
+	//             type: types.nuevoMensaje,
+	//             payload: mensaje,
+	//         });
 
-    return <SocketContext.Provider value={{ socket, online }}>{children}</SocketContext.Provider>;
+	//         scrollToBottomAnimated('mensajes');
+	//     });
+	// }, [socket, dispatch]);
+
+	return (
+		<SocketContext.Provider value={{ socket, online }}>
+			{children}
+		</SocketContext.Provider>
+	);
 };

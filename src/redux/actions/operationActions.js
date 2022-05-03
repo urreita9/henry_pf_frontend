@@ -33,20 +33,20 @@ export const getUserOperations = (uid, token, user) => async (dispatch) => {
 export const getAllOperations = (token, uid) => async (dispatch) => {
 	try {
 		const { data } = await api.get(`/operations/all`, {
-				headers: {
-					'x-token': token,
-					uid,
-				},
-			});
+			headers: {
+				'x-token': token,
+				uid,
+			},
+		});
 
 		dispatch({
-				type: GET_ALL_OPERATIONS,
-				payload: data,
-			});
-	}catch(error){
-		alert(error)
+			type: GET_ALL_OPERATIONS,
+			payload: data,
+		});
+	} catch (error) {
+		alert(error);
 	}
-}
+};
 
 export const updateOperationStatus =
 	(token, uid, operationId) => async (dispatch) => {
@@ -80,7 +80,7 @@ export const updateOperationStatus =
 // };
 
 export const setOperation =
-	({ id, totalCheckout, timeLapse, uid, pet, startDate, endDate }) =>
+	({ id, totalCheckout, timeLapse, uid, pet, startDate, endDate, user }) =>
 	async (dispatch) => {
 		try {
 			const { data } = await api.post('/operations/create-order', {
@@ -98,6 +98,20 @@ export const setOperation =
 				type: SET_OPERATION,
 				payload: data,
 			});
+			const token = localStorage.getItem('token');
+
+			const isMap = user.chats.find((chat) => chat.user2.id === id);
+			if (!isMap) {
+				await api.post(
+					'/chats',
+					{ user1: uid, user2: id },
+					{
+						headers: {
+							'x-token': token,
+						},
+					}
+				);
+			}
 
 			window.location.href = data.links[1].href;
 		} catch (error) {

@@ -14,6 +14,7 @@ import { Operation } from './components/Operation/Operation';
 import { History } from './components/History/History';
 import Profile from './views/Profile/Profile';
 import Admin from './views/Admin/Admin';
+import { ChatPage } from './views/Chat/ChatPage';
 
 function App() {
 	const bodyPettrip = document.getElementById('bodyPettrip');
@@ -55,6 +56,7 @@ function App() {
 						<Route exact path='/operation/:id' element={<Operation />} />
 						<Route exact path='/newOperation' element={<Operation />} />
 						<Route exact path='/admin' element={<Admin />} />
+						<Route exact path='/chat' element={<ChatPage />} />
 					</Routes>
 				</Router>
 			</ThemeProvider>

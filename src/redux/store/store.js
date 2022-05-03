@@ -6,15 +6,20 @@ import operationsReducer from '../reducers/operationsReducer';
 import userReducer from '../reducers/userReducer';
 import themeModeReducer from '../reducers/themeModeReducer';
 import adminReducer from '../reducers/adminReducer';
+import chatReducer from '../reducers/chatReducer';
 
 const reducers = combineReducers({
-    cuidadoresReducer,
-    userReducer,
-    themeModeReducer,
-    operationsReducer,
-    adminReducer,
+	cuidadoresReducer,
+	userReducer,
+	themeModeReducer,
+	operationsReducer,
+	adminReducer,
+	chatReducer,
 });
 
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(
+	reducers,
+	composeWithDevTools(applyMiddleware(thunk))
+);
 
 export default store;
