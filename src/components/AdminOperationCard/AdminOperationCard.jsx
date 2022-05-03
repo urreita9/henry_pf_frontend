@@ -23,11 +23,11 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const AdminOperationCard = ({ op, handleProfile, handleDetails, handleStatus }) => {
+const AdminOperationCard = ({ userAdmin, op, handleProfile, handleDetails, handleStatus }) => {
   const { operation, user, caretaker, pet } = op
-  const { id: operationId, price, timeLapse, status, createdAt } = op.operation
-  const { name, lastname, mail, address, img } = op.user
-  const { name: caretakerName, lastname: caretakerLastname, mail: caretakerMail, address: caretakerAddress, id: caretakerId } = op.caretaker
+  const { id: operationId, price, timeLapse, status, createdAt, dispatch } = op.operation
+  const { name, lastname, email, address, img } = op.user
+  const { name: caretakerName, lastname: caretakerLastname, email: caretakerEmail, address: caretakerAddress, id: caretakerId } = op.caretaker
   const { name: petName } = op.pet
 
   return (
@@ -35,8 +35,30 @@ const AdminOperationCard = ({ op, handleProfile, handleDetails, handleStatus }) 
       <StyledTableCell component='th' scope='row'>
         <Box style={{ display: 'flex', alignItems: 'center' }}>
           <Typography sx={{ marginLeft: '5px' }}>
+            {capitalize(name)}{' '}
+            {capitalize(lastname)}
+          </Typography>
+        </Box>
+      </StyledTableCell>
+      <StyledTableCell component='th' scope='row'>
+        <Box style={{ display: 'flex', alignItems: 'center' }}>
+          <Typography sx={{ marginLeft: '5px' }}>
+            {email}
+          </Typography>
+        </Box>
+      </StyledTableCell>
+      <StyledTableCell component='th' scope='row'>
+        <Box style={{ display: 'flex', alignItems: 'center' }}>
+          <Typography sx={{ marginLeft: '5px' }}>
             {capitalize(caretakerName)}{' '}
             {capitalize(caretakerLastname)}
+          </Typography>
+        </Box>
+      </StyledTableCell>
+      <StyledTableCell component='th' scope='row'>
+        <Box style={{ display: 'flex', alignItems: 'center' }}>
+          <Typography sx={{ marginLeft: '5px' }}>
+            {caretakerEmail}
           </Typography>
         </Box>
       </StyledTableCell>
@@ -61,6 +83,15 @@ const AdminOperationCard = ({ op, handleProfile, handleDetails, handleStatus }) 
       <StyledTableCell align='right'>
         <Typography>{status}</Typography>
       </StyledTableCell>
+      <StyledTableCell align='center'>
+        {
+          status === 'COMPLETED' && dispatch ? <Typography style={{ color: 'green' }} > OK
+          </Typography> : status !== 'COMPLETED' ?
+            <Typography> - </Typography>
+            : <Typography style={{ color: 'red' }} > Undispatch
+            </Typography>
+        }
+      </StyledTableCell>
       <StyledTableCell align='right'>
         <Button
           onClick={() => handleProfile(caretakerId)}
@@ -72,12 +103,24 @@ const AdminOperationCard = ({ op, handleProfile, handleDetails, handleStatus }) 
         >
           Operation Detail
         </Button>
-        {status === 'APPROVED' ?
-          <Button
-            onClick={() => handleStatus(operationId)}
-          >
-            Complete Operation
-          </Button> : null
+        {
+          status === 'APPROVED' && userAdmin.role === 'ADMIN' ?
+            <Button
+              onClick={() => handleStatus(operationId)}
+            >
+              Complete Operation
+            </Button>
+            : status === 'APPROVED' && userAdmin.role === 'SUPER_ADMIN' ?
+              <Button
+                onClick={() => handleStatus(operationId)}
+              >
+                Complete & Dispatch Operation
+              </Button>
+              : status === 'COMPLETED' && !dispatch && userAdmin.role === 'SUPER_ADMIN' ? <Button
+                onClick={() => handleStatus(operationId)}
+              >
+                Dispatch Operation
+              </Button> : null
         }
       </StyledTableCell>
     </StyledTableRow>

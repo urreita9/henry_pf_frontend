@@ -111,9 +111,9 @@ const TicketCard = ({ price, datesRange }) => {
 					Total ${totalCheckout}
 				</Typography>
 			</CardContent>
-			{user?.pets.length && (
-				<TicketSelect pets={user.pets} pet={pet} setPet={setPet} />
-			)}
+			{user?.pets.length ?
+				<TicketSelect pets={user.pets} pet={pet} setPet={setPet} /> : null
+			}
 
 			<CardActions sx={{ justifyContent: 'center', alignItems: 'center' }}>
 				<Box>
@@ -131,7 +131,7 @@ const TicketCard = ({ price, datesRange }) => {
 								}
 								handleOperationSubmit();
 							}}
-							disabled={user.id === caretakerProfile.id ? true : false}
+							disabled={user.id === caretakerProfile.id || !user.pets.length ? true : false}
 						>
 							Checkout
 						</Button>
