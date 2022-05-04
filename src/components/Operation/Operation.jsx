@@ -39,7 +39,7 @@ export const Operation = () => {
 	}, [dispatch]);
 
 	const date = operation.operation && new Date(operation.operation.createdAt);
-
+	const userId = localStorage.getItem('uid');
 	const statusColor = (status) => {
 		switch (status) {
 			case 'APPROVED':
@@ -61,7 +61,7 @@ export const Operation = () => {
 
 	return (
 		<>
-			{operation.user && (
+			{userId === operation?.operation.caretakerId ? (
 				<>
 					<Typography
 						variant='h6'
@@ -88,7 +88,7 @@ export const Operation = () => {
 									color='text.secondary'
 									gutterBottom
 								>
-									Your data
+									Client data
 								</Typography>
 								<Box
 									sx={{
@@ -100,7 +100,7 @@ export const Operation = () => {
 								>
 									<Box>
 										<Avatar
-											src={operation.user.img}
+											src={operation.caretaker.img}
 											sx={{
 												width: 100,
 												height: 100,
@@ -110,8 +110,8 @@ export const Operation = () => {
 										/>
 
 										<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
-											{capitalize(operation.user.name)}{' '}
-											{capitalize(operation.user.lastname)}
+											{capitalize(operation.caretaker.name)}{' '}
+											{capitalize(operation.caretaker.lastname)}
 										</Typography>
 
 										<Typography variant='body'>
@@ -181,7 +181,7 @@ export const Operation = () => {
 									color='text.secondary'
 									gutterBottom
 								>
-									Caretaker data
+									Your data
 								</Typography>
 								<Box
 									sx={{
@@ -196,38 +196,225 @@ export const Operation = () => {
 											marginLeft: '20px',
 										}}
 									>
-										<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
-											{capitalize(operation.caretaker.name)}{' '}
-											{capitalize(operation.caretaker.lastname)}
-										</Typography>
-
-										<Typography variant='body'>
-											{operation.caretaker.email}
-										</Typography>
-									</Box>
-									<Box>
 										<Avatar
-											src={operation.caretaker.img}
+											src={operation.user.img}
 											sx={{
 												width: 100,
 												height: 100,
 												border: '5px solid #F29278',
+												marginRight: '20px',
 											}}
 										/>
+
+										<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+											{capitalize(operation.user.name)}{' '}
+											{capitalize(operation.user.lastname)}
+										</Typography>
+
+										<Typography variant='body'>
+											{operation.user.email}
+										</Typography>
 									</Box>
 								</Box>
 							</Card>
 						</Grid>
 					</Grid>
 					<Box
-						sx={{ display: 'flex', justifyContent: 'center', margin: '0 auto' }}
+						sx={{
+							display: 'flex',
+							justifyContent: 'center',
+							margin: '0 auto',
+						}}
 					>
-						<Button color='primary' variant='contained'>
-							I recieved my pet back
+						<Button
+							onClick={() => {
+								navigate('/profile/6');
+							}}
+						>
+							Back to History
 						</Button>
 					</Box>
 				</>
+			) : (
+				operation?.user && (
+					<>
+						<Typography
+							variant='h6'
+							sx={{ marginTop: '20px', textAlign: 'center' }}
+						>
+							Operation #{operation.operation.operationId}{' '}
+						</Typography>
+						<Grid
+							container
+							spacing={2}
+							sx={{ width: '90%', maxWidth: '600px', margin: '30px auto' }}
+						>
+							<Grid item xs={12} style={{ paddingLeft: '0' }}>
+								<Card
+									sx={{
+										display: 'flex',
+										flexDirection: 'column',
+										alignItems: 'center',
+										justifyContent: 'center',
+									}}
+								>
+									<Typography
+										sx={{ fontSize: 14 }}
+										color='text.secondary'
+										gutterBottom
+									>
+										Your data
+									</Typography>
+									<Box
+										sx={{
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'space-around',
+											width: '60%',
+										}}
+									>
+										<Box>
+											<Avatar
+												src={operation.user.img}
+												sx={{
+													width: 100,
+													height: 100,
+													border: '5px solid #F29278',
+													marginRight: '20px',
+												}}
+											/>
+
+											<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+												{capitalize(operation.user.name)}{' '}
+												{capitalize(operation.user.lastname)}
+											</Typography>
+
+											<Typography variant='body'>
+												{operation.user.email}
+											</Typography>
+										</Box>
+										<Box>
+											<Avatar
+												src={operation.pet.img}
+												sx={{
+													width: 100,
+													height: 100,
+													border: '5px solid #F29278',
+													marginRight: '20px',
+												}}
+											/>
+
+											<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+												{capitalize(operation.pet.name)}
+											</Typography>
+
+											<Typography variant='body'>
+												{operation.pet.size} ({operation.pet.race})
+											</Typography>
+										</Box>
+									</Box>
+								</Card>
+							</Grid>
+							<Grid item xs={12} style={{ paddingLeft: '0' }}>
+								<Card sx={{ textAlign: 'center' }}>
+									<Typography
+										sx={{ fontSize: 14 }}
+										color='text.secondary'
+										gutterBottom
+									>
+										Operation data
+									</Typography>
+									{/* <Typography>
+									Operation #{operation.operation.operationId}{' '}
+								</Typography> */}
+									<Typography>
+										Date: {date.getDate()}/{date.getMonth() + 1}/
+										{date.getFullYear()}
+									</Typography>
+									<Typography>
+										Duration: {operation.operation.timeLapse} nights
+									</Typography>
+									<Typography>Total: ${operation.operation.price}</Typography>
+									<Typography
+										sx={{ color: `${statusColor(operation.operation.status)}` }}
+									>
+										Status: {operation.operation.status}
+									</Typography>
+								</Card>
+							</Grid>
+							<Grid item xs={12} style={{ paddingLeft: '0' }}>
+								<Card
+									sx={{
+										display: 'flex',
+										flexDirection: 'column',
+										alignItems: 'center',
+										justifyContent: 'center',
+									}}
+								>
+									<Typography
+										sx={{ fontSize: 14 }}
+										color='text.secondary'
+										gutterBottom
+									>
+										Caretaker data
+									</Typography>
+									<Box
+										sx={{
+											display: 'flex',
+											alignItems: 'center',
+											justifyContent: 'space-around',
+											width: '75%',
+										}}
+									>
+										<Box
+											sx={{
+												marginLeft: '20px',
+											}}
+										>
+											<Typography variant='body2' sx={{ fontWeight: 'bold' }}>
+												{capitalize(operation.caretaker.name)}{' '}
+												{capitalize(operation.caretaker.lastname)}
+											</Typography>
+
+											<Typography variant='body'>
+												{operation.caretaker.email}
+											</Typography>
+										</Box>
+										<Box>
+											<Avatar
+												src={operation.caretaker.img}
+												sx={{
+													width: 100,
+													height: 100,
+													border: '5px solid #F29278',
+												}}
+											/>
+										</Box>
+									</Box>
+								</Card>
+							</Grid>
+						</Grid>
+						<Box
+							sx={{
+								display: 'flex',
+								justifyContent: 'center',
+								margin: '0 auto',
+							}}
+						>
+							<Button
+								onClick={() => {
+									navigate('/profile/6');
+								}}
+								color='primary'
+								variant='outlined'
+							>
+								Back to History
+							</Button>
+						</Box>
+					</>
+				)
 			)}
+			{}
 		</>
 	);
 };
