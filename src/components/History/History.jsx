@@ -6,12 +6,14 @@ import {
 	getCaretakerOperations,
 	getUserOperations,
 } from '../../redux/actions/operationActions';
+import CustomizedCaretakerTables from '../HistoryCaretakerTable/HistoryCaretakerTable';
 import CustomizedTables from '../HistoryTable/HistoryTable';
 import { Operation } from '../Operation/Operation';
-import { HistorySelect } from '../Select/HistorySelect';
+import { HistorySelect, HistorySelectUser } from '../Select/HistorySelect';
+import { HistorySelectCaretaker } from '../Select/HistorySelectCaretaker';
 import { Transaction } from '../Transaction/Transaction';
 
-export const History = () => {
+export const History = ({ showUser }) => {
 	const [tableClick, setTableClick] = useState(true);
 	const dispatch = useDispatch();
 	const { filteredOperations, caretakerOperations } = useSelector(
@@ -33,90 +35,29 @@ export const History = () => {
 		setTableClick(!tableClick);
 	};
 	return (
-		// <>
-		// 	{!filteredOperations?.length ? (
-		// 		<p> {filteredOperations.msg} </p>
-		// 	) : (
-		// 		<>
-		// 			<HistorySelect />
-
-		// 			<CustomizedTables operations={filteredOperations} />
-		// 		</>
-		// 	)}
-		// </>
 		<>
-			{!user?.caretaker ? (
-				<>
-					{!filteredOperations?.length ? (
-						<p> {filteredOperations.msg} </p>
-					) : (
-						<>
-							<HistorySelect />
+			{showUser ? (
+				!filteredOperations?.length ? (
+					<p> {filteredOperations.msg} </p>
+				) : (
+					<>
+						<HistorySelectUser />
 
-							<CustomizedTables filteredOperations={filteredOperations} />
-						</>
-					)}
-				</>
+						<CustomizedTables filteredOperations={filteredOperations} />
+					</>
+				)
+			) : !caretakerOperations?.length ? (
+				<p> {caretakerOperations.msg} </p>
 			) : (
 				<>
-					<div>
-						<Button onClick={handleClick}>
-							{tableClick ? 'USER' : 'CARETAKER'}
-						</Button>
+					<HistorySelectCaretaker />
 
-						{tableClick ? (
-							!filteredOperations?.length ? (
-								<p> {filteredOperations.msg} </p>
-							) : (
-								<>
-									<HistorySelect />
-									<CustomizedTables filteredOperations={filteredOperations} />
-								</>
-							)
-						) : !caretakerOperations?.length ? (
-							<p> {caretakerOperations.msg} </p>
-						) : (
-							<>
-								<HistorySelect />
-								<CustomizedTables caretakerOperations={caretakerOperations} />
-							</>
-						)}
-					</div>
+					<CustomizedCaretakerTables
+						caretakerOperations={caretakerOperations}
+					/>
 				</>
 			)}
+			{}
 		</>
-
-		// <>
-		// 	{!caretakerOperations?.length ? (
-		// 		<p> {caretakerOperations.msg} </p>
-		// 	) : (
-		// 		<>
-		// 			<div>
-		// 				<Button onClick={handleClick}>
-		// 					{tableClick ? 'USER' : 'CARETAKER'}
-		// 				</Button>
-		// 			</div>
-		// 			{tableClick
-		// 				? !filteredOperations?.length && (
-		// 						<>
-		// 							<HistorySelect />
-		// 							<CustomizedTables operations={filteredOperations} />
-		// 						</>
-		// 				  )
-		// 				: !caretakerOperations?.length && (
-		// 						<>
-		// 							<HistorySelect />
-		// 							<CustomizedTables operations={caretakerOperations} />
-		// 						</>
-		// 				  )}
-		// 		</>
-		// 	)}
-		// 	{!filteredOperations?.length && (
-		// 		<>
-		// 			<HistorySelect />
-		// 			<CustomizedTables operations={filteredOperations} />
-		// 		</>
-		// 	)}
-		// </>
 	);
 };

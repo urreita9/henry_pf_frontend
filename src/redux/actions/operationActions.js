@@ -7,6 +7,7 @@ export const SET_OPERATION = 'SET_OPERATION'; //MOMENTANEA
 export const CAPTURE_OPERATION = 'CAPTURE_OPERATION';
 export const SELECT_OPERATION = 'SELECT_OPERATION';
 export const FILTER_BY_DATE = 'FILTER_BY_DATE';
+export const FILTER_BY_DATE_CARETAKER = 'FILTER_BY_DATE_CARETAKER';
 export const CLEAR_OPERATIONS = 'CLEAR_OPERATIONS';
 export const GET_ALL_OPERATIONS = 'GET_ALL_OPERATIONS';
 
@@ -193,3 +194,8 @@ export const finishOperation =
 			console.log(error);
 		}
 	};
+
+export const filterByDateCaretaker = (days) => ({
+	type: FILTER_BY_DATE_CARETAKER,
+	payload: days,
+});

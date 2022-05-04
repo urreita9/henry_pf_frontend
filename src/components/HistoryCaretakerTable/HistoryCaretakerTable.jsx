@@ -35,16 +35,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
-export default function CustomizedTables({ filteredOperations }) {
+export default function CustomizedCaretakerTables({ caretakerOperations }) {
 	const { user } = useSelector((state) => state.userReducer);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const uid = localStorage.getItem('uid');
 
-	console.log('TABLE', filteredOperations);
+	console.log('TABLE', caretakerOperations);
 	return (
 		<>
-			{filteredOperations?.length && (
+			{caretakerOperations?.length && (
 				<>
 					{' '}
 					<TableContainer
@@ -54,7 +54,7 @@ export default function CustomizedTables({ filteredOperations }) {
 						<Table sx={{ minWidth: 400 }} aria-label='customized table'>
 							<TableHead>
 								<TableRow>
-									<StyledTableCell align='left'>Caretaker</StyledTableCell>
+									<StyledTableCell align='left'>User</StyledTableCell>
 									<StyledTableCell align='center'>Nights</StyledTableCell>
 									<StyledTableCell align='center'>Total</StyledTableCell>
 									<StyledTableCell align='center'>Date</StyledTableCell>
@@ -64,7 +64,7 @@ export default function CustomizedTables({ filteredOperations }) {
 								</TableRow>
 							</TableHead>
 							<TableBody>
-								{filteredOperations?.map((operation) => (
+								{caretakerOperations?.map((operation) => (
 									<StyledTableRow key={operation.operation.id}>
 										<StyledTableCell component='th' scope='row'>
 											<Box style={{ display: 'flex', alignItems: 'center' }}>
@@ -100,17 +100,17 @@ export default function CustomizedTables({ filteredOperations }) {
 											<Typography>{operation.operation.status}</Typography>
 										</StyledTableCell>
 										<StyledTableCell align='right'>
-											<Button
+											{/* <Button
 												onClick={() => {
 													navigate(`/caretaker/${operation.caretaker.id}`);
 												}}
 											>
 												See Profile
-											</Button>
+											</Button> */}
 											<Button
 												onClick={() => {
 													dispatch(
-														selectOperation(operation.operation.id, user)
+														selectOperation(operation.operation.id, user, false)
 													);
 													navigate(`/operation/${operation.operation.id}`);
 												}}
@@ -125,7 +125,7 @@ export default function CustomizedTables({ filteredOperations }) {
 														);
 													}}
 												>
-													I Received my pet
+													I delivered the pet
 												</Button>
 											)}
 										</StyledTableCell>

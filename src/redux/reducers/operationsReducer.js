@@ -9,6 +9,7 @@ import {
 	CLEAR_OPERATIONS,
 	GET_ALL_OPERATIONS,
 	GET_CARETAKER_OPERATIONS,
+	FILTER_BY_DATE_CARETAKER,
 } from '../actions/operationActions';
 
 const initialState = {
@@ -77,6 +78,24 @@ const operationsReducer = (state = initialState, action) => {
 				}
 			});
 			return { ...state, filteredOperations: filterByDate };
+
+		case FILTER_BY_DATE_CARETAKER:
+			if (payload === 0) {
+				return {
+					...state,
+					filteredOperations: state.operations,
+				};
+			}
+			const filterByDateCaretaker = state.caretakerOperations.filter((op) => {
+				const time = differenceInCalendarDays(
+					new Date(),
+					new Date(op.operation.createdAt)
+				);
+				if (time <= payload) {
+					return op;
+				}
+			});
+			return { ...state, caretakerOperations: filterByDateCaretaker };
 		case CLEAR_OPERATIONS:
 			return {
 				...state,

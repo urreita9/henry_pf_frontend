@@ -84,6 +84,9 @@ const Profile = () => {
 							<Tab label='Caretaker Profile' {...a11yProps(5)} />
 						)}
 						<Tab label='History' {...a11yProps(6)} />
+						{user.caretaker && (
+							<Tab label='Caretaker History' {...a11yProps(7)} />
+						)}
 					</TabList>
 				</Box>
 				<TabPanel
@@ -140,7 +143,13 @@ const Profile = () => {
 					value='6'
 					index={6}
 					sx={{ margin: 'auto' }}
-					children={<History />}
+					children={<History showUser={true} />}
+				/>
+				<TabPanel
+					value='7'
+					index={7}
+					sx={{ margin: 'auto' }}
+					children={<History showUser={false} />}
 				/>
 			</TabContext>
 		</Box>

@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react';
 import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { differenceInCalendarDays } from 'date-fns';
 import { useDispatch } from 'react-redux';
-import { filterByDate } from '../../redux/actions/operationActions';
+import {
+	filterByDate,
+	filterByDateCaretaker,
+} from '../../redux/actions/operationActions';
 
-export const HistorySelectUser = () => {
+export const HistorySelectCaretaker = () => {
 	const [days, setDays] = useState('');
 	const dispatch = useDispatch();
 	const handleChange = (event) => {
@@ -13,7 +16,7 @@ export const HistorySelectUser = () => {
 
 	useEffect(() => {
 		if (typeof days !== 'string') {
-			dispatch(filterByDate(days));
+			dispatch(filterByDateCaretaker(days));
 		}
 	}, [days]);
 

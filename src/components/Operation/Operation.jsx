@@ -115,7 +115,7 @@ export const Operation = () => {
 										</Typography>
 
 										<Typography variant='body'>
-											{operation.user.email}
+											{operation.caretaker.email}
 										</Typography>
 									</Box>
 									<Box>
@@ -228,7 +228,7 @@ export const Operation = () => {
 					>
 						<Button
 							onClick={() => {
-								navigate('/profile/6');
+								navigate('/profile/7');
 							}}
 						>
 							Back to History
