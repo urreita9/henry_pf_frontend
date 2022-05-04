@@ -2,7 +2,7 @@ import api from '../../axios';
 export const POST_OPERATION = 'POST_OPERATION';
 export const GET_USER_OPERATIONS = 'GET_USER_OPERATIONS';
 export const UPDATE_OP_STATUS = 'UPDATE_OP_STATUS';
-
+export const GET_CARETAKER_OPERATIONS = 'GET_CARETAKER_OPERATIONS';
 export const SET_OPERATION = 'SET_OPERATION'; //MOMENTANEA
 export const CAPTURE_OPERATION = 'CAPTURE_OPERATION';
 export const SELECT_OPERATION = 'SELECT_OPERATION';
@@ -10,9 +10,9 @@ export const FILTER_BY_DATE = 'FILTER_BY_DATE';
 export const CLEAR_OPERATIONS = 'CLEAR_OPERATIONS';
 export const GET_ALL_OPERATIONS = 'GET_ALL_OPERATIONS';
 
-export const getUserOperations = (uid, token, user) => async (dispatch) => {
+export const getUserOperations = (uid, token) => async (dispatch) => {
 	try {
-		const { data } = await api.get(`/operations?user=${user}`, {
+		const { data } = await api.get(`/operations?user=true`, {
 			headers: {
 				'x-token': token,
 				uid,
@@ -30,6 +30,25 @@ export const getUserOperations = (uid, token, user) => async (dispatch) => {
 	}
 };
 
+export const getCaretakerOperations = (uid, token) => async (dispatch) => {
+	try {
+		const { data } = await api.get(`/operations?user=false}`, {
+			headers: {
+				'x-token': token,
+				uid,
+			},
+		});
+
+		//if (data.length) {
+		dispatch({
+			type: GET_CARETAKER_OPERATIONS,
+			payload: data,
+		});
+		//}
+	} catch (error) {
+		alert(error);
+	}
+};
 export const getAllOperations = (token, uid) => async (dispatch) => {
 	try {
 		const { data } = await api.get(`/operations/all`, {
@@ -134,10 +153,13 @@ export const captureOperation = (token, PayerID) => async (dispatch) => {
 	}
 };
 
-export const selectOperation = (id, user) => ({
-	type: SELECT_OPERATION,
-	payload: { id, user },
-});
+export const selectOperation = (id, user, isCaretaker = true) => {
+	console.log('SELECT OPERATION', user);
+	return {
+		type: SELECT_OPERATION,
+		payload: { id, user, isCaretaker },
+	};
+};
 
 export const filterByDate = (days) => ({
 	type: FILTER_BY_DATE,
@@ -148,3 +170,26 @@ export const clearOperations = () => ({
 	type: CLEAR_OPERATIONS,
 	payload: [],
 });
+
+export const finishOperation =
+	(uid, operationId, user = true) =>
+	async (dispatch) => {
+		const token = localStorage.getItem('token');
+		try {
+			const { data } = await api.put(
+				`/operations/${operationId}?user=${user}`,
+				{
+					headers: {
+						'x-token': token,
+						uid,
+					},
+				}
+			);
+			dispatch({
+				type: GET_ALL_OPERATIONS,
+				payload: data,
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
