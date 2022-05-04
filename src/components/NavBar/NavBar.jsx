@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -8,27 +8,27 @@ import {
   IconButton,
   Typography,
   Menu,
-} from '@mui/material/';
-import PetsIcon from '@mui/icons-material/Pets';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+} from "@mui/material/";
+import PetsIcon from "@mui/icons-material/Pets";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   clearUser,
   getUser,
   LoginAction,
   LogoutAction,
-} from '../../redux/actions/actions';
+} from "../../redux/actions/actions";
 
-import LoginModal from '../LoginModal/LoginModal';
-import RegisterModal from '../../components/RegisterModal/RegisterModal';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import Avatar from '@mui/material/Avatar';
-import { ButtonModalToMapFilter } from '../MapFilters/ButtonModalToMapFilter';
-import { useGoogleLogout, GoogleLogout } from 'react-google-login';
-import { clearOperations } from '../../redux/actions/operationActions';
+import LoginModal from "../LoginModal/LoginModal";
+import RegisterModal from "../../components/RegisterModal/RegisterModal";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
+import { ButtonModalToMapFilter } from "../MapFilters/ButtonModalToMapFilter";
+import { useGoogleLogout, GoogleLogout } from "react-google-login";
+import { clearOperations } from "../../redux/actions/operationActions";
 
 //! MAIN NAVBAR 👇
 const NavBar = ({ onToggle, typeMode }) => {
@@ -36,20 +36,20 @@ const NavBar = ({ onToggle, typeMode }) => {
   const location = useLocation();
   // const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const token = localStorage.getItem('token') || null;
-  const id = localStorage.getItem('uid') || null;
+  const token = localStorage.getItem("token") || null;
+  const id = localStorage.getItem("uid") || null;
   const handleLogoutGoogle = (event) => {};
   const { signOut, loaded } = useGoogleLogout({
     clientId:
-      '221755505254-ckd8nt7ukp091rrvgp9gnuns7fq18rpk.apps.googleusercontent.com',
+      "221755505254-ckd8nt7ukp091rrvgp9gnuns7fq18rpk.apps.googleusercontent.com",
     onLogoutSuccess: handleLogoutGoogle,
   });
 
   const [settings, setSettings] = useState([
-    { text: 'Profile', link: '/profile' },
-    { text: 'History', link: '/history' },
-    { text: 'Admin', link: '/admin' },
-    { text: 'Be a caretaker!', link: '/profile/4' },
+    { text: "Profile", link: "/profile" },
+    { text: "History", link: "/history" },
+    { text: "Admin", link: "/admin" },
+    { text: "Be a caretaker!", link: "/profile/4" },
   ]);
   const [openRegister, setOpenRegister] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
@@ -69,14 +69,14 @@ const NavBar = ({ onToggle, typeMode }) => {
   };
   const checkMenu = () => {
     const finalMenu = [
-      { text: 'Profile', link: '/profile' },
-      { text: 'History', link: '/history' },
+      { text: "Profile", link: "/profile" },
+      { text: "History", link: "/history" },
     ];
-    if (user.role === 'ADMIN' || user.role === 'SUPER_ADMIN') {
-      finalMenu.push({ text: 'Admin', link: '/admin' });
+    if (user.role === "ADMIN" || user.role === "SUPER_ADMIN") {
+      finalMenu.push({ text: "Admin", link: "/admin" });
     }
     if (!user.caretaker) {
-      finalMenu.push({ text: 'Be a caretaker!', link: '/profile/4' });
+      finalMenu.push({ text: "Be a caretaker!", link: "/profile/4" });
     }
     setSettings(finalMenu);
   };
@@ -100,7 +100,7 @@ const NavBar = ({ onToggle, typeMode }) => {
     dispatch(LogoutAction());
     dispatch(clearUser());
     dispatch(clearOperations());
-    navigate('/');
+    navigate("/");
     setOpenLogin(false);
     setOpenRegister(false);
     setAnchorElUser(null);
@@ -116,9 +116,9 @@ const NavBar = ({ onToggle, typeMode }) => {
   }, [logged]);
 
   useEffect(() => {
-    if (user.hasOwnProperty('id')) {
+    if (user.hasOwnProperty("id")) {
       dispatch(LoginAction());
-    } else if (user.hasOwnProperty('msg') || user.hasOwnProperty('error')) {
+    } else if (user.hasOwnProperty("msg") || user.hasOwnProperty("error")) {
       localStorage.clear();
       dispatch(LogoutAction());
     }
@@ -126,35 +126,35 @@ const NavBar = ({ onToggle, typeMode }) => {
 
   return (
     <>
-      {location.pathname === '/map' && <ButtonModalToMapFilter />}
-      <AppBar position='static'>
-        <Container maxWidth='xl'>
+      {location.pathname === "/map" && <ButtonModalToMapFilter />}
+      <AppBar position="static">
+        <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Box
               sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: '15px',
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: "15px",
               }}
             >
               <PetsIcon
                 sx={{
-                  width: '40px',
-                  height: '32px',
+                  width: "40px",
+                  height: "32px",
                 }}
               />
               <Typography
-                variant='h6'
+                variant="h6"
                 noWrap
-                component='div'
+                component="div"
                 sx={{
-                  cursor: 'pointer',
+                  cursor: "pointer",
                   flexGrow: 1,
-                  display: 'flex',
+                  display: "flex",
                 }}
                 onClick={() => {
-                  navigate('/');
+                  navigate("/");
                 }}
               >
                 PetTrip
@@ -164,17 +164,17 @@ const NavBar = ({ onToggle, typeMode }) => {
             <Box
               sx={{
                 flexGrow: 1,
-                textAlign: 'center',
-                display: { xs: 'none', md: 'flex' },
+                textAlign: "center",
+                display: { xs: "none", md: "flex" },
               }}
             ></Box>
             <Box>
               <IconButton
                 onClick={() => {
-                  typeMode === 'light' ? onToggle(true) : onToggle(false);
+                  typeMode === "light" ? onToggle(true) : onToggle(false);
                 }}
               >
-                {typeMode === 'light' ? (
+                {typeMode === "light" ? (
                   <Brightness7Icon />
                 ) : (
                   <Brightness4Icon />
@@ -186,28 +186,35 @@ const NavBar = ({ onToggle, typeMode }) => {
             {logged ? (
               <>
                 <Box>
-                  <Tooltip title='Open settings'>
+                  <Tooltip title="Open settings">
                     <IconButton
                       onClick={handleOpenUserMenu}
                       sx={{ p: 0 }}
-                      aria-controls='menu-appbar'
+                      aria-controls="menu-appbar"
                     >
-                      <Avatar alt='not found' src={user.img} />
+                      <Avatar alt="not found" src={user.img} />
+                      <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{ marginLeft: "5px" }}
+                      >
+                        {user.name}
+                      </Typography>
                     </IconButton>
                   </Tooltip>
                   {openMenu && (
                     <Menu
-                      sx={{ mt: '45px' }}
-                      id='menu-appbar'
+                      sx={{ mt: "45px" }}
+                      id="menu-appbar"
                       anchorEl={anchorElUser}
                       anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
+                        vertical: "top",
+                        horizontal: "right",
                       }}
                       keepMounted
                       transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
+                        vertical: "top",
+                        horizontal: "right",
                       }}
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
@@ -218,19 +225,19 @@ const NavBar = ({ onToggle, typeMode }) => {
                             key={setting.text}
                             onClick={handleCloseUserMenu}
                           >
-                            <Typography textAlign='center'>
+                            <Typography textAlign="center">
                               {setting.text}
                             </Typography>
                           </MenuItem>
                         </Box>
                       ))}
-                      <Box textAlign='center'>
+                      <Box textAlign="center">
                         <Button
                           sx={{
-                            width: '90%',
-                            margin: '0 auto',
+                            width: "90%",
+                            margin: "0 auto",
                           }}
-                          variant='contained'
+                          variant="contained"
                           onClick={handleLogout}
                         >
                           Logout
@@ -250,7 +257,7 @@ const NavBar = ({ onToggle, typeMode }) => {
                   openRegister={openRegister}
                   handleRegisterModal={handleRegisterModal}
                   sx={{
-                    margin: '2px 5px',
+                    margin: "2px 5px",
                   }}
                 />
               </>

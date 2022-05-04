@@ -22,6 +22,7 @@ import swal from "sweetalert";
 import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux";
 import { LoginAction } from "../../redux/actions/actions";
+import { useNavigate } from "react-router-dom";
 
 const initRegForm = {
   name: "",
@@ -49,6 +50,7 @@ const RegisterForm = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
 
   const changeHandler = (event) => {
     setRegForm({
@@ -70,12 +72,13 @@ const RegisterForm = () => {
         cancel: "Maybe later",
         confirm: "Log in",
       },
-    }).then((willLogin) => {
+    }).then((willLogin, willCancel) => {
       if (willLogin) {
         // dispatch(LoginAction(regForm.email, regForm.password));
         handleOpen();
-      } else {
-        handleClose();
+      }
+      if (willCancel) {
+        navigate("/");
       }
     });
   };
