@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
+import { SocketContext } from '../../context/SocketContext';
 // import { AuthContext } from '../auth/AuthContext';
 // import { ChatContext } from '../context/chat/ChatContext';
 import { IncomingMsg } from './IncomingMsg';
@@ -7,25 +8,25 @@ import { OutGoingMsg } from './OutGoingMsg';
 import { SendMessage } from './SendMessage';
 
 export const Messages = () => {
-	// const { chatState } = useContext(ChatContext);
-	// const { auth } = useContext(AuthContext);
-	const { messages } = useSelector((state) => state.chatReducer);
-	const { user } = useSelector((state) => state.userReducer);
+    const { socket } = useContext(SocketContext);
+    const { messages, activeChat } = useSelector((state) => state.chatReducer);
+    const { user } = useSelector((state) => state.userReducer);
 
-	return (
-		<div className='mesgs'>
-			<div id='messagesDiv' className='msg_history'>
-				{messages?.map((msg) =>
-					// msg.to === auth.uid ? (
-					msg.de !== user.id ? (
-						<IncomingMsg key={msg.id} msg={msg} />
-					) : (
-						<OutGoingMsg key={msg.id} msg={msg} />
-					)
-				)}
-			</div>
+    const onClick = (e) => {
+        e.preventDefault();
+        socket.emit('borrar-notificaciones', { userId: user.id, chatId: activeChat }, () => {});
+    };
 
-			<SendMessage />
-		</div>
-	);
+    return (
+        <div className='mesgs'>
+            <div id='messagesDiv' className='msg_history' onClick={onClick}>
+                {messages?.map((msg) =>
+                    // msg.to === auth.uid ? (
+                    msg.de !== user.id ? <IncomingMsg key={msg.id} msg={msg} /> : <OutGoingMsg key={msg.id} msg={msg} />
+                )}
+            </div>
+
+            <SendMessage />
+        </div>
+    );
 };

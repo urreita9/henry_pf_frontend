@@ -2,71 +2,73 @@ import { createContext, useEffect } from 'react';
 
 import { useSocket } from '../hooks/useSocket';
 import { useDispatch, useSelector } from 'react-redux';
-import { addMessage, getChats } from '../redux/actions/chatActions';
-import {
-	scrollToBottom,
-	scrollToBottomAnimated,
-} from '../utils/scrollToBottom';
+import { addMessage, addNotification, getChats } from '../redux/actions/chatActions';
+import { scrollToBottom, scrollToBottomAnimated } from '../utils/scrollToBottom';
 
 export const SocketContext = createContext();
 
 const URL = process.env.REACT_APP_URL;
 
 export const SocketProvider = ({ children }) => {
-	const { socket, online, conectarSocket, desconectarSocket } = useSocket(URL);
+    const { socket, online, conectarSocket, desconectarSocket } = useSocket(URL);
 
-	const { logged } = useSelector((state) => state.userReducer);
+    const { logged, user } = useSelector((state) => state.userReducer);
 
-	const { messages } = useSelector((state) => state.chatReducer);
-	const dispatch = useDispatch();
+    const { messages, activeChat } = useSelector((state) => state.chatReducer);
 
-	useEffect(() => {
-		if (logged) {
-			conectarSocket();
-		}
-	}, [logged]);
+    const dispatch = useDispatch();
 
-	useEffect(() => {
-		if (!logged) {
-			desconectarSocket();
-		}
-	}, [logged]);
+    useEffect(() => {
+        if (logged) {
+            conectarSocket();
+        }
+    }, [logged]);
 
-	useEffect(() => {
-		socket?.on('chats', (chats) => {
-			dispatch(getChats(chats));
-		});
-	}, [socket, dispatch]);
+    useEffect(() => {
+        if (!logged) {
+            desconectarSocket();
+        }
+    }, [logged]);
 
-	useEffect(() => {
-		socket?.on('actualizate-perro', (payload) => {
-			dispatch(getChats(payload));
-		});
-	}, [socket, dispatch]);
+    useEffect(() => {
+        socket?.on('chats', (chats) => {
+            dispatch(getChats(chats));
+        });
+    }, [socket, dispatch]);
 
-	useEffect(() => {
-		socket?.on('personal-message', (payload) => {
-			dispatch(addMessage(payload));
-		});
-	}, [socket, dispatch]);
-	useEffect(() => {
-		scrollToBottom('messagesDiv');
-	}, [messages]);
+    useEffect(() => {
+        socket?.on('actualizate-perro', (payload) => {
+            dispatch(getChats(payload));
+        });
+    }, [socket, dispatch]);
 
-	// useEffect(() => {
-	//     socket?.on('mensaje-personal', (mensaje) => {
-	//         dispatch({
-	//             type: types.nuevoMensaje,
-	//             payload: mensaje,
-	//         });
+    useEffect(() => {
+        socket?.on('personal-message', (payload) => {
+            dispatch(addMessage(payload));
+        });
+    }, [socket, dispatch]);
+    useEffect(() => {
+        if (messages.length > 0) {
+            scrollToBottom('messagesDiv');
+        }
+    }, [messages]);
 
-	//         scrollToBottomAnimated('mensajes');
-	//     });
-	// }, [socket, dispatch]);
+    useEffect(() => {
+        socket?.on('nueva-notificacion', (payload) => {
+            dispatch(addNotification(payload));
+        });
+    }, [socket]);
 
-	return (
-		<SocketContext.Provider value={{ socket, online }}>
-			{children}
-		</SocketContext.Provider>
-	);
+    // useEffect(() => {
+    //     socket?.on('mensaje-personal', (mensaje) => {
+    //         dispatch({
+    //             type: types.nuevoMensaje,
+    //             payload: mensaje,
+    //         });
+
+    //         scrollToBottomAnimated('mensajes');
+    //     });
+    // }, [socket, dispatch]);
+
+    return <SocketContext.Provider value={{ socket, online }}>{children}</SocketContext.Provider>;
 };

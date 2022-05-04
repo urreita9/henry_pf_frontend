@@ -40,6 +40,8 @@ export const useSocket = (serverPath) => {
         });
     }, [socket]);
 
+    
+
     return {
         socket,
         online,
