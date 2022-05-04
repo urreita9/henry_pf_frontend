@@ -55,6 +55,7 @@ function App() {
             <Route exact path="/history" element={<History />} />
             <Route exact path="/operation/:id" element={<Operation />} />
             <Route exact path="/newOperation" element={<Operation />} />
+            <Route exact path="/cancelOperation" element={<Operation />} />
             <Route exact path="/admin" element={<Admin />} />
             <Route exact path="/chat" element={<ChatPage />} />
           </Routes>

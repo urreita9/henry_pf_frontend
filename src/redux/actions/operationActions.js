@@ -154,6 +154,22 @@ export const captureOperation = (token, PayerID) => async (dispatch) => {
 	}
 };
 
+export const cancelOperation = (token) => async (dispatch) => {
+	try {
+		const { data } = await api.get(
+			`/operations/cancel-order?token=${token}`
+		);
+
+		dispatch({
+			type: CAPTURE_OPERATION,
+			payload: data,
+		});
+	} catch (error) {
+		alert(error)
+	}
+
+}
+
 export const selectOperation = (id, user, isCaretaker = true) => {
 	console.log('SELECT OPERATION', user);
 	return {

@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { captureOperation } from '../../redux/actions/operationActions';
+import { cancelOperation, captureOperation } from '../../redux/actions/operationActions';
 import {
 	useLocation,
 	useNavigate,
@@ -30,11 +30,14 @@ export const Operation = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
-	const { id, status } = operation;
+	//const { id, status } = operation;
 	// const { email_address, name: given_name, name: surname } = operation.payer;
 	useEffect(() => {
 		if (location.pathname.includes('/newOperation')) {
 			dispatch(captureOperation(token, PayerID));
+		} else if (location.pathname.includes('/cancelOperation')) {
+			dispatch(cancelOperation(token));
+
 		}
 	}, [dispatch]);
 
@@ -57,17 +60,20 @@ export const Operation = () => {
 		}
 	};
 
-	// console.log(operation);
+	console.log('OPERATIONS', operation);
 
 	return (
+		// <>
+		// 	<p>Hola</p>
+		// </>
 		<>
-			{userId === operation?.operation.caretakerId ? (
+			{userId === operation?.caretakerId ? (
 				<>
 					<Typography
 						variant='h6'
 						sx={{ marginTop: '20px', textAlign: 'center' }}
 					>
-						Operation #{operation.operation.operationId}{' '}
+						Operation #{operation.operationId}{' '}
 					</Typography>
 					<Grid
 						container
@@ -414,7 +420,7 @@ export const Operation = () => {
 					</>
 				)
 			)}
-			{}
+			{ }
 		</>
 	);
 };
