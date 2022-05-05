@@ -199,6 +199,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 								onClick={() => {
 									typeMode === 'light' ? onToggle(true) : onToggle(false);
 								}}
+								className='no-focus'
 							>
 								{typeMode === 'light' ? (
 									<Brightness7Icon />
@@ -217,6 +218,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 										onClick={() => {
 											navigate('/chat');
 										}}
+										className='no-focus'
 									>
 										<Badge badgeContent={chatNoti} color='secondary'>
 											<MailIcon />
@@ -231,12 +233,15 @@ const NavBar = ({ onToggle, typeMode }) => {
 												// heigth: '100px',
 											}
 										}
+										className='no-focus'
 									>
 										<IconButton
 											onClick={handleOpenUserMenu}
 											sx={{
 												p: 0,
+												borderRadius: '0px',
 											}}
+											className='no-focus'
 											aria-controls='menu-appbar'
 										>
 											<Avatar alt='not found' src={user.img} />
