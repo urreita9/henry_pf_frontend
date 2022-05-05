@@ -222,10 +222,21 @@ const NavBar = ({ onToggle, typeMode }) => {
 											<MailIcon />
 										</Badge>
 									</IconButton>
-									<Tooltip title='Open settings'>
+									<Button
+										title='Open settings'
+										sx={
+											{
+												// borderRadius: '50%',
+												// width: '100px',
+												// heigth: '100px',
+											}
+										}
+									>
 										<IconButton
 											onClick={handleOpenUserMenu}
-											sx={{ p: 0 }}
+											sx={{
+												p: 0,
+											}}
 											aria-controls='menu-appbar'
 										>
 											<Avatar alt='not found' src={user.img} />
@@ -237,7 +248,7 @@ const NavBar = ({ onToggle, typeMode }) => {
 												{user.name}
 											</Typography>
 										</IconButton>
-									</Tooltip>
+									</Button>
 									{openMenu && (
 										<Menu
 											sx={{ mt: '45px' }}
