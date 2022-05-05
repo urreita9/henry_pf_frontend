@@ -48,7 +48,6 @@ const chatReducer = (state = initialState, action) => {
             };
         case ADD_NOTIFICATION:
             if (state.activeChat === action.payload.chatId) {
-                
                 return state;
             }
             const nuevoChats = addNotificationHelper(state.chats, action.payload);
