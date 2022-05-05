@@ -71,21 +71,37 @@ const Profile = () => {
 						aria-label='Vertical tabs example'
 						sx={{ borderRight: 1, borderColor: 'divider', height: '100%' }}
 					>
-						<Tab label='Profile' {...a11yProps(0)} />
-						<Tab label='Edit Profile' {...a11yProps(1)} />
-						<Tab label='Pet List' {...a11yProps(2)} />
-						<Tab label='Add Pet' {...a11yProps(3)} />
+						<Tab label='Profile' {...a11yProps(0)} className='no-focus' />
+						<Tab label='Edit Profile' {...a11yProps(1)} className='no-focus' />
+						<Tab label='Pet List' {...a11yProps(2)} className='no-focus' />
+						<Tab label='Add Pet' {...a11yProps(3)} className='no-focus' />
 						{!user.caretaker ? (
-							<Tab label='Be Caretaker' {...a11yProps(4)} />
+							<Tab
+								label='Be Caretaker'
+								{...a11yProps(4)}
+								className='no-focus'
+							/>
 						) : (
-							<Tab label='Edit Caretaker Profile' {...a11yProps(4)}></Tab>
+							<Tab
+								label='Edit Caretaker Profile'
+								{...a11yProps(4)}
+								className='no-focus'
+							></Tab>
 						)}
 						{user.caretaker && (
-							<Tab label='Caretaker Profile' {...a11yProps(5)} />
+							<Tab
+								label='Caretaker Profile'
+								{...a11yProps(5)}
+								className='no-focus'
+							/>
 						)}
-						<Tab label='History' {...a11yProps(6)} />
+						<Tab label='History' {...a11yProps(6)} className='no-focus' />
 						{user.caretaker && (
-							<Tab label='Caretaker History' {...a11yProps(7)} />
+							<Tab
+								label='Caretaker History'
+								{...a11yProps(7)}
+								className='no-focus'
+							/>
 						)}
 					</TabList>
 				</Box>

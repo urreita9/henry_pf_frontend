@@ -14,3 +14,7 @@ body {
 .bodyLight {
 	background-color: #fafafa;
 }
+
+.no-focus:focus {
+	outline: none;
+}

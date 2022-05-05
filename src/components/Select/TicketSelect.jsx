@@ -32,10 +32,10 @@ export const TicketSelect = ({ pets, pet, setPet }) => {
 				// maxWidth: 120,
 				width: '400px',
 				display: 'flex',
-				justifyContent: 'right',
+				justifyContent: 'center',
 			}}
 		>
-			<FormControl fullWidth>
+			<FormControl fullWidth sx={{ width: '90%' }}>
 				<InputLabel id='demo-simple-select-label'>Pets</InputLabel>
 				<Select
 					labelId='demo-simple-select-label'

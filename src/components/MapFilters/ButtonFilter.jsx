@@ -109,7 +109,12 @@ export const ButtonMapFilter = ({ setOpen }) => {
 					onChange={handleChange}
 					aria-label='icon label tabs example'
 				>
-					<Tab icon={<LiveHelpIcon />} label='HOW TO DO' {...a11yProps(0)} />
+					<Tab
+						icon={<LiveHelpIcon />}
+						label='HOW TO'
+						{...a11yProps(0)}
+						className='no-focus'
+					/>
 					<Tab
 						icon={
 							<SizeDogs
@@ -121,8 +126,14 @@ export const ButtonMapFilter = ({ setOpen }) => {
 						}
 						label='SIZE'
 						{...a11yProps(1)}
+						className='no-focus'
 					/>
-					<Tab icon={<PriceChangeIcon />} label='PRICE' {...a11yProps(2)} />
+					<Tab
+						icon={<PriceChangeIcon />}
+						label='PRICE'
+						{...a11yProps(2)}
+						className='no-focus'
+					/>
 					{/* <Tab icon={<StarsIcon />} label="RATING" {...a11yProps(3)} /> */}
 				</Tabs>
 				<Box>
@@ -142,6 +153,7 @@ export const ButtonMapFilter = ({ setOpen }) => {
 				<Button
 					variant='contained'
 					onClick={handleFilterClick}
+					className='no-focus'
 					sx={{
 						textAlign: 'center',
 						borderRadius: '5px',
