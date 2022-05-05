@@ -117,7 +117,7 @@ export default function CustomizedTables({ filteredOperations }) {
 											>
 												Operation Detail
 											</Button>
-											{!operation.operation.petReceived && (
+											{!operation.operation.petReceived && operation.operation.status === 'APPROVED' && (
 												<Button
 													onClick={() => {
 														dispatch(

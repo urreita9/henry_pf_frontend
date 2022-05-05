@@ -194,7 +194,7 @@ export const finishOperation =
 		const token = localStorage.getItem('token');
 		try {
 			const { data } = await api.put(
-				`/operations/${operationId}?user=${user}`,
+				`/operations/${operationId}?user=${user}`,{},
 				{
 					headers: {
 						'x-token': token,
@@ -203,7 +203,7 @@ export const finishOperation =
 				}
 			);
 			dispatch({
-				type: GET_ALL_OPERATIONS,
+				type: GET_USER_OPERATIONS,
 				payload: data,
 			});
 		} catch (error) {

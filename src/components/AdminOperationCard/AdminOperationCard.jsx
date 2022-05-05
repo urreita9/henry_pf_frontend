@@ -25,7 +25,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 const AdminOperationCard = ({ userAdmin, op, handleProfile, handleDetails, handleStatus }) => {
   const { operation, user, caretaker, pet } = op
-  const { id: operationId, price, timeLapse, status, createdAt, dispatch } = op.operation
+  const { id: operationId, price, timeLapse, status, createdAt, dispatch, petReceived, petDelivered } = op.operation
   const { name, lastname, email, address, img } = op.user
   const { name: caretakerName, lastname: caretakerLastname, email: caretakerEmail, address: caretakerAddress, id: caretakerId } = op.caretaker
   const { name: petName } = op.pet
@@ -104,19 +104,19 @@ const AdminOperationCard = ({ userAdmin, op, handleProfile, handleDetails, handl
           Operation Detail
         </Button>
         {
-          status === 'APPROVED' && userAdmin.role === 'ADMIN' ?
+          status === 'APPROVED' && petReceived && petDelivered && userAdmin.role === 'ADMIN' ?
             <Button
               onClick={() => handleStatus(operationId)}
             >
               Complete Operation
             </Button>
-            : status === 'APPROVED' && userAdmin.role === 'SUPER_ADMIN' ?
+            : status === 'APPROVED' && petReceived && petDelivered && userAdmin.role === 'SUPER_ADMIN' ?
               <Button
                 onClick={() => handleStatus(operationId)}
               >
                 Complete & Dispatch Operation
               </Button>
-              : status === 'COMPLETED' && !dispatch && userAdmin.role === 'SUPER_ADMIN' ? <Button
+              : status === 'COMPLETED' && !dispatch && petReceived && petDelivered && userAdmin.role === 'SUPER_ADMIN' ? <Button
                 onClick={() => handleStatus(operationId)}
               >
                 Dispatch Operation

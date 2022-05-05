@@ -29,6 +29,7 @@ const operationsReducer = (state = initialState, action) => {
 				...state,
 				operations: payload,
 				filteredOperations: payload,
+				caretakerOperations: payload
 			};
 		case SET_OPERATION:
 			return {

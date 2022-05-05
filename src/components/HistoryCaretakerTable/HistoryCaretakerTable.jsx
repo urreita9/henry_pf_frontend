@@ -117,7 +117,7 @@ export default function CustomizedCaretakerTables({ caretakerOperations }) {
 											>
 												Operation Detail
 											</Button>
-											{!operation.operation.petReceived && (
+											{/* {!operation.operation.petReceived && (
 												<Button
 													onClick={() => {
 														dispatch(
@@ -127,7 +127,17 @@ export default function CustomizedCaretakerTables({ caretakerOperations }) {
 												>
 													I delivered the pet
 												</Button>
-											)}
+											)} */}
+											{!operation.operation.petDelivered && operation.operation.status === 'APPROVED' &&
+												(
+													<Button
+														onClick={() => {
+															dispatch(finishOperation(uid, operation.operation.id, false));
+														}}
+													>
+														I delivered pet
+													</Button>
+												)}
 										</StyledTableCell>
 									</StyledTableRow>
 								))}
