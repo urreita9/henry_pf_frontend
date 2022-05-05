@@ -32,13 +32,13 @@ export const getUserOperations = (uid, token) => async (dispatch) => {
 };
 
 export const getCaretakerOperations = (uid, token) => async (dispatch) => {
-    try {
-        const { data } = await api.get(`/operations?user=false`, {
-            headers: {
-                'x-token': token,
-                uid,
-            },
-        });
+	try {
+		const { data } = await api.get(`/operations?user=false`, {
+			headers: {
+				'x-token': token,
+				uid,
+			},
+		});
 
         //if (data.length) {
         dispatch({
