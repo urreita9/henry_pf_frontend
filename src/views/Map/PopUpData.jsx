@@ -51,6 +51,7 @@ export default function PopUpData({ person }) {
 					navigate(`/caretaker/${person.user.id}`);
 					// dispatch(getCaretakerDetails(person.user.id));
 				}}
+				className='no-focus'
 			>
 				Detail
 			</Button>

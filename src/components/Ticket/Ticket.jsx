@@ -152,6 +152,7 @@ const TicketCard = ({ price, datesRange }) => {
 									? true
 									: false
 							}
+							className='no-focus'
 						>
 							Checkout
 						</Button>
