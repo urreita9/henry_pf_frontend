@@ -19,7 +19,8 @@ export const Landing = () => {
         zIndex: '100',
         top: '0',
         display: 'flex',
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
+        alignItems: 'center'
     }}>
 
         <Box sx={{
@@ -27,10 +28,10 @@ export const Landing = () => {
             width: '50%',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             alignItems: 'center'
         }}>
-            <Typography variant="h2" gutterBottom component="div" sx={{color: '#FAFAFA', padding: '0 1.2rem', marginBottom: '2rem', marginTop: '5rem', fontWeight: 'bold'}}>
+            <Typography variant="h2" gutterBottom component="div" sx={{color: '#FAFAFA', padding: '0 1.2rem', marginBottom: '2rem', fontWeight: 'bold'}}>
                 Find the ideal sitter for your pet
             </Typography>
             <Typography variant="h6" gutterBottom component="div" sx={{color: '#FAFAFA', padding: '0 1.2rem', marginBottom: '2rem', fontWeight: 'light'}}>
@@ -43,7 +44,7 @@ export const Landing = () => {
             width: '50%',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
             alignItems: 'center'
         }} >
             <ImagePersonWithPet width={'100%'} height={'100%'} />
